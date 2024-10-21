@@ -58,6 +58,49 @@
   ![alt text](image-7.png)
 
 ### Git Flow và các command hay dùng:
-+ 
++ Khởi tại Repo mới: `git init`
+
++ Config thông tin user: 
+  + `git config --global user.name "Tên của bạn"` 
+  + `git config --global user.email "email@example.com"`
+
++ Clone remote repo: `git clone <url-repository>`
+
++ Quản lý `file status` và `commit`:
+  + Kiểm tra trạng thái các tệp: `git status`
+  + Thêm file vào `Staging Area`: `git add <tên-file>`||`git add .`
+  + Tạo `commit`: `git commit -m "Thông điệp commit"`
+
++ Quản lý `branch`:
+  + tạo `branch` mới: `git branch <tên-branch>`
+  + chuyển sanh `branch` khác: `git checkout <tên-branch>`
+  + tạo và chuyển sang `branch` khác: `git checkout -b <tên-branch>`
+  + xóa `branch`: `git branch -d <tên-branch>`
+
++ Quản lý `remote reposirory`:
+  + Liên kết remote repository: `git remote add origin <url-repository>`
+  + Push thay đổi của `branch` lên `remote reposirory`: `git push origin <tên-branch>`
+  + Pull thay đổi của 1 `remote branch` về `branch` hiện tại: `git pull origin <tên-branch>`
+ 
++ Reset, revert, và restore:
+  + Hủy các thay đổi chưa được staged: `git restore <tên-file>`
+  + Xóa file khỏi `staging area`: `git reset <tên-file>`
+  + Xóa tất cả thay đổi (chưa `commit`): `git reset --hard`
+  + Khôi phục một `commit` trước đó: `git revert <commit-id>`
+
++ Xem lịch sử và log:
+  + Xem lịch sử commit: `git log`
+  + Kiểm tra chi tiết thay đổi của một file: `git diff <tên-file>`
+
++ Tag:
+  + Tạo tag để đánh dấu phiên bản: `git tag <tên-tag>`
+  + Push tag lên remote: `git push origin <tên-tag>`
+
++ `Stash` (lưu tạm thời thay đổi):
+  + Lưu tạm thời các thay đổi chưa `commit`: `git stash`
+  + Xem danh sách `stash`: `git stash list`
+  + Khôi phục `stash`:`git stash apply`
+
++ `Fetch` kiểm tra thay đổi từ `remote repo`: `git fetch`
 ### Tài liệu tham khảo: 
 + https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell
