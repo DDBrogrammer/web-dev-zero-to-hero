@@ -33,13 +33,14 @@
 + `Commit` hay `snapshot` là 1 bản ghi lưu trữ nội dung của `source code` tại 1 thời điểm nhất định
 
 ### `Branches`
-+ là một con trỏ, trỏ đến 1 `commit` cụ thể, giúp cho lập trình viên dễ dàng làm việc song song và độc lập trên nhiều phiên bản `commit` của dự án
++ là một con trỏ (`pointer`), trỏ đến 1 `commit` cụ thể, giúp cho lập trình viên dễ dàng làm việc song song và độc lập trên nhiều phiên bản `commit` của dự án
++ Con trỏ `pointer` là một khái niệm chung mang tính liên kết hoặc điểm đến, thường được sử dụng để dẫn hướng hoặc tham chiếu đến một đối tượng, dữ liệu, hoặc địa chỉ cụ thể trong một hệ thống.
 + cách thức hoạt đông của việc phân nhánh trong `Git`
-  + mỗi nhánh sẽ là 1 con trỏ, trỏ đến 1 `commit`, mỗi `commit` sẽ trỏ về `commit` trước đó của nó 
+  + mỗi nhánh sẽ là 1 `pointer`, trỏ đến 1 `commit`, mỗi `commit` sẽ trỏ về `commit` trước đó của nó 
 
   ![alt text](image-2.png)
 
-  + việc kiểm soát đang ở `branch` nào sẽ được quản lý bởi 1 con trỏ đặc biệt gọi là `HEAD` 
+  + việc kiểm soát đang ở `branch` nào sẽ được quản lý bởi 1 `pointer` đặc biệt gọi là `HEAD` 
 
   ![alt text](image-3.png)
 
