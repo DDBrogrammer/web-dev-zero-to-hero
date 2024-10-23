@@ -1,13 +1,2 @@
-tuyen abc
-tuyen abc
-tuyen abc
-tuyen abc
-
-tuyen abc
-tuyen abc
-tuyen abc
-
-tuyen abc
-tuyen abc
-
+dai abc dai abc 
 v
