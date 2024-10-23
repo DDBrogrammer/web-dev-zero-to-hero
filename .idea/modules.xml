@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/docs/common-skill/debug/debug-example/debug-example.iml" filepath="$PROJECT_DIR$/docs/common-skill/debug/debug-example/debug-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/web-dev-zero-to-hero.iml" filepath="$PROJECT_DIR$/.idea/web-dev-zero-to-hero.iml" />
+    </modules>
+  </component>
+</project>
