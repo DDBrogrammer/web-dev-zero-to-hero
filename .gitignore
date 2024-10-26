@@ -1,0 +1,5 @@
+# Ignore all .idea folders
+.idea/
+
+# Ignore the out folder
+out/
