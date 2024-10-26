@@ -1,5 +1,46 @@
-# Ignore all .idea folders
+# Ignore IDE files
 .idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
 
-# Ignore the out folder
+# Node.js and Angular related files
+node_modules/
+dist/
+coverage/
+
+# Angular environment files
+src/environments/*.ts
+!src/environments/environment.prod.ts # Keep production environment config if needed
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Compiled Java class files
+*.class
+
+# Spring Boot
+target/
+bin/
 out/
+build/
+
+# Maven and Gradle
+*.mvn/
+*.gradle/
+*.jar
+*.war
+*.ear
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.~lock.*
