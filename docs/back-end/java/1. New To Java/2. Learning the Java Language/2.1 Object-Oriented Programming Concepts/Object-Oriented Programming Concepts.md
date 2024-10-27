@@ -30,7 +30,7 @@ Với mỗi `object` mà bạn thấy, hãy tự hỏi hai câu hỏi:
  Các `method` có thể tương tác thay đổi `state` của `object` và đóng vai trò là cơ chế chính để **giao tiếp giữa các `object`**.
 ![alt text](1000_F_482417602_F4qMc75cVZgs0iRI4W8iibBzL0Y0aJLN.jpg)
 + Việc ẩn giấu `state` nội bộ và yêu cầu tất cả tương tác phải được thực hiện thông qua các `method` của `object` được gọi là **data encapsulation** — một nguyên tắc cơ bản của lập trình hướng đối tượng.
-
+![alt text](e5a9b433-61af-4091-b50f-2bfe75527993.webp)
 
 ## Class Là Gì?
 
