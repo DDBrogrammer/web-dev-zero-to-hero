@@ -202,7 +202,7 @@ Dưới đây là các mẫu câu hỏi có thể áp dụng cho nhiều tình h
 - **Mẫu Câu Hỏi**: "In a situation where **[tình huống cụ thể]**, what should I do?"
 - **Ví Dụ**: "In a situation where my code fails to compile, what should I do?"
  
-### 21. Hỏi Về Đối Tượng và Chức Năng
+### 21. Hỏi Về `object` và Chức Năng
 - **Mẫu Câu Hỏi**: "What are the main features of **[sản phẩm/ dịch vụ]**?"
 - **Ví Dụ**: "What are the main features of the new iPhone?"
  
@@ -210,7 +210,7 @@ Dưới đây là các mẫu câu hỏi có thể áp dụng cho nhiều tình h
 - **Mẫu Câu Hỏi**: "How does **[công nghệ]** work?"
 - **Ví Dụ**: "How does blockchain work?"
  
-### 23. Hỏi Về Đối Tượng Cạnh Tranh
+### 23. Hỏi Về `object` Cạnh Tranh
 - **Mẫu Câu Hỏi**: "Who are the main competitors in **[ngành/nghề]**?"
 - **Ví Dụ**: "Who are the main competitors in the cloud storage market?"
  

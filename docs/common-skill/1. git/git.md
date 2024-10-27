@@ -34,7 +34,7 @@
 
 ### `Branches`
 + là một con trỏ (`pointer`), trỏ đến 1 `commit` cụ thể, giúp cho lập trình viên dễ dàng làm việc song song và độc lập trên nhiều phiên bản `commit` của dự án
-+ Con trỏ `pointer` là một khái niệm chung mang tính liên kết hoặc điểm đến, thường được sử dụng để dẫn hướng hoặc tham chiếu đến một đối tượng, dữ liệu, hoặc địa chỉ cụ thể trong một hệ thống.
++ Con trỏ `pointer` là một khái niệm chung mang tính liên kết hoặc điểm đến, thường được sử dụng để dẫn hướng hoặc tham chiếu đến một `object`, dữ liệu, hoặc địa chỉ cụ thể trong một hệ thống.
 + cách thức hoạt đông của việc phân nhánh trong `Git`
   + mỗi nhánh sẽ là 1 `pointer`, trỏ đến 1 `commit`, mỗi `commit` sẽ trỏ về `commit` trước đó của nó 
 

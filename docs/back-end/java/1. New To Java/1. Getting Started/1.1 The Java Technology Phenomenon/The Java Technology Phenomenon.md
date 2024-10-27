@@ -7,7 +7,7 @@
 Ngôn ngữ lập trình Java là một ngôn ngữ bậc cao được đặc trưng bởi các từ khóa sau:
 
 - **Simple**: Đơn giản
-- **Object oriented**: Hướng đối tượng 
+- **Object oriented**: Hướng `object` 
 - **Distributed**: Phân tán 
 - **Multithreaded**: Đa luồng
 - **Dynamic**: Động
@@ -61,4 +61,4 @@ Tài liệu: https://docs.oracle.com/javase/8/docs/
 
 - **Bộ Công cụ Giao diện Người dùng**: Các bộ công cụ `JavaFX`, `Swing`, và `Java 2D` cho phép bạn tạo ra các giao diện người dùng đồ họa (GUI) phức tạp.
 
-- **Thư viện Tích hợp**: Các thư viện tích hợp như `Java IDL API`, `JDBC API`, `Java Naming and Directory Interface (JNDI) API`, `Java RMI`, và `Java Remote Method Invocation over Internet Inter-ORB Protocol Technology (Java RMI-IIOP Technology)` cho phép truy cập cơ sở dữ liệu và thao tác các đối tượng từ xa.
+- **Thư viện Tích hợp**: Các thư viện tích hợp như `Java IDL API`, `JDBC API`, `Java Naming and Directory Interface (JNDI) API`, `Java RMI`, và `Java Remote Method Invocation over Internet Inter-ORB Protocol Technology (Java RMI-IIOP Technology)` cho phép truy cập cơ sở dữ liệu và thao tác các `object` từ xa.
