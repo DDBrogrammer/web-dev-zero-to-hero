@@ -1,9 +1,0 @@
-+Real-world objects contain (state) and (behavior).
-+A software object's state is stored in (fields).
-+A software object's behavior is exposed through (methods).
-+Hiding internal data from the outside world, and accessing it only through publicly exposed methods is known as data (encapsulation).
-+A blueprint for a software object is called a (class).
-+Common behavior can be defined in a (superclass) and inherited into a (subclass) using the (extends) keyword.
-+A collection of methods with no implementation is called an (interface).
-+A namespace that organizes classes and interfaces by functionality is called a (package).
-+The term API stands for (Application Programming Interface).
