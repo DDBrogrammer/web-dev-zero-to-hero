@@ -1,6 +1,6 @@
 # Questions
 ## Bài 1: trả lời các câu hỏi sau
-+ Real-world objects contain ___ and ___.
++ Real-world objects contain  and ___.
 + A software object's state is stored in ___.
 + A software object's behavior is exposed through ___.
 + Hiding internal data from the outside world, and accessing it only through publicly exposed methods is known as data ___.
