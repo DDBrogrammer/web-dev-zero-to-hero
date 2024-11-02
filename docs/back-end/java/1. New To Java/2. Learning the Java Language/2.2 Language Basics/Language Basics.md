@@ -101,7 +101,7 @@
  
 ### `Primitive Data Types` (kiểu dữ liệu nguyên thủy)
 <p align="center">
-  <img src="image-2.png" alt="alt text">
+  <img src="./images/image-2.png" alt="alt text">
 </p>
  
 + Java là ngôn ngữ lập trình `statically-typed` nghĩa là kiểu (`type`) và tên của `variable` phải được khai báo trước khi chúng được sử dụng
@@ -128,7 +128,7 @@ int gear = 1;
   + `auto create using ""`: có thể tự động khởi tạo ko cần từ khóa `new` (sẽ nói sâu hơn ở phần bài `Object` và `Class`)
  
 <p align="center">
-  <img src="image-1.png" alt="alt text">
+  <img src="./images/image-1.png" alt="alt text">
 </p>
  
 #### `Default Values`:
@@ -236,45 +236,7 @@ char letter = 'C';
 #### Mảng `Arrays`
 + `Arrays` là một `object` chứa một số lượng cố định các giá trị của một `data type` duy nhất. Độ dài của `Arrays` được xác định khi mảng được tạo và sau khi tạo, độ dài của nó sẽ cố định.
 + Mỗi `phần tử` trong một mảng được gọi là một `element`, và mỗi `element` được truy cập qua chỉ số (`index`) của nó.
- 
-```java
-    public class DefaultValuesExample {
-    // `Field` declarations
-    int defaultInt;       // Giá trị mặc định là 0
-    boolean defaultBool;  // Giá trị mặc định là false
-    double defaultDouble; // Giá trị mặc định là 0.0
-    String defaultString; // Giá trị mặc định là null
- 
-    public void displayValues() {
-        // In ra các giá trị mặc định của các `Fields`
-        System.out.println("Default int: " + defaultInt);
-        System.out.println("Default boolean: " + defaultBool);
-        System.out.println("Default double: " + defaultDouble);
-        System.out.println("Default String: " + defaultString);
- 
-        // Ví dụ về `Local variable`
-        int localInt;
-        // System.out.println("Local int: " + localInt); // Lỗi biên dịch: `Local variables` chưa được khởi tạo
-    }
- 
-    public static void main(String[] args) {
-        DefaultValuesExample example = new DefaultValuesExample();
-        example.displayValues();
-    }
-    }
-```
-```
-Element at index 0: 100
-Element at index 1: 200
-Element at index 2: 300
-Element at index 3: 400
-Element at index 4: 500
-Element at index 5: 600
-Element at index 6: 700
-Element at index 7: 800
-Element at index 8: 900
-Element at index 9: 1000
-```
+
 + Khai báo một biến `reference` `variable` đến một `Arrays`:
 ```java
 byte[] anArrayOfBytes;
