@@ -320,9 +320,9 @@ Cappuccino Corretto Cortado Doppio Espresso Frappucino Freddo
  
 ## Toán tử `Operators`
 + `Operators` là các ký hiệu đặc biệt dùng để thực hiện các phép toán cụ thể trên một, hai hoặc ba `operands` và sau đó trả về kết quả.
-+ Khi học về các Operators trong Java, cần nắm rõ precedence (độ ưu tiên) của các Operators. Operators có độ ưu tiên cao sẽ được đánh giá trước những Operators có độ ưu tiên thấp hơn. Các Operators trên cùng một hàng có độ ưu tiên bằng nhau. Nếu trong một biểu thức xuất hiện các Operators có cùng độ ưu tiên, sẽ có quy tắc để quyết định thứ tự đánh giá:
-  + Tất cả binary operators trừ assignment operators được đánh giá từ trái sang phải.
-  + Assignment operators được đánh giá từ phải sang trái.
++ Khi học về các `Operators` trong `Java`, cần nắm rõ `precedence` (độ ưu tiên) của các `Operators`. `Operators` có độ ưu tiên cao sẽ được đánh giá trước những `Operators` có độ ưu tiên thấp hơn. Các `Operators` trên cùng một hàng có độ ưu tiên bằng nhau. Nếu trong một biểu thức xuất hiện các `Operators` có cùng độ ưu tiên, sẽ có quy tắc để quyết định thứ tự đánh giá:
+  + Tất cả `binary operators` trừ `assignment operators` được đánh giá từ trái sang phải.
+  + `Assignment operators` được đánh giá từ phải sang trái.
  
 ### Bảng độ ưu tiên của các Operators
  
@@ -347,7 +347,7 @@ Cappuccino Corretto Cortado Doppio Espresso Frappucino Freddo
 #### Toán tử Gán, Toán tử Số học và Toán tử Unary
  
 ##### Toán tử Gán `Assignment`
-+ Một trong những toán tử phổ biến nhất mà bạn sẽ gặp là toán tử gán đơn giản `=`. Bạn đã thấy toán tử này trong `class` `Bicycle`; nó gán giá trị ở bên phải cho toán hạng ở bên trái:
++ Một trong những toán tử phổ biến nhất là toán tử gán đơn giản `=`; nó gán giá trị ở bên phải cho toán hạng ở bên trái:
  
 ```java
 int cadence = 0;
@@ -509,7 +509,7 @@ class ConditionalDemo1 {
     }
 }
 ```
-+ Một toán tử điều kiện khác là ?:, có thể được xem như là cách viết ngắn gọn cho câu lệnh if-then-else. Toán tử này còn được gọi là toán tử ternary vì nó sử dụng ba toán hạng.
++ Một toán tử điều kiện khác là ?:, có thể được xem như là cách viết ngắn gọn cho câu lệnh `if-then-else`. Toán tử này còn được gọi là toán tử `ternary` vì nó sử dụng ba toán hạng.
 ```java
 class ConditionalDemo2 {
  
@@ -559,7 +559,6 @@ obj2 instanceof MyInterface: true
 + Khi sử dụng toán tử `instanceof`, lưu ý rằng `null` không phải là `instance` của bất kỳ thứ gì.
  
 #### Toán tử Bitwise và Bit Shift
- 
  
 + Ngôn ngữ lập trình Java cũng cung cấp các toán tử thực hiện các phép toán `bitwise` và `bit shift` trên các kiểu số nguyên. Các toán tử này ít được sử dụng, nên nội dung giới thiệu sẽ ngắn gọn để biết về sự tồn tại của chúng.
  
@@ -904,8 +903,8 @@ for (int i = 0; i < 10; i++) {
 }
 
 ```
-+ Câu lệnh `return`: Câu lệnh `return` trong Java được sử dụng để kết thúc một phương thức và có thể trả về một giá trị cho phương thức đó.
++ Câu lệnh `return`: Câu lệnh `return` trong Java được sử dụng để kết thúc một phương thức `method` và có thể trả về một `value` cho `method` đó.
 ```java
 return value;
 ```
-+ value là giá trị trả về. Nếu phương thức không trả về giá trị nào, chỉ cần sử dụng return; mà không có giá trị.
++ `value` là giá trị trả về. Nếu phương thức không trả về giá trị nào, chỉ cần sử dụng return; mà không có giá trị.
