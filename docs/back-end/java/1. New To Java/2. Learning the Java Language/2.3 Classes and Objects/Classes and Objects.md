@@ -397,7 +397,133 @@
     Y Position of rectTwo: 72
     ```
 ### Creating Objects
++ Như đã biết, một `class` cung cấp bản thiết kế (`blueprint`) để tạo ra các `object`. 
+    
+    ```java
+    // Declaration   Initialization     // Instantiation
+    Point originOne  =                   new Point(23, 94);
+    Rectangle rectOne = new Rectangle(originOne, 100, 200);
+    Rectangle rectTwo = new Rectangle(50, 100);
+    ```
++ Khai báo (`Declaration`): Các đoạn mã được in đậm là các khai báo biến (variable declarations) kết nối một tên biến với một kiểu object.
++ `Instantiation`: Từ khóa `new` là một toán tử trong Java dùng để tạo `object`.
++ `Initialization`: Toán tử `new` đi kèm với một lời gọi hàm tạo (`constructor`), dùng để khởi tạo 1 `object` mới.
+#### Declaring a Variable to Refer to an Object
++ để khai báo một `variable`:
+    ```java
+     Type name;
+     Point originOne;
+    ```
++ Câu lệnh trên sẽ được `compiler` hiểu rằng `variable` tên name sẽ được tham chiếu đến các `object` được tạo bởi `class` `Type`
++ khi khai báo như trên, giá trị của name sẽ không được xác định cho đến khi 1 `object` được gán cho nó, khi này nếu sử dụng `variable` name
+sẽ gặp lỗi `compile`
+
+<p align="center">
+  <img src="./images/image.png" alt="alt text">
+</p>
+
+#### Khởi tạo một object
++ Toán tử `new` khởi tạo một `class` bằng cách cấp phát bộ nhớ cho một `object` mới, gọi `construtor` và trả về một tham chiếu đến vùng nhớ của `object` vừa tạo.
++ Toán tử `new` bắt buộc phải được theo sau bởi 1 `constructor`
+    ```java
+     Point originOne = new Point(23, 94);
+    ```
++ Tham chiếu được trả về bởi toán tử `new` không nhất thiết phải được gán cho một `variable`. Nó cũng có thể được sử dụng trực tiếp trong một biểu thức
+    ```java
+    int height = new Rectangle().height;
+    ```
+
+    ```java
+    public class Point {
+    public int x = 0;
+    public int y = 0;
+    // constructor
+    public Point(int a, int b) {
+        x = a;
+        y = b;
+    }
+    }
+    ```
+
+    ```java
+    Point originOne = new Point(23, 94);
+    ```
+
+    <p align="center">
+  <img src="./images/image-1.png" alt="alt text">
+    </p>
+
+    ```java
+    public class Rectangle {
+    public int width = 0;
+    public int height = 0;
+    public Point origin;
+
+    // four constructors
+    public Rectangle() {
+        origin = new Point(0, 0);
+    }
+    public Rectangle(Point p) {
+        origin = p;
+    }
+    public Rectangle(int w, int h) {
+        origin = new Point(0, 0);
+        width = w;
+        height = h;
+    }
+
+    public Rectangle(Point p, int w, int h) {
+        origin = p;
+        width = w;
+        height = h;
+    }
+
+    // a method for moving the rectangle
+    public void move(int x, int y) {
+        origin.x = x;
+        origin.y = y;
+    }
+
+    // a method for computing the area of the rectangle
+    public int getArea() {
+        return width * height;
+    }
+    }
+
+    ```
+
+    ```java
+    Rectangle rectOne = new Rectangle(originOne, 100, 200);
+    ```
+
+     <p align="center">
+  <img src="./images/image-2.png" alt="alt text">
+    </p>
+
 ### Using Objects
+#### Tham chiếu đến `Field` và `method` của `Object`
++ Các `field` của `object` được truy cập qua tên của biến tham chiếu đến chúng
+    ```java
+     System.out.println("Width of rectOne: "  + rectOne.width);
+     System.out.println("Height of rectOne: " + rectOne.height);
+    ```
+
++  Các `method` của `object` được truy cập qua tên biến tham chiếu đến chúng
+    ```java
+     System.out.println("Area of rectOne: " + rectOne.getArea());
+    rectTwo.move(40, 72);
+    ```
+
++ Hoặc cũng có thể truy cập qua tham chiếu vừa được tạo bởi từ khóa `new` 
+    ```java
+    new Rectangle(100, 50).getArea();
+    int height = new Rectangle().height;
+    ```
++ Khi 1 `object` không được tham chiếu nó sẽ bị thu hồi với `JVM`
+
+#### Bộ Thu Gom Rác (Garbage Collector) 
++ Trong Java, lập trình viên không cần quản lý thủ công bộ nhớ hay hủy các `object` không còn cần thiết. Java có một `garbage collector` tự động xóa các `object` khi chúng không còn tham chiếu nào, giúp giải phóng bộ nhớ.
+
 ## More on Classes
 ### Returning a Value from a Method
 ### Using the this Keyword
