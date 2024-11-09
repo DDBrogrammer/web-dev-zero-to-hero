@@ -526,11 +526,499 @@ sẽ gặp lỗi `compile`
 
 ## More on Classes
 ### Returning a Value from a Method
++ Một `method` sẽ trả lại giá trị cho đoạn code đã gọi nó khi
+  + Hoàn thành tất cả các `statement` trong `method`.
+  + Gặp keyword `return`
+  + Ném ra throw một `Exception`
++ Một `method` có thể trả về `reference type`, `primary type` hoặc ko trả về gì `void`
+    
+    ```java
+    public Bicycle seeWhosFastest(Bicycle myBike, Bicycle yourBike,
+                              Environment env) {
+    Bicycle fastest;
+    // mã để tính toán xe đạp nào 
+    // nhanh hơn, dựa vào mỗi xe 
+    // đạp và tốc độ vòng quay, cũng 
+    // như môi trường (địa hình và gió)
+    return fastest;
+    }
+    ```
+
++ `Return type` của `method` và giá trị trả ra của `return` phải cùng `type`
+    ```java
+    public int getArea() {
+    return width * height; // => int 
+    }
+    ```
+
++ Bất kỳ `method` nào được khai báo `Return type` là `void` sẽ không trả về giá trị. Nó không cần chứa lệnh `return`, nhưng cũng có thể chứa lệnh này.
+    ```java
+    public void showArea() {
+    // some code 
+    // ...
+    return;
+    }
+    ```
+
+#### Trả Về một Class hoặc Interface
++ Khi một `method` sử dụng tên `class` làm kiểu trả về của nó, `class` của kiểu của đối tượng được trả về phải là một `subclass` của hoặc chính xác là `class` của kiểu trả về.
+     <p align="center">
+  <img src="./images/image-4.png" alt="alt text">
+    </p>
+
+    ```java
+    public Number returnANumber() {
+    return new Object(); // không thể trả ra do 1 Number thì là 1 Object, nhưng 1 Object chưa chắc đã là Number 
+    return new Number(); // có thể trả ra do cùng type 
+    return new ImaginaryNumber();// có thể trả ra do là subclass của Number
+    }
+    ```
 ### Using the this Keyword
++ Bên trong một `instance` `method` hoặc `constructor`, `this` là tham chiếu đến `object` hiện tại — `object` có `method` hoặc `constructor` đang được gọi.
+#### Sử dụng this với một Field
++ Sử dụng từ khóa `this` khi một `field` bị che khuất `shadow` bởi một tham số của `method` hoặc `constructor`.
+    ```java
+    public class Point {
+    public int x = 0;
+    public int y = 0;
+        
+    //constructor
+    public Point(int a, int b) {
+        // không bị shadow
+        x = a;
+        y = b;
+    }
+    }
+
+    public class Point {
+    public int x = 0;
+    public int y = 0;
+        
+    //constructor
+    public Point(int x, int y) {
+        // bị shadow do constructor nhận tham số đầu vào trùng tên
+        this.x = x;
+        this.y = y;
+    }
+    }
+    ```
+
+#### Sử dụng this với một Constructor (hoặc Method)
++ Từ bên trong một `constructor`, có thể sử dụng từ khóa `this` để gọi một `constructor` khác trong cùng `class`. Làm như vậy được gọi là `explicit constructor invocation`.
+    ```java
+    public class Rectangle {
+    private int x, y;
+    private int width, height;
+        
+    public Rectangle() {
+        this(0, 0, 1, 1);
+    }
+
+    public Rectangle(int width, int height) {
+        this(0, 0, width, height);
+    }
+
+    public Rectangle(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+    ...
+    }
+    main(){
+        Rectangle a = new Rectangle();
+    }
+    ```
 ### Controlling Access to Members of a Class
++ Các `access level modifier` xác định liệu các `class` khác có thể sử dụng một `field` cụ thể hoặc gọi một `method` cụ thể hay không. Có hai cấp độ kiểm soát truy cập:
+    - Ở cấp độ `class` (`top level`) — `public` hoặc `package-private` (ko có `modifier`).
+    - Ở cấp độ `field` (`member level`) — `public`, `private`, `protected`, hoặc `package-private` (không có `modifier`).
+
++ ở `class` có thể được khai báo với 2 loại `modifier` 
+   + `public`: `class` này sẽ được truy cập cho tất cả các `class` ở mọi nơi.
+   + `default`|| `package-private` (ko có `modifier`): chỉ truy cập trong `package` của chính nó.
++ ở `field` có thể được khai báo với 4 loại `modifier` 
+   + `public`: `class` này sẽ được truy cập cho tất cả các `class` ở mọi nơi.
+   + `protected`: chỉ có thể truy cập được trong `package` hoặc `subclass` của `class` hiện tại.
+   + `default` || `package-private` (ko có `modifier`): chỉ truy cập trong `package` của chính nó.
+   + `private`: chỉ có thể truy cập được trong `class` hiện tại
+
+| Modifier      | Class | Package | Subclass | World |
+|---------------|-------|---------|----------|-------|
+| `public`      | Y     | Y       | Y        | Y     |
+| `protected`   | Y     | Y       | Y        | N     |
+| no modifier   | Y     | Y       | N        | N     |
+| `private`     | Y     | N       | N        | N     |
+
+### Các Lớp và Packages trong Ví Dụ Minh Họa Các Mức Độ Truy Cập
+
+Bảng sau đây cho thấy nơi các thành viên của `Alpha class` có thể nhìn thấy đối với từng `access modifier` có thể áp dụng cho chúng.
+
+| Modifier      | Alpha | Beta | Alphasub | Gamma |
+|---------------|-------|------|----------|-------|
+| `public`      | Y     | Y    | Y        | Y     |
+| `protected`   | Y     | Y    | Y        | N     |
+| no modifier   | Y     | Y    | N        | N     |
+| `private`     | Y     | N    | N        | N     |
+
 ### Understanding Class Members
-### Initializing Fields
++ `static`: chỉ các trường (`fields`) và phương thức (`methods`) thuộc về `class`, thay vì thuộc về một thể hiện (`instance`) của `class`.
+
+### Class variable
++ `class variable`: các `field` được đánh dấu `static` liên kết với `class`, thay vì với bất kỳ `object` nào. Mỗi 1 `static variable` sẽ  được lưu trữ ở một vị trí cố định trong bộ nhớ.
++ Bất kỳ `object` nào cũng có thể thay đổi giá trị của một `class variable`, tuy nhiên `class variable` cũng có thể thay đổi qua `class`.
+
+    ```java
+    public class Bicycle {
+        
+    private int cadence;
+    private int gear;
+    private int speed;
+        
+    // add an instance variable for the object ID
+    private int id;
+    
+    // add a class variable for the
+    // number of Bicycle objects instantiated
+    private static int numberOfBicycles = 0;
+        
+    }
+    ```
+    ```java
+    // truy cập qua class (khuyên dùng)
+    Bicycle.numberOfBicycles=0;
+    // truy cập qua instance (không khuyên dùng )
+     Bicycle  bicycle = new  Bicycle();
+     bicycle.numberOfBicycles=0;
+    ```
++ ví dụ dùng `class variable` để tạo và quản lý ID cho `object` Bicycle
+    ```java
+    public class Bicycle {
+        
+    private int cadence;
+    private int gear;
+    private int speed;
+        
+    // add an instance variable for the object ID
+    private int id;
+    
+    // add a class variable for the
+    // number of Bicycle objects instantiated
+    private static int numberOfBicycles = 0;
+        
+    }
+    ```
+    ```java
+    // truy cập qua class (khuyên dùng)
+    Bicycle.numberOfBicycles=0;
+    // truy cập qua instance (không khuyên dùng)
+     Bicycle  bicycle = new  Bicycle();
+     bicycle.numberOfBicycles=0;
+    ```
+
+### Class method
++ `class method`: các `method` được đánh dấu `static` liên kết với `class`, thay vì với bất kỳ `object` nào.
++ Bất kỳ `object` nào của `class` cũng có thể gọi `class method` , tuy nhiên `class method` cũng có thể gọi qua `class`.
+    ```java
+    ClassName.methodName(args)// gọi qua class (khuyên dùng)
+    instanceName.methodName(args)//gọi qua instance (không khuyên dùng)
+    ```
++ quy tắc giữa `static` và `non-static`:
+  + `Instance methods` có thể truy cập các `Instance variable` và `Instance methods` trực tiếp.
+  + `Instance methods` có thể truy cập `Class variable` và `Class methods` trưc tiếp.
+  + `Class method` có thể truy cập `Class method` và `Class variable` trưc tiếp.
+  + `Class method` không thể `Instance variable` và `Instance methods` trực tiếp, mà phải truy cập qua tham chiếu.
+    ```java
+   public class ExampleClass {
+
+    // Instance variable
+    private int instanceVar = 10;
+
+    // Class variable
+    private static int classVar = 20;
+
+    // Instance method
+    public void instanceMethod() {
+        // Có thể truy cập instance variable và instance method
+        System.out.println("Instance variable: " + instanceVar);
+        this.otherInstanceMethod();
+
+        // Có thể truy cập class variable và class method
+        System.out.println("Class variable: " + classVar);
+        staticMethod();
+    }
+
+    // Another instance method
+    public void otherInstanceMethod() {
+        System.out.println("Another instance method.");
+    }
+
+    // Class method
+    public static void staticMethod() {
+        // Có thể truy cập class variable và class method
+        System.out.println("Class variable: " + classVar);
+
+        // Không thể truy cập trực tiếp instance variable và instance method
+        // System.out.println("Instance variable: " + instanceVar); // Compile error
+        // otherInstanceMethod(); // Compile error
+
+        // Để truy cập instance variable hoặc instance method, cần sử dụng tham chiếu đối tượng
+        ExampleClass obj = new ExampleClass();
+        System.out.println("Instance variable via object: " + obj.instanceVar);
+        obj.otherInstanceMethod();
+    }
+
+    public static void main(String[] args) {
+        ExampleClass obj = new ExampleClass();
+
+        // Gọi instance method
+        obj.instanceMethod();
+
+        // Gọi class method
+        ExampleClass.staticMethod();
+    }
+    }
+    ```
+
+### Constants `final`
++ `Keyword` `static`, kết hợp với `keyword` `final`, cũng được sử dụng để định nghĩa các hằng số. Từ khóa `final` chỉ ra rằng giá trị của `variable` này không thể thay đổi.
+    ```java
+    static final double PI = 3.141592653589793;
+    ```
++  Theo quy ước, tên của các giá trị hằng số được viết hoa. Nếu tên bao gồm hơn một từ, các từ được phân cách bởi dấu gạch dưới (_).
+
+### Khởi tạo Field 
++ Có thể gán giá trị khởi tạo cho field khi khai báo, thích hợp cho các giá trị đơn giản có thể đặt trên một dòng.
+    ```java
+    public class BedAndBreakfast {
+
+    // initialize to 10
+    public static int capacity = 10;
+
+    // initialize to false
+    private boolean full = false;
+    }
+    ```
++  Sử dụng `static initialization block` cho `class variables` khi cần logic phức tạp hoặc xử lý lỗi. Các `static block` sẽ chạy theo thứ tự xuất hiện trong `code`.
+    ```java
+    public class DatabaseConnection {
+    
+    // Khai báo class variable cho kết nối database
+    private static Connection connection;
+
+    // Static initialization block để khởi tạo kết nối database với xử lý lỗi
+    static {
+        try {
+            // Giả định tải driver cho database
+            Class.forName("com.mysql.jdbc.Driver");
+
+            // Khởi tạo kết nối đến database với URL, tên đăng nhập, và mật khẩu
+            connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/mydatabase", "username", "password");
+            
+            System.out.println("Kết nối database thành công!");
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Không tìm thấy driver database.");
+        } catch (SQLException e) {
+            System.err.println("Không thể kết nối đến database.");
+            e.printStackTrace();
+        }
+    }
+
+    // Phương thức để truy cập kết nối database
+    public static Connection getConnection() {
+        return connection;
+    }
+    
+    // Static initialization block khác có thể chạy tiếp nếu cần
+    static {
+        System.out.println("Chạy static block thứ hai.");
+    }
+    }
+
+    public class Main {
+    public static void main(String[] args) {
+        // Truy cập kết nối database từ class variable đã khởi tạo
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn != null) {
+            System.out.println("Sẵn sàng sử dụng kết nối.");
+        }
+    }
+    }
+
+    ```
++ Thay thế `static block` bằng phương thức `private static` để dễ dàng tái sử dụng khi cần khởi tạo lại `class variable`.
+    ```java
+    public class DatabaseConnection {
+
+    // Khai báo class variable cho kết nối database
+    private static Connection connection;
+
+    // Khai báo class variable cho trạng thái kết nối
+    private static boolean isInitialized = false;
+
+    // Phương thức private static để khởi tạo kết nối database
+    private static void initializeConnection() {
+        try {
+            // Giả định tải driver cho database
+            Class.forName("com.mysql.jdbc.Driver");
+
+            // Khởi tạo kết nối đến database với URL, tên đăng nhập, và mật khẩu
+            connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/mydatabase", "username", "password");
+
+            System.out.println("Kết nối database thành công!");
+            isInitialized = true;
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Không tìm thấy driver database.");
+        } catch (SQLException e) {
+            System.err.println("Không thể kết nối đến database.");
+            e.printStackTrace();
+        }
+    }
+
+    // Phương thức để truy cập kết nối database, sẽ khởi tạo nếu chưa được khởi tạo
+    public static Connection getConnection() {
+        // Kiểm tra nếu connection chưa được khởi tạo, gọi phương thức khởi tạo lại
+        if (!isInitialized) {
+            initializeConnection();
+        }
+        return connection;
+    }
+
+    // Phương thức để tái khởi tạo kết nối (ví dụ như sau khi kết nối bị mất)
+    public static void reinitializeConnection() {
+        // Đặt lại trạng thái isInitialized và khởi tạo lại kết nối
+        isInitialized = false;
+        initializeConnection();
+    }
+
+    public static void main(String[] args) {
+        // Truy cập kết nối database từ class variable
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn != null) {
+            System.out.println("Sẵn sàng sử dụng kết nối.");
+        }
+
+        // Tái khởi tạo kết nối khi cần thiết
+        DatabaseConnection.reinitializeConnection();
+    }
+    }
+
+    ```
++ Khởi tạo `instance variables`:
+   - `Initializer block`: `code block` không có từ khóa `static`, sao chép vào tất cả `constructor`, hữu ích khi chia sẻ khởi tạo giữa nhiều `constructor`.
+    ```java
+    public class Employee {
+
+    private String name;
+    private int age;
+
+    // Initializer block để khởi tạo instance variables
+    {
+        // Khối mã này sẽ được sao chép vào tất cả các constructor
+        name = "Unknown";
+        age = 0;
+    }
+
+    // Constructor không tham số
+    public Employee() {
+        //{
+        // Khối mã này sẽ được sao chép vào tất cả các constructor
+        // name = "Unknown";
+        // age = 0;
+        //}
+        System.out.println("Constructor không tham số.");
+    }
+
+    // Constructor với tham số
+    public Employee(String name, int age) {
+        //{
+        // Khối mã này sẽ được sao chép vào tất cả các constructor
+        // name = "Unknown";
+        // age = 0;
+        //}
+        this.name = name;
+        this.age = age;
+        System.out.println("Constructor với tham số.");
+    }
+
+    public void display() {
+        System.out.println("Tên: " + name);
+        System.out.println("Tuổi: " + age);
+    }
+
+    public static void main(String[] args) {
+        // Tạo đối tượng sử dụng constructor không tham số
+        Employee emp1 = new Employee();
+        emp1.display();
+
+        // Tạo đối tượng sử dụng constructor có tham số
+        Employee emp2 = new Employee("John", 30);
+        emp2.display();
+    }
+    }
+
+    ```
+   - `Final method`: `Final method` để khởi tạo `instance variable`, tránh ghi đè và hỗ trợ tái sử dụng trong `subclass`.
+     ```java
+    public class Person {
+
+    private String name;
+
+    // Phương thức final để khởi tạo instance variable
+    protected final String initializeName() {
+        return "Unknown Name";
+    }
+
+    // Constructor sử dụng phương thức final để khởi tạo
+    public Person() {
+        this.name = initializeName(); // Gọi phương thức final để khởi tạo biến thể hiện
+    }
+
+    public void display() {
+        System.out.println("Tên: " + name);
+    }
+
+    public static void main(String[] args) {
+        // Tạo đối tượng Person
+        Person person = new Person();
+        person.display();
+    }
+    }
+
+    ```
+
 ### Summary of Creating and Using Classes and Objects
+## Khai báo `class`
+- `class` được khai báo bằng tên `class` và nội dung `class` được đóng trong dấu ngoặc nhọn.
+- `class` bao gồm các `fields`, `methods`, và `constructors`.
+- `Fields` chứa thông tin trạng thái, `methods` triển khai hành vi, và `constructors` khởi tạo `object`.
+
+## Điều khiển quyền truy cập
+- Quyền truy cập vào `class` và các thành viên của `class` được điều khiển thông qua `access modifiers` như `public`,`protected`,`default`,`private`.
+
+## Class Variables và Class Methods
+- `Class variables` và `class methods` được khai báo bằng từ khóa `static`.
+- `Class variables` được chia sẻ giữa các `instace`, và có thể truy cập thông qua tên `class` hoặc tham chiếu `object`.
+- Các `instance variables` được sao chép riêng cho mỗi `object` và phải truy cập qua tham chiếu `object`.
+
+## Tạo đối tượng từ `class`
+- Để tạo `object`, sử dụng toán tử `new` và một `constructor`.
+- `new` trả về tham chiếu đến `object`, có thể gán vào `variable` hoặc sử dụng trực tiếp.
+
+## Truy cập vào `instance variables` và `method` ngoài `class`
+- Truy cập `instance variables` và `methods` từ ngoài `class` qua `qualified name`.
+    - `instance variables`: `objectReference.variableName`
+    - `instance method`: `objectReference.methodName(argumentList)` hoặc `objectReference.methodName()`.
+
+## Garbage Collector
+- `Garbage collector` tự động dọn dẹp các `object` không còn tham chiếu.
+- Bạn có thể `explicitly` gán giá trị `null` cho `object` để bỏ tham chiếu.
+
 ## Nested Classes
 ### Inner Class Example
 ### Local Classes
