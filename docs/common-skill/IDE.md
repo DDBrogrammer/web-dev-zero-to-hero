@@ -56,7 +56,29 @@
 ---
  
 ## IntelliJ IDEA
- 
+
+### Hay dùng: 
+- `Ctrl + Shift + F`: Tìm kiếm chuỗi trong toàn bộ project.
+- `Ctrl + Shift + H`: Thay thế chuỗi trong toàn bộ project.
+- `Ctrl + Shift + A`: Tìm kiếm hành động (Search actions).
+- `Ctrl + N`: Tìm kiếm lớp (Search for class).
+- `Ctrl + Shift + N`: Tìm kiếm file (Search for file).
+- `Ctrl + E`: Mở danh sách file vừa chỉnh sửa (Recently opened files).
+- `Ctrl + G`: Chuyển tới dòng.
+- `Alt + Enter`: Hiển thị các đề xuất sửa lỗi.
+- `Alt + Insert`: Hiển thị các đề xuất sửa lỗi.
+- `Shift + Shift`: Tìm kiếm mọi thứ (Search Everywhere).
+- `Shift + F6`: Đổi tên biến/hàm/lớp (Rename).
+- `Ctrl + B / Ctrl + Click`: Đi tới định nghĩa (Go to definition).
+- `Ctrl + Alt + L`: Format code.
+- `Ctrl + D`: Nhân đôi dòng.
+- `Ctrl + Y`: Xóa dòng.
+- `Ctrl + /`: Comment/Uncomment dòng.
+- `Shift + Alt + ↑ / Shift + Alt + ↓`: Di chuyển dòng lên/xuống.
+- `Ctrl + Shift + Enter`: Tự động hoàn thành lệnh đang viết.
+- `Ctrl + Space`: Code completion (gợi ý code).
+- `Ctrl + W`: Mở rộng vùng chọn theo cú pháp.
+
 ### Điều hướng và tìm kiếm
 - `Ctrl + Shift + A`: Tìm kiếm hành động (Search actions).
 - `Ctrl + N`: Tìm kiếm lớp (Search for class).
