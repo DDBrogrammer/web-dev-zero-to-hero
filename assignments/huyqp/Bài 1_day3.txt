@@ -1,0 +1,11 @@
+Bài 1_day3:
+1. Output: 4
+2. Output: Compilation error
+3. Output: 15
+4. Output: MidweekWeekend
+5. Output: 16
+6. Output: Compilation error
+7. Output: 4
+8. Output: 1
+9. Output: 16
+10. Output: 10
