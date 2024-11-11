@@ -1020,6 +1020,57 @@ Bảng sau đây cho thấy nơi các thành viên của `Alpha class` có thể
 - Bạn có thể `explicitly` gán giá trị `null` cho `object` để bỏ tham chiếu.
 
 ## Nested Classes
+- Ngôn ngữ lập trình Java cho phép bạn định nghĩa một class bên trong một class khác. Class như vậy được gọi là class lồng nhau `nested class`:
+     ```java
+        class OuterClass {
+            ...
+            class NestedClass {
+            ...
+        }
+    }
+    ```
+- `Nested classes`: là một `member` của `OuterClass`, chia thành 2 loại:
+    - `Non-static`: được gọi là `inner classes`, có quyền truy cập `access` vào các `member` khác của  `OuterClass`, ngay cả khi chúng được khai báo `private`
+    - `Static`: các `nested class` được khai báo `static`, không có quyền `access` vào các `member` của `OuterClass`.
+    - Là một `member` của `OuterClasss`, `nested class` có thể được khai báo `private, public, protected hoặc package private` 
+    
+    **Lưu ý:** Các `outer class` chỉ có thể được khai báo `public hoặc package private`
+    ```java
+        class OuterClass {
+            ...
+            class InnerClass {
+                ...
+            }
+            static class StaticNestedClass {
+                ...
+            }
+        }
+    ```    
+- `Inner Classes`: 
+    - Giống như `instance methods` và `variables`, một `inner class` liên kết với một `instance` của  `oute class` và có quyền `access` trực tiếp vào các `methods` và `fields` của `instance` đó.
+    - Ngoài ra, vì một `inner class` liên kết với một `instance`, nó không thể tự định nghĩa bất kỳ `static members` nào.
+        
+        ```java
+        class OuterClass {
+            ...
+            class InnerClass {
+                ...
+            }
+        }
+        ```   
+    - Một `instance` của `InnerClass` chỉ có thể tồn tại bên trong một `instance` của `OuterClass` và có quyền `access` trực tiếp vào các `methods` và `fields` của `instance` bao ngoài của nó.
+
+    **Cú Pháp khởi tạo một `inner class`:**
+    ```java
+    OuterClass outerObject = new OuterClass();
+    OuterClass.InnerClass innerObject = outerObject.new InnerClass();
+    ```
+    - Có 2 loại đặc biệt của `inner classes`: `Local classes` và `anonymous classes`.
+- `Static Nested Classes`:
+    - Giống như `class methods` và `variables`, một `static nested class` liên kết với `outer class` của nó.
+    - Giống như `static class methods`, một `static nested class` không thể trực tiếp tham chiếu đến các `instance variables` hoặc `methods` được định nghĩa trong `outer class`. Nó chỉ có thể sử dụng chúng thông qua một tham chiếu `object`.
+
+
 ### Inner Class Example
 ### Local Classes
 ### Anonymous Classes
