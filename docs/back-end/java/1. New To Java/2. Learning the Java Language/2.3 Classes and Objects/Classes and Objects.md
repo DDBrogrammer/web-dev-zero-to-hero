@@ -1020,7 +1020,7 @@ Bảng sau đây cho thấy nơi các thành viên của `Alpha class` có thể
 - Bạn có thể `explicitly` gán giá trị `null` cho `object` để bỏ tham chiếu.
 
 ## Nested Classes
-- Ngôn ngữ lập trình Java cho phép bạn định nghĩa một class bên trong một class khác. Class như vậy được gọi là class lồng nhau `nested class`:
++ `nested class` là một `class` được khai báo bên trong một `class` khác. `Nested class` có thể truy cập các thành viên (`fields` và `methods`) của `class` bên ngoài:
      ```java
         class OuterClass {
             ...
@@ -1029,6 +1029,25 @@ Bảng sau đây cho thấy nơi các thành viên của `Alpha class` có thể
         }
     }
     ```
++ Java có 4 loại `nested class` chính:
+    + `Static Nested Class:` `Static nested class` là `class` bên trong được khai báo với từ khóa `static`. Điều này có nghĩa là nó không cần một `instance` của `class` bên ngoài để được tạo. Tuy nhiên, `static nested class` chỉ có thể truy cập `static` `method` và `static` `field` của `class outer`.
+     ```java
+    class OuterClass {
+    static class StaticNestedClass {
+        void display() {
+            System.out.println("Static nested class method");
+        }
+    }
+    }
+
+    // Sử dụng
+    OuterClass.StaticNestedClass nestedObj = new OuterClass.StaticNestedClass();
+    nestedObj.display();
+    ```
+    + Inner Class: một `nested class` không có từ khóa `static`. Nó cần một `instance` của `class` bên ngoài để được tạo và có thể truy cập mọi `field` và `method` của `class` bên ngoài, kể cả các `field` và `method` `non-static`.
+    + Local Class
+    + Anonymous Class
+
 - `Nested classes`: là một `member` của `OuterClass`, chia thành 2 loại:
     - `Non-static`: được gọi là `inner classes`, có quyền truy cập `access` vào các `member` khác của  `OuterClass`, ngay cả khi chúng được khai báo `private`
     - `Static`: các `nested class` được khai báo `static`, không có quyền `access` vào các `member` của `OuterClass`.
