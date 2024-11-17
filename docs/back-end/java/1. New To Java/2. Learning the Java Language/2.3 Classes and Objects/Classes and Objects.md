@@ -1029,70 +1029,258 @@ Bảng sau đây cho thấy nơi các thành viên của `Alpha class` có thể
         }
     }
     ```
-+ Java có 4 loại `nested class` chính:
-    + `Static Nested Class:` `Static nested class` là `class` bên trong được khai báo với từ khóa `static`. Điều này có nghĩa là nó không cần một `instance` của `class` bên ngoài để được tạo. Tuy nhiên, `static nested class` chỉ có thể truy cập `static` `method` và `static` `field` của `class outer`.
+### Tại sao sử dụng Nested Class?
++ Tổ chức `logic` nhóm các `class` sử dụng ở một nơi duy nhất:
++ Tăng tính đóng gói (`encapsulation`)
+     ```java
+    public class Order {
+
+    private String orderId;
+    private String customerName;
+
+    // Nested class đại diện cho các mục (item) trong đơn hàng
+    public class Item {
+        private String itemName;
+        private int quantity;
+        private double price;
+
+        // Constructor cho Item
+        public Item(String itemName, int quantity, double price) {
+            this.itemName = itemName;
+            this.quantity = quantity;
+            this.price = price;
+        }
+
+        // Phương thức để tính tổng giá trị của Item
+        public double calculateTotal() {
+            return quantity * price;
+        }
+
+        @Override
+        public String toString() {
+            return itemName + " (x" + quantity + ") - $" + calculateTotal();
+        }
+    }
+
+    // Constructor cho Order
+    public Order(String orderId, String customerName) {
+        this.orderId = orderId;
+        this.customerName = customerName;
+    }
+
+    public void displayOrderDetails() {
+        System.out.println("Order ID: " + orderId);
+        System.out.println("Customer Name: " + customerName);
+        System.out.println("Items:");
+    }
+
+    public static void main(String[] args) {
+        // Tạo một đơn hàng
+        Order order = new Order("ORD12345", "John Doe");
+
+        // Tạo các mục hàng (Items) thuộc đơn hàng
+        Order.Item item1 = order.new Item("Laptop", 1, 1000.00);
+        Order.Item item2 = order.new Item("Mouse", 2, 25.50);
+
+        // Hiển thị thông tin đơn hàng và các mục hàng
+        order.displayOrderDetails();
+        System.out.println(item1);
+        System.out.println(item2);
+    }
+    }
+    ```
++ Giúp code dễ đọc và bảo trì hơn
+
+### Inner Classes
++ `inner class` được khai báo ở trong 1 `class` (`outer class`) và liên kết với `instance` của `outer class` đó
+   + `inner class` có thể truy cập đến `instance` `method` và `variable` của `outer class`
+   + `inner class` không thể khai báo  `static method` và`static variable`
      ```java
     class OuterClass {
-    static class StaticNestedClass {
-        void display() {
-            System.out.println("Static nested class method");
-        }
+    ...
+    class InnerClass {
+        ...
     }
     }
 
-    // Sử dụng
-    OuterClass.StaticNestedClass nestedObj = new OuterClass.StaticNestedClass();
-    nestedObj.display();
     ```
-    + Inner Class: một `nested class` không có từ khóa `static`. Nó cần một `instance` của `class` bên ngoài để được tạo và có thể truy cập mọi `field` và `method` của `class` bên ngoài, kể cả các `field` và `method` `non-static`.
-    + Local Class
-    + Anonymous Class
-
-- `Nested classes`: là một `member` của `OuterClass`, chia thành 2 loại:
-    - `Non-static`: được gọi là `inner classes`, có quyền truy cập `access` vào các `member` khác của  `OuterClass`, ngay cả khi chúng được khai báo `private`
-    - `Static`: các `nested class` được khai báo `static`, không có quyền `access` vào các `member` của `OuterClass`.
-    - Là một `member` của `OuterClasss`, `nested class` có thể được khai báo `private, public, protected hoặc package private` 
-    
-    **Lưu ý:** Các `outer class` chỉ có thể được khai báo `public hoặc package private`
-    ```java
-        class OuterClass {
-            ...
-            class InnerClass {
-                ...
-            }
-            static class StaticNestedClass {
-                ...
-            }
-        }
-    ```    
-- `Inner Classes`: 
-    - Giống như `instance methods` và `variables`, một `inner class` liên kết với một `instance` của  `oute class` và có quyền `access` trực tiếp vào các `methods` và `fields` của `instance` đó.
-    - Ngoài ra, vì một `inner class` liên kết với một `instance`, nó không thể tự định nghĩa bất kỳ `static members` nào.
-        
-        ```java
-        class OuterClass {
-            ...
-            class InnerClass {
-                ...
-            }
-        }
-        ```   
-    - Một `instance` của `InnerClass` chỉ có thể tồn tại bên trong một `instance` của `OuterClass` và có quyền `access` trực tiếp vào các `methods` và `fields` của `instance` bao ngoài của nó.
-
-    **Cú Pháp khởi tạo một `inner class`:**
-    ```java
++ Cách tạo `instance` của một `inner class`:
+     ```java
     OuterClass outerObject = new OuterClass();
     OuterClass.InnerClass innerObject = outerObject.new InnerClass();
     ```
-    - Có 2 loại đặc biệt của `inner classes`: `Local classes` và `anonymous classes`.
-- `Static Nested Classes`:
-    - Giống như `class methods` và `variables`, một `static nested class` liên kết với `outer class` của nó.
-    - Giống như `static class methods`, một `static nested class` không thể trực tiếp tham chiếu đến các `instance variables` hoặc `methods` được định nghĩa trong `outer class`. Nó chỉ có thể sử dụng chúng thông qua một tham chiếu `object`.
++ Có hai loại `inner class` đặc biệt: `local classes` và `anonymous classes`.
 
+#### Local Classes
++ `Local classes` là các `class` được định nghĩa trong một `code block`, tức là một nhóm các `statements` nằm giữa các cặp dấu ngoặc nhọn {}. Thông thường, `local classes` được định nghĩa trong phần thân của một `method`.
 
-### Inner Class Example
-### Local Classes
-### Anonymous Classes
+##### Declaring Local Classes
++ Có thể định nghĩa một `local class` bên trong bất kỳ `code block` nào (xem `Expressions`, `Statements`, and `Blocks` để biết thêm chi tiết).
+     ```java
+    public class LocalClassExample {
+  
+    static String regularExpression = "[^0-9]";
+  
+    public static void validatePhoneNumber(
+        String phoneNumber1, String phoneNumber2) {
+      
+        final int numberLength = 10;
+       
+        class PhoneNumber {
+            
+            String formattedPhoneNumber = null;
+
+            PhoneNumber(String phoneNumber){
+                String currentNumber = phoneNumber.replaceAll(
+                  regularExpression, "");
+                if (currentNumber.length() == numberLength)
+                    formattedPhoneNumber = currentNumber;
+                else
+                    formattedPhoneNumber = null;
+            }
+
+            public String getNumber() {
+                return formattedPhoneNumber;
+            }
+        }
+
+        PhoneNumber myNumber1 = new PhoneNumber(phoneNumber1);
+        PhoneNumber myNumber2 = new PhoneNumber(phoneNumber2);
+
+        if (myNumber1.getNumber() == null) 
+            System.out.println("First number is invalid");
+        else
+            System.out.println("First number is " + myNumber1.getNumber());
+        if (myNumber2.getNumber() == null)
+            System.out.println("Second number is invalid");
+        else
+            System.out.println("Second number is " + myNumber2.getNumber());
+    }
+
+    public static void main(String... args) {
+        validatePhoneNumber("123-456-7890", "456-7890");
+    }
+    }
+    // First number is 1234567890
+    // Second number is invalid
+    ```
+
+##### Accessing Members of an Enclosing Class
++ Một `local class` có thể truy cập các thành phần của `class` bao quanh nó.
++ Một `local class` có thể truy cập các `final local variables` của `method` chứa nó.
++ Những `variable` kể trên gọi là `captured variable`
+##### Shadowing and Local Classes
++ Các khai báo `variable` trong một `local class` sẽ `shadow` (che khuất) các khai báo trong `scope` bao quanh có cùng tên
+##### Local Classes Are Similar To Inner Classes
++ `Local classes` tương tự như `inner classes` vì chúng không thể định nghĩa hoặc khai báo bất kỳ thành viên `static` nào. Các `local classes` trong các `static methods` chỉ có thể tham chiếu đến các thành viên (`variable` và `method`) `static` của `class` bao quanh.
++ `Local classes` không phải là `static` vì chúng có thể truy cập đến các thành viên của `instance` bao quanh. Do đó, chúng không thể chứa hầu hết các khai báo `static`.
+
+#### Anonymous Classes
++ `Anonymous classes`: Chúng cho phép khai báo và khởi tạo một `class` cùng một lúc. Chúng tương tự như `local classes` nhưng không có tên. Sử dụng chúng khi chỉ cần sử dụng một `local class` một lần duy nhất.
+
+##### Declaring Anonymous Classes
++  Khai báo `anonymous classes` bằng cách định nghĩa `class` trong một `expressions`
+     ```java
+    public class HelloWorldAnonymousClasses {
+
+    interface HelloWorld {
+        public void greet();
+        public void greetSomeone(String someone);
+    }
+
+    public void sayHello() {
+
+        class EnglishGreeting implements HelloWorld {
+            String name = "world";
+
+            public void greet() {
+                greetSomeone("world");
+            }
+
+            public void greetSomeone(String someone) {
+                name = someone;
+                System.out.println("Hello " + name);
+            }
+        }
+
+        HelloWorld englishGreeting = new EnglishGreeting();
+
+        HelloWorld frenchGreeting = new HelloWorld() {
+            String name = "tout le monde";
+
+            public void greet() {
+                greetSomeone("tout le monde");
+            }
+
+            public void greetSomeone(String someone) {
+                name = someone;
+                System.out.println("Salut " + name);
+            }
+        };
+
+        HelloWorld spanishGreeting = new HelloWorld() {
+            String name = "mundo";
+
+            public void greet() {
+                greetSomeone("mundo");
+            }
+
+            public void greetSomeone(String someone) {
+                name = someone;
+                System.out.println("Hola, " + name);
+            }
+        };
+
+        englishGreeting.greet();
+        frenchGreeting.greetSomeone("Fred");
+        spanishGreeting.greet();
+    }
+
+    public static void main(String... args) {
+        HelloWorldAnonymousClasses myApp = new HelloWorldAnonymousClasses();
+        myApp.sayHello();
+    }
+    }
+
+    ```
+
+##### Syntax of Anonymous Classes
++  `Syntax` của một `anonymous class expression` giống với việc gọi một `constructor`
++ `Anonymous class expression` bao gồm:
+    + Toán tử `new`
+    + Tên của một `interface` cần `implement` hoặc một `class` cần `extend`
+    + Dấu ngoặc đơn chứa các tham số cho `constructor` (Khi `implement` một `interface`, sẽ không có `constructor`, vì vậy phải sử dụng một cặp dấu ngoặc đơn rỗng.)
+    + Một `code block`, trong đó khai báo các `method` và `variable`.
+     ```java
+    HelloWorld frenchGreeting = new HelloWorld() {
+    String name = "tout le monde";
+
+    public void greet() {
+        greetSomeone("tout le monde");
+    }
+
+    public void greetSomeone(String someone) {
+        name = someone;
+        System.out.println("Salut " + name);
+    }
+    };
+    ```
+
+##### Accessing Local Variables of the Enclosing Scope, and Declaring and Accessing Members of the Anonymous Class
++ Giống như `local classes`, `anonymous classes` có thể `capture variables`; chúng có quyền truy cập tương tự đối với các `local variables` trong `enclosing scope`
+    + Một `anonymous class` có quyền truy cập vào các thành viên của `enclosing class`.
+    + Một `anonymous class` không thể truy cập các `local variables` trong `enclosing scope` nếu chúng không được khai báo là `final` hoặc "effectively final".
+    + Giống như `nested class`, một khai báo kiểu (ví dụ như một `variable`) trong `anonymous class` sẽ `shadow` bất kỳ khai báo nào khác trong `enclosing scope` có cùng tên.
++ `Anonymous classes` cũng bị giới hạn tương tự như `local classes` đối với các thành phần của chúng:
+    + Bạn không thể khai báo `static initializers` hoặc `member interfaces` trong một `anonymous class`.
+    + Một `anonymous class` có thể có các thành viên `static`, nhưng chỉ khi chúng là `constant variables`.
++ có thể khai báo những thành phần sau trong một `anonymous class`:
+    + `Fields`
+    + `Extra methods` (ngay cả khi chúng không triển khai bất kỳ method nào của supertype)
+    + `Instance initializers`
+    + `Local classes`
++ không thể khai báo `constructors` trong một `anonymous class`.
+
 ### Lambda Expressions
 #### Method References
 ### When to Use Nested Classes, Local Classes, Anonymous Classes, and Lambda Expressions
