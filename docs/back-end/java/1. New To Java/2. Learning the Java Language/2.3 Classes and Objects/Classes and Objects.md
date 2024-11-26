@@ -1282,6 +1282,7 @@ Bảng sau đây cho thấy nơi các thành viên của `Alpha class` có thể
 + không thể khai báo `constructors` trong một `anonymous class`.
 
 ### Lambda Expressions
++ Một vấn đề với `anonymous class` là nếu triển khai của `anonymous class` rất đơn giản, chẳng hạn như một `interface` chỉ chứa một `method`, thì cú pháp của `anonymous class` có thể trông cồng kềnh và không rõ ràng. Trong những trường hợp này, bạn thường cố gắng truyền chức năng như một đối số vào một method khác, chẳng hạn như hành động cần thực hiện khi ai đó nhấn nút. Biểu thức Lambda cho phép bạn làm điều này, đối xử chức năng như một đối số của method, hoặc xem code như dữ liệu.
 #### Method References
 ### When to Use Nested Classes, Local Classes, Anonymous Classes, and Lambda Expressions
 ## Enum Types
