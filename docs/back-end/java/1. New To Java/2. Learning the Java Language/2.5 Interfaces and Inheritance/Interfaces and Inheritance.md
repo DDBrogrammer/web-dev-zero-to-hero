@@ -286,6 +286,11 @@
 + Lưu ý: Các `constructor` không được kế thừa, nhưng `constructor` của `superclass` có thể được gọi từ `subclass`.
  
 #### The Java Platform Class Hierarchy
+
+  <p align="center">
+  <img src="image.png" alt="alt text">
+  </p>
+
 + `Class` `Object`, được định nghĩa trong `package` `java.lang`, định nghĩa và thực hiện các hành vi chung cho tất cả các `class`.
 + Trên nền tảng `Java`, nhiều `class` kế thừa trực tiếp từ `Object`, các `class` khác kế thừa từ các `class` đó, và cứ tiếp tục như vậy, tạo thành một hệ thống phân cấp `class`.
 + Tất cả các `class` trong nền tảng `Java` đều là hậu duệ của `Object`.
@@ -381,8 +386,216 @@
   + Khi một `class` kế thừa nhiều `methods` từ các `Interface`, lập trình viên hoặc trình biên dịch phải quyết định dùng cái nào.
  
 ### Overriding and Hiding Methods
-### Polymorphism
-### Hiding Fields
+#### Instance Methods
++ Một `instance` `method` trong `subclass` nếu có cùng `method signature` và kiểu trả về (`return type`) giống như (cùng `type` hoặc là `subtype` ) một `instance` `method` trong `superclass` sẽ `override` `method` của `superclass`.
++ Ghi đè hay `override` là khả năng thay đổi triển khai của một `method` mà `subclass` kế thừa từ `superclass`
+    ```java
+    // Superclass
+    public class Animal {
+    public void makeSound() {
+        System.out.println("Some generic animal sound");
+    }
+    }
+    ```
+    ```java
+    // Subclass
+    public class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof Woof");
+    }
+    }
+    ```
+    ```java
+    public class Main {
+    public static void main(String[] args) {
+        Animal myAnimal = new Animal(); // Tạo một object của superclass
+        Animal myDog = new Dog(); // Tạo một object của subclass nhưng tham chiếu từ kiểu superclass
+
+        myAnimal.makeSound(); // Gọi method từ superclass
+        myDog.makeSound();    // Gọi method từ subclass (ghi đè)
+    }
+    }
+
+    ```
+    ```cmd
+    Some generic animal sound
+    Woof Woof
+    ```
++ Khi `override` 1 `method`, nên sử dụng `anotation` `@Override` để đánh dấu, khi 1 `method` được đánh dấu `override`, trình biên dịch `compiler`
+sẽ xác định được `method` hiện tại đang `override` `method` của `super class`
+#### Static Methods
++ Nếu một `subclass` định nghĩa một `static method` có cùng `method signature` như một `static method` trong `superclass`, thì method trong `subclass` sẽ hide (ẩn) `method` trong `superclass`.
++ Sự khác biệt giữa `hiding` một `static method` và `overriding` một `instance method`:
+  + `instance method`: Khi gọi `method` bị `override` qua `subclass` nó sẽ gọi đến `method` của `subclass`
+  + `static method`: Khi gọi `method` bị `override` nó sẽ phụ thuộc vào tên của `class` gọi nó
+    ```java
+    public class Animal {
+    public static void testClassMethod() {
+        System.out.println("The static method in Animal");
+    }
+    public void testInstanceMethod() {
+        System.out.println("The instance method in Animal");
+    }
+    }
+
+    ```
+    ```java
+    public class Cat extends Animal {
+    public static void testClassMethod() {
+        System.out.println("The static method in Cat");
+    }
+    public void testInstanceMethod() {
+        System.out.println("The instance method in Cat");
+    }
+
+    public static void main(String[] args) {
+        Cat myCat = new Cat();
+        Animal myAnimal = myCat;
+        Animal.testClassMethod();
+        myAnimal.testInstanceMethod();
+    }
+    }
+
+    ```
+    ```cmd
+    The static method in Animal  
+    The instance method in Cat
+    ```
+
+### Đa hình (Polymorphism)
+  <p align="center">
+  <img src="image-1.png" alt="alt text">
+  </p>
+
++ Đa hình là một trong những nguyên tắc quan trọng của lập trình hướng đối tượng (`Object-Oriented Programming - OOP`), 
+cho phép các `object` có cùng `interface` hoặc kế thừa cùng một `class` có thể triển khai khác nhau dựa trên ngữ cảnh.
++ `JVM` sẽ gọi `method` phù hợp với `object` mà `reference variable` trỏ tới, không phải với kiểu (`type`) của `variable`.
+    ```java
+    // Lớp cha
+    public class Animal {
+    public void speak() {
+        System.out.println("Animal is making a sound");
+    }
+    }
+
+    // Lớp con Dog
+    public class Dog extends Animal {
+    @Override
+    public void speak() {
+        System.out.println("Dog says: Woof Woof");
+    }
+    }
+
+    // Lớp con Cat
+    public class Cat extends Animal {
+    @Override
+    public void speak() {
+        System.out.println("Cat says: Meow Meow");
+    }
+    }
+
+    public class TestPolymorphism {
+    public static void main(String[] args) {
+        Animal myAnimal; // Reference variable kiểu Animal
+
+        myAnimal = new Dog(); // Tham chiếu tới đối tượng Dog
+        myAnimal.speak(); // Gọi phương thức speak() của Dog
+
+        myAnimal = new Cat(); // Tham chiếu tới đối tượng Cat
+        myAnimal.speak(); // Gọi phương thức speak() của Cat
+    }
+    }
+
+    ```
+    ```cmd
+    Dog says: Woof Woof
+    Cat says: Meow Meow
+    ```
+
++ Tính đa hình được thể hiện qua 2 loại đa hình chính
+  + `Compile-time Polymorphism` (Đa hình lúc biên dịch):
+    + Thể hiện thông qua `method overloading`.
+    + `Compiler` sẽ quyết định `method` nào được gọi tại thời điểm biên dịch.
+  + `Runtime Polymorphism` (Đa hình lúc chạy):
+    + Thể hiện thông qua `method overriding`.
+    + `Java` quyết định `method` nào được gọi tại `runtime`, dựa trên `object` mà `reference variable` trỏ tới.
+
++ Lợi ích của đa hình
+    + Tăng tính linh hoạt và khả năng mở rộng: Cho phép sử dụng một `interface` chung nhưng triển khai khác nhau.
+    + Giảm sự phụ thuộc giữa các thành phần: Dễ dàng thay đổi hoặc mở rộng hệ thống mà không ảnh hưởng đến phần code hiện tại.
+    + Tối ưu hóa mã nguồn: Có thể sử dụng chung `reference variable` thay vì viết các `method` xử lý riêng biệt cho từng `class`.
+
+### Hiding Fields 
++ Trong Java, `hiding fields` xảy ra khi một `field` trong `subclass` có cùng tên với một `field` trong `superclass`, bất kể kiểu dữ liệu (`data type`) của chúng có giống nhau hay không.
++ Để truy cập `field` trong `superclass`, phải sử dụng từ khóa `super`.
++ Không khuyến khích việc `hiding fields` do sẽ làm `code` khó bảo trì
+    ```java
+    // Lớp cha
+    public class SuperClass {
+    public String field = "Field in SuperClass";
+    }
+
+    // Lớp con
+    public class SubClass extends SuperClass {
+    public String field = "Field in SubClass";
+
+    public void printFields() {
+        // Truy cập field trong subclass
+        System.out.println("SubClass field: " + field);
+
+        // Truy cập field trong superclass
+        System.out.println("SuperClass field: " + super.field);
+    }
+    }
+
+    // Kiểm tra
+    public class TestHidingFields {
+    public static void main(String[] args) {
+        SubClass obj = new SubClass();
+        obj.printFields();
+    }
+    }
+
+    ```
+    ```cmd
+    SubClass field: Field in SubClass
+    SuperClass field: Field in SuperClass
+    ```
++ **Lưu ý**: `Hiding fields` khác với `method overriding`
+    + `Hiding fields`: Sự lựa chọn `field` để sử dụng dựa trên kiểu của `reference variable` (lúc biên dịch - `compile-time`).
+    + `Method overriding`: Sự lựa chọn `method` để gọi dựa trên kiểu của `object` thực sự (lúc chạy - `runtime`).
+    ```java
+    // Lớp cha
+    public class SuperClass {
+    public String field = "Field in SuperClass";
+    }
+
+    // Lớp con
+    public class SubClass extends SuperClass {
+    public String field = "Field in SubClass";
+
+    public void printFields() {
+        // Truy cập field trong subclass
+        System.out.println("SubClass field: " + field);
+
+        // Truy cập field trong superclass
+        System.out.println("SuperClass field: " + super.field);
+    }
+    }
+
+    // Kiểm tra
+    public class TestHiding {
+    public static void main(String[] args) {
+        SuperClass obj = new SubClass();
+        System.out.println(obj.field); // Kết quả: Field in SuperClass
+    }
+    }
+    ```
+    ```cmd
+    SubClass field: Field in SubClass
+    SuperClass field: Field in SuperClass
+    ```
 ### Using the Keyword super
 ### Object as a Superclass
 ### Writing Final Classes and Methods
