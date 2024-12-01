@@ -286,6 +286,11 @@
 + Lưu ý: Các `constructor` không được kế thừa, nhưng `constructor` của `superclass` có thể được gọi từ `subclass`.
  
 #### The Java Platform Class Hierarchy
+
+  <p align="center">
+  <img src="image.png" alt="alt text">
+  </p>
+
 + `Class` `Object`, được định nghĩa trong `package` `java.lang`, định nghĩa và thực hiện các hành vi chung cho tất cả các `class`.
 + Trên nền tảng `Java`, nhiều `class` kế thừa trực tiếp từ `Object`, các `class` khác kế thừa từ các `class` đó, và cứ tiếp tục như vậy, tạo thành một hệ thống phân cấp `class`.
 + Tất cả các `class` trong nền tảng `Java` đều là hậu duệ của `Object`.
@@ -381,10 +386,559 @@
   + Khi một `class` kế thừa nhiều `methods` từ các `Interface`, lập trình viên hoặc trình biên dịch phải quyết định dùng cái nào.
  
 ### Overriding and Hiding Methods
-### Polymorphism
-### Hiding Fields
+#### Instance Methods
++ Một `instance` `method` trong `subclass` nếu có cùng `method signature` và kiểu trả về (`return type`) giống như (cùng `type` hoặc là `subtype` ) một `instance` `method` trong `superclass` sẽ `override` `method` của `superclass`.
++ Ghi đè hay `override` là khả năng thay đổi triển khai của một `method` mà `subclass` kế thừa từ `superclass`
+    ```java
+    // Superclass
+    public class Animal {
+    public void makeSound() {
+        System.out.println("Some generic animal sound");
+    }
+    }
+    ```
+    ```java
+    // Subclass
+    public class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof Woof");
+    }
+    }
+    ```
+    ```java
+    public class Main {
+    public static void main(String[] args) {
+        Animal myAnimal = new Animal(); // Tạo một object của superclass
+        Animal myDog = new Dog(); // Tạo một object của subclass nhưng tham chiếu từ kiểu superclass
+
+        myAnimal.makeSound(); // Gọi method từ superclass
+        myDog.makeSound();    // Gọi method từ subclass (ghi đè)
+    }
+    }
+
+    ```
+    ```cmd
+    Some generic animal sound
+    Woof Woof
+    ```
++ Khi `override` 1 `method`, nên sử dụng `anotation` `@Override` để đánh dấu, khi 1 `method` được đánh dấu `override`, trình biên dịch `compiler`
+sẽ xác định được `method` hiện tại đang `override` `method` của `super class`
+#### Static Methods
++ Nếu một `subclass` định nghĩa một `static method` có cùng `method signature` như một `static method` trong `superclass`, thì method trong `subclass` sẽ hide (ẩn) `method` trong `superclass`.
++ Sự khác biệt giữa `hiding` một `static method` và `overriding` một `instance method`:
+  + `instance method`: Khi gọi `method` bị `override` qua `subclass` nó sẽ gọi đến `method` của `subclass`
+  + `static method`: Khi gọi `method` bị `override` nó sẽ phụ thuộc vào tên của `class` gọi nó
+    ```java
+    public class Animal {
+    public static void testClassMethod() {
+        System.out.println("The static method in Animal");
+    }
+    public void testInstanceMethod() {
+        System.out.println("The instance method in Animal");
+    }
+    }
+
+    ```
+    ```java
+    public class Cat extends Animal {
+    public static void testClassMethod() {
+        System.out.println("The static method in Cat");
+    }
+    public void testInstanceMethod() {
+        System.out.println("The instance method in Cat");
+    }
+
+    public static void main(String[] args) {
+        Cat myCat = new Cat();
+        Animal myAnimal = myCat;
+        Animal.testClassMethod();
+        myAnimal.testInstanceMethod();
+    }
+    }
+
+    ```
+    ```cmd
+    The static method in Animal  
+    The instance method in Cat
+    ```
+
+### Đa hình (Polymorphism)
+  <p align="center">
+  <img src="image-1.png" alt="alt text">
+  </p>
+
++ Đa hình là một trong những nguyên tắc quan trọng của lập trình hướng đối tượng (`Object-Oriented Programming - OOP`), 
+cho phép các `object` có cùng `interface` hoặc kế thừa cùng một `class` có thể triển khai khác nhau dựa trên ngữ cảnh.
++ `JVM` sẽ gọi `method` phù hợp với `object` mà `reference variable` trỏ tới, không phải với kiểu (`type`) của `variable`.
+    ```java
+    // Lớp cha
+    public class Animal {
+    public void speak() {
+        System.out.println("Animal is making a sound");
+    }
+    }
+
+    // Lớp con Dog
+    public class Dog extends Animal {
+    @Override
+    public void speak() {
+        System.out.println("Dog says: Woof Woof");
+    }
+    }
+
+    // Lớp con Cat
+    public class Cat extends Animal {
+    @Override
+    public void speak() {
+        System.out.println("Cat says: Meow Meow");
+    }
+    }
+
+    public class TestPolymorphism {
+    public static void main(String[] args) {
+        Animal myAnimal; // Reference variable kiểu Animal
+
+        myAnimal = new Dog(); // Tham chiếu tới đối tượng Dog
+        myAnimal.speak(); // Gọi phương thức speak() của Dog
+
+        myAnimal = new Cat(); // Tham chiếu tới đối tượng Cat
+        myAnimal.speak(); // Gọi phương thức speak() của Cat
+    }
+    }
+
+    ```
+    ```cmd
+    Dog says: Woof Woof
+    Cat says: Meow Meow
+    ```
+
++ Tính đa hình được thể hiện qua 2 loại đa hình chính
+  + `Compile-time Polymorphism` (Đa hình lúc biên dịch):
+    + Thể hiện thông qua `method overloading`.
+    + `Compiler` sẽ quyết định `method` nào được gọi tại thời điểm biên dịch.
+  + `Runtime Polymorphism` (Đa hình lúc chạy):
+    + Thể hiện thông qua `method overriding`.
+    + `Java` quyết định `method` nào được gọi tại `runtime`, dựa trên `object` mà `reference variable` trỏ tới.
+
++ Lợi ích của đa hình
+    + Tăng tính linh hoạt và khả năng mở rộng: Cho phép sử dụng một `interface` chung nhưng triển khai khác nhau.
+    + Giảm sự phụ thuộc giữa các thành phần: Dễ dàng thay đổi hoặc mở rộng hệ thống mà không ảnh hưởng đến phần code hiện tại.
+    + Tối ưu hóa mã nguồn: Có thể sử dụng chung `reference variable` thay vì viết các `method` xử lý riêng biệt cho từng `class`.
+
+### Hiding Fields 
++ Trong Java, `hiding fields` xảy ra khi một `field` trong `subclass` có cùng tên với một `field` trong `superclass`, bất kể kiểu dữ liệu (`data type`) của chúng có giống nhau hay không.
++ Để truy cập `field` trong `superclass`, phải sử dụng từ khóa `super`.
++ Không khuyến khích việc `hiding fields` do sẽ làm `code` khó bảo trì
+    ```java
+    // Lớp cha
+    public class SuperClass {
+    public String field = "Field in SuperClass";
+    }
+
+    // Lớp con
+    public class SubClass extends SuperClass {
+    public String field = "Field in SubClass";
+
+    public void printFields() {
+        // Truy cập field trong subclass
+        System.out.println("SubClass field: " + field);
+
+        // Truy cập field trong superclass
+        System.out.println("SuperClass field: " + super.field);
+    }
+    }
+
+    // Kiểm tra
+    public class TestHidingFields {
+    public static void main(String[] args) {
+        SubClass obj = new SubClass();
+        obj.printFields();
+    }
+    }
+
+    ```
+    ```cmd
+    SubClass field: Field in SubClass
+    SuperClass field: Field in SuperClass
+    ```
++ **Lưu ý**: `Hiding fields` khác với `method overriding`
+    + `Hiding fields`: Sự lựa chọn `field` để sử dụng dựa trên kiểu của `reference variable` (lúc biên dịch - `compile-time`).
+    + `Method overriding`: Sự lựa chọn `method` để gọi dựa trên kiểu của `object` thực sự (lúc chạy - `runtime`).
+    ```java
+    // Lớp cha
+    public class SuperClass {
+    public String field = "Field in SuperClass";
+    }
+
+    // Lớp con
+    public class SubClass extends SuperClass {
+    public String field = "Field in SubClass";
+
+    public void printFields() {
+        // Truy cập field trong subclass
+        System.out.println("SubClass field: " + field);
+
+        // Truy cập field trong superclass
+        System.out.println("SuperClass field: " + super.field);
+    }
+    }
+
+    // Kiểm tra
+    public class TestHiding {
+    public static void main(String[] args) {
+        SuperClass obj = new SubClass();
+        System.out.println(obj.field); // Kết quả: Field in SuperClass
+    }
+    }
+    ```
+    ```cmd
+    SubClass field: Field in SubClass
+    SuperClass field: Field in SuperClass
+    ```
 ### Using the Keyword super
+#### Accessing Superclass Members
++ Nếu một `method` hoặc `field` trong `subclass` ghi đè (`overrides`) `method` của `superclass`, có thể gọi `method` bị ghi đè bằng cách sử dụng từ khóa `super`.
+    ```java
+    // Superclass
+    public class Superclass {
+    public void printMethod() {
+        System.out.println("Printed in Superclass.");
+    }
+    }
+
+    // Subclass
+    public class Subclass extends Superclass {
+    // Ghi đè (override) printMethod trong Superclass
+    @Override
+    public void printMethod() {
+        // Gọi phương thức của superclass
+        super.printMethod(); 
+        System.out.println("Printed in Subclass");
+    }
+
+    public static void main(String[] args) {
+        Subclass s = new Subclass();
+        s.printMethod();
+    }
+    }
+    ```
+    ```cmd
+    Printed in Superclass.
+    Printed in Subclass
+    ```    
+#### Subclass Constructors
++ Từ khóa `super` cũng được sử dụng để gọi `constructor` của `superclass`.
++ Lời gọi đến `constructor` của `superclass` phải nằm ở dòng đầu tiên trong `constructor` của `subclass`.
+    ```java
+    // Superclass: Bicycle
+    public class Bicycle {
+    private int cadence;
+    private int speed;
+    private int gear;
+
+    public Bicycle(int startCadence, int startSpeed, int startGear) {
+        this.cadence = startCadence;
+        this.speed = startSpeed;
+        this.gear = startGear;
+    }
+    }
+
+    // Subclass: MountainBike
+    public class MountainBike extends Bicycle {
+    private int seatHeight;
+
+    public MountainBike(int startHeight, 
+                        int startCadence,
+                        int startSpeed,
+                        int startGear) {
+        // Gọi constructor của superclass
+        super(startCadence, startSpeed, startGear); 
+        this.seatHeight = startHeight; // Thêm logic khởi tạo riêng
+    }
+    }
+
+    ```
+    ```cmd
+    Printed in Superclass.
+    Printed in Subclass
+    ```
++ Cú pháp gọi `constructor` của `superclass`:
+    + `super();` dùng để Gọi `constructor` không tham số (`no-argument constructor`) của `superclass`.
+    + `super(parameter list);` Gọi `constructor` có tham số của `superclass`, với danh sách tham số phù hợp.
++ **Lưu ý:** 
+    + Nếu không gọi `super()` một cách rõ ràng:
+        + `Compiler` sẽ tự động thêm lệnh gọi đến `constructor` không tham số của `superclass`.
+        + Nếu `superclass` không có `constructor` không tham số, chương trình sẽ báo lỗi biên dịch.
+    + `Constructor chaining`:
+        + Khi `constructor` của `subclass` gọi `constructor` của `superclas`s, quá trình này sẽ tiếp tục theo "chuỗi" ngược lên đến `Object`.
+        + Đây được gọi là `constructor chaining`.
+        ```java 
+        public class Grandparent {
+        public Grandparent() {
+        System.out.println("Constructor of Grandparent");
+            }
+        }
+
+        public class Parent extends Grandparent {
+        public Parent() {
+        super(); // Gọi constructor của Grandparent
+        System.out.println("Constructor of Parent");
+        }
+        }
+
+        public class Child extends Parent {
+        public Child() {
+        super(); // Gọi constructor của Parent
+        System.out.println("Constructor of Child");
+        }
+
+        public static void main(String[] args) {
+        Child obj = new Child();
+        }   
+        }
+        ```
+        ```cmd
+        Constructor of Grandparent
+        Constructor of Parent
+        Constructor of Child
+        ```
 ### Object as a Superclass
++ `Class` `Object`, nằm trong `package` `java.lang`, đứng ở đỉnh của cây phân cấp các `class`. Mọi `class` đều là hậu duệ, trực tiếp hoặc gián tiếp, của `class` `Object`.
++ Toàn bộ các `Class` trong `java` đều kế thừa các `method` của `Object`, các `method` này bao gồm
+    + `protected Object clone() throws CloneNotSupportedException`: Tạo và trả về một bản sao của `object` này.
+    + `public boolean equals(Object obj)`: Xác định xem một `object` khác có "bằng" với `object` hiện tại hay không.
+    + `protected void finalize() throws Throwable`: Được gọi bởi bộ thu gom rác (`garbage collector`) trên `object` khi không còn bất kỳ tham chiếu nào trỏ đến `object` đó.
+    + `public final Class getClass()`: trả về `runtime class` của 1 `object` 
+    + `public int hashCode()`: trả về giá trị `hashcode` của 1 `object`
+    + `public String toString()`: trả về biểu diễn chuỗi (`String`) của `object`.
++ Các `method` `notify`, `notifyAll`, và `wait` trong `Object` đóng vai trò trong việc đồng bộ hóa hoạt động của các `thread` chạy độc lập trong một chương trình
+    + `public final void notify()`
+    + `public final void notifyAll()`
+    + `public final void wait()`
+    + `public final void wait(long timeout)`
+    + `public final void wait(long timeout, int nanos)`
+
+#### The clone() Method
++ Nếu một `class` hoặc một `superclass` của nó `implements interface Cloneable`, có thể sử dụng `method clone()` để tạo bản sao từ một `object` đã tồn tại. 
+    ```java 
+    class Address implements Cloneable {
+    String street;
+    String city;
+
+    Address(String street, String city) {
+        this.street = street;
+        this.city = city;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return "Address [street=" + street + ", city=" + city + "]";
+    }
+    }
+
+    class Person implements Cloneable {
+    String name;
+    Address address;
+
+    Person(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        // Clone cơ bản
+        Person clonedPerson = (Person) super.clone();
+
+        // Clone sâu (deep copy) cho các thuộc tính tham chiếu
+        clonedPerson.address = (Address) address.clone();
+
+        return clonedPerson;
+    }
+
+    @Override
+    public String toString() {
+        return "Person [name=" + name + ", address=" + address + "]";
+    }
+    }
+
+    public class CloneExample {
+    public static void main(String[] args) {
+        try {
+            // Tạo đối tượng gốc
+            Address address = new Address("123 Main St", "Hanoi");
+            Person original = new Person("Nguyen Van A", address);
+
+            // Clone đối tượng
+            Person cloned = (Person) original.clone();
+
+            // In ra thông tin
+            System.out.println("Original: " + original);
+            System.out.println("Cloned: " + cloned);
+
+            // Thay đổi dữ liệu của bản gốc
+            original.address.city = "Ho Chi Minh";
+            System.out.println("\nAfter modifying the original:");
+            System.out.println("Original: " + original);
+            System.out.println("Cloned: " + cloned);
+
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+    ```
+    ```cmd
+    Original: Person [name=Nguyen Van A, address=Address [street=123 Main St, city=Hanoi]]
+    Cloned: Person [name=Nguyen Van A, address=Address [street=123 Main St, city=Hanoi]]
+
+    After modifying the original:
+    Original: Person [name=Nguyen Van A, address=Address [street=123 Main St, city=Ho Chi Minh]]
+    Cloned: Person [name=Nguyen Van A, address=Address [street=123 Main St, city=Hanoi]]
+
+    ```
+#### The equals() Method
++ `Method` equals() so sánh hai `object` để xác định tính bằng nhau và trả về `true` nếu chúng bằng nhau.
++ `Method` mặc định trong `Object` sử dụng toán tử == để kiểm tra xem hai `object` có giống nhau hay không. Điều này phù hợp cho các `primitive data types`, nhưng đối với `object`, kết quả sẽ không chính xác trong nhiều trường hợp do
+    + `==` so sánh giá trị của `variable`:
+        + Nếu là `primative type`: so sánh giá trị 
+        + Nếu là `reference type`: so sánh địa chỉ bộ nhớ
+    + `equals()`: mặc định sẽ so sánh qua `==`, tuy nhiên nên được `override` lại theo yêu cầu bài toán (vd: 2 object People có cùng ID thì nên được coi là `equals`)
+
+    ```java 
+    class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Kiểm tra nếu obj là chính đối tượng hiện tại
+        if (this == obj) return true;
+
+        // Kiểm tra nếu obj không phải là kiểu Person
+        if (!(obj instanceof Person)) return false;
+
+        // Ép kiểu và so sánh các thuộc tính
+        Person other = (Person) obj;
+        return this.name.equals(other.name) && this.age == other.age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person [name=" + name + ", age=" + age + "]";
+    }
+    }
+
+    public class EqualsExample {
+    public static void main(String[] args) {
+        // Tạo hai đối tượng Person
+        Person person1 = new Person("Nguyen Van A", 25);
+        Person person2 = new Person("Nguyen Van A", 25);
+
+        // So sánh bằng equals
+        if (person1.equals(person2)) {
+            System.out.println("person1 và person2 bằng nhau");
+        } else {
+            System.out.println("person1 và person2 không bằng nhau");
+        }
+
+        // So sánh bằng toán tử ==
+        if (person1 == person2) {
+            System.out.println("person1 và person2 là cùng một tham chiếu");
+        } else {
+            System.out.println("person1 và person2 là các tham chiếu khác nhau");
+        }
+    }
+    }
+
+    ```
+
+    ```cmd
+    person1 và person2 bằng nhau
+    person1 và person2 là các tham chiếu khác nhau
+    ```
+#### The hashCode() Method
++ Giá trị trả về bởi `hashCode()` là một số nguyên, được tạo ra bởi thuật toán băm (`hashing algorithm`).
+    + `hashing algorithm`: là thuật toán chuyển dữ liệu đầu vào thành một `giá trị cố định` (luôn tạo ra một giá trị `hash` duy nhất) (`hash value`), thường dùng để định danh, kiểm tra, hoặc lưu trữ dữ liệu.
+    + Theo định nghĩa, nếu hai `object` bằng nhau `equal`, `hash code` của chúng cũng phải bằng nhau.
+    ```java
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age); // Sử dụng phương thức tiện ích của Java
+    }
+    ```
+#### The finalize() Method
++ Dùng để dọn dẹp tài nguyên khi `object` không còn được tham chiếu và sắp bị thu gom bởi `Garbage Collector`.
+#### The getClass() Method
++ `Method` `getClass()` trong `Java` trả về một `object` của `class` `Class`, cho phép lấy thông tin về `class` của `object` đang được tham chiếu.
++  Không thể `override` `Method` `getClass()` vì đây là một `method` `final` trong `class` `Object`.
++ Các tính năng của `getClass()`:
+    + `getSimpleName()`: Lấy tên đơn giản của `class` (không có `package`).
+    + `getSuperclass()`: Lấy `class` cha của `class` hiện tại.
+    + `getInterfaces()`: Lấy các `Interface` mà `class` hiện tại `implements`.
++ `Method` hữu ích của `Class`:
+    + `isAnnotation()`: Kiểm tra xem `class` có phải là `annotation` không.
+    + `isInterface()`: Kiểm tra xem `class` có phải là `interface` không.
+    + `isEnum()`: Kiểm tra xem `class` có phải là `enum` không.
+    + `getFields()`: Lấy tất cả các trường (`fields`) của `class`.
+    + `getMethods()`:  Lấy tất cả các phương thức (`methods`) của `class`.
+#### The toString() Method
++ Mặc định, `toString()` trong `Object` trả về một chuỗi biểu diễn của `object`.
++ Nên `override` `method` `toString()` trong các `class` đã khai báo.
+
 ### Writing Final Classes and Methods
++ `final`: đánh dấu 1 `method` không thể bị `override` bởi `class` con
++ `final` giúp đảm bảo tính nhất quán của `object`: Một `method` có thể có một triển khai quan trọng không nên bị thay đổi, giúp duy trì trạng thái nhất quán của `object`. Ví dụ, một phương thức như `getFirstPlayer()` trong lớp `ChessAlgorithm` không nên bị thay đổi, vì nó có thể liên quan đến logic quan trọng trong trò chơi cờ vua.
+    ```java 
+    class ChessAlgorithm {
+    enum ChessPlayer { WHITE, BLACK }
+    
+    // Phương thức final không thể bị ghi đè
+    final ChessPlayer getFirstPlayer() {
+        return ChessPlayer.WHITE;
+    }
+    
+    // Các phương thức khác có thể không phải là final
+    ChessPlayer getSecondPlayer() {
+        return ChessPlayer.BLACK;
+    }
+    }
+    ```
++ các `method` được gọi bên trong `constructor` nên được đánh dấu `final`
+    ```java 
+    class Parent {
+    public Parent() {
+        // Constructor gọi phương thức final
+        initialize();
+    }
+
+    // Phương thức final, không thể bị ghi đè trong lớp con
+    public final void initialize() {
+        System.out.println("Initializing Parent");
+    }
+    }
+
+    class Child extends Parent {
+    public Child() {
+        super(); // Gọi constructor của lớp cha
+    }
+
+    // Không thể ghi đè phương thức initialize() vì nó đã được khai báo final
+    // @Override
+    // public void initialize() { ... }
+    }
+    ```
 ### Abstract Methods and Classes
++ 
 ### Summary of Inheritance
