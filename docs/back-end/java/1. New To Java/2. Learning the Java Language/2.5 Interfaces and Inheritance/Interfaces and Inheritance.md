@@ -597,7 +597,127 @@ cho phép các `object` có cùng `interface` hoặc kế thừa cùng một `cl
     SuperClass field: Field in SuperClass
     ```
 ### Using the Keyword super
+#### Accessing Superclass Members
++ Nếu một `method` hoặc `field` trong `subclass` ghi đè (`overrides`) `method` của `superclass`, có thể gọi `method` bị ghi đè bằng cách sử dụng từ khóa `super`.
+    ```java
+    // Superclass
+    public class Superclass {
+    public void printMethod() {
+        System.out.println("Printed in Superclass.");
+    }
+    }
+
+    // Subclass
+    public class Subclass extends Superclass {
+    // Ghi đè (override) printMethod trong Superclass
+    @Override
+    public void printMethod() {
+        // Gọi phương thức của superclass
+        super.printMethod(); 
+        System.out.println("Printed in Subclass");
+    }
+
+    public static void main(String[] args) {
+        Subclass s = new Subclass();
+        s.printMethod();
+    }
+    }
+    ```
+    ```cmd
+    Printed in Superclass.
+    Printed in Subclass
+    ```    
+#### Subclass Constructors
++ Từ khóa `super` cũng được sử dụng để gọi `constructor` của `superclass`.
++ Lời gọi đến `constructor` của `superclass` phải nằm ở dòng đầu tiên trong `constructor` của `subclass`.
+    ```java
+    // Superclass: Bicycle
+    public class Bicycle {
+    private int cadence;
+    private int speed;
+    private int gear;
+
+    public Bicycle(int startCadence, int startSpeed, int startGear) {
+        this.cadence = startCadence;
+        this.speed = startSpeed;
+        this.gear = startGear;
+    }
+    }
+
+    // Subclass: MountainBike
+    public class MountainBike extends Bicycle {
+    private int seatHeight;
+
+    public MountainBike(int startHeight, 
+                        int startCadence,
+                        int startSpeed,
+                        int startGear) {
+        // Gọi constructor của superclass
+        super(startCadence, startSpeed, startGear); 
+        this.seatHeight = startHeight; // Thêm logic khởi tạo riêng
+    }
+    }
+
+    ```
+    ```cmd
+    Printed in Superclass.
+    Printed in Subclass
+    ```
++ Cú pháp gọi `constructor` của `superclass`:
+    + `super();` dùng để Gọi `constructor` không tham số (`no-argument constructor`) của `superclass`.
+    + `super(parameter list);` Gọi `constructor` có tham số của `superclass`, với danh sách tham số phù hợp.
++ **Lưu ý:** 
+    + Nếu không gọi `super()` một cách rõ ràng:
+        + `Compiler` sẽ tự động thêm lệnh gọi đến `constructor` không tham số của `superclass`.
+        + Nếu `superclass` không có `constructor` không tham số, chương trình sẽ báo lỗi biên dịch.
+    + `Constructor chaining`:
+        + Khi `constructor` của `subclass` gọi `constructor` của `superclas`s, quá trình này sẽ tiếp tục theo "chuỗi" ngược lên đến `Object`.
+        + Đây được gọi là `constructor chaining`.
+        ```java 
+        public class Grandparent {
+        public Grandparent() {
+        System.out.println("Constructor of Grandparent");
+            }
+        }
+
+        public class Parent extends Grandparent {
+        public Parent() {
+        super(); // Gọi constructor của Grandparent
+        System.out.println("Constructor of Parent");
+        }
+        }
+
+        public class Child extends Parent {
+        public Child() {
+        super(); // Gọi constructor của Parent
+        System.out.println("Constructor of Child");
+        }
+
+        public static void main(String[] args) {
+        Child obj = new Child();
+        }   
+        }
+        ```
+        ```cmd
+        Constructor of Grandparent
+        Constructor of Parent
+        Constructor of Child
+        ```
 ### Object as a Superclass
++ `Class` `Object`, nằm trong `package` `java.lang`, đứng ở đỉnh của cây phân cấp các `class`. Mọi `class` đều là hậu duệ, trực tiếp hoặc gián tiếp, của `class` `Object`.
++ Toàn bộ các `Class` trong `java` đều kế thừa các `method` của `Object`, các `method` này bao gồm
+    + `protected Object clone() throws CloneNotSupportedException`: Tạo và trả về một bản sao của `object` này.
+    + `public boolean equals(Object obj)`: Xác định xem một `object` khác có "bằng" với `object` hiện tại hay không.
+    + `protected void finalize() throws Throwable`: Được gọi bởi bộ thu gom rác (`garbage collector`) trên `object` khi không còn bất kỳ tham chiếu nào trỏ đến `object` đó.
+    + `public final Class getClass()`: trả về `runtime class` của 1 `object` 
+    + `public int hashCode()`: trả về giá trị `hashcode` của 1 `object`
+    + `public String toString()`: trả về biểu diễn chuỗi (`String`) của `object`.
++ Các `method` `notify`, `notifyAll`, và `wait` trong `Object` đóng vai trò trong việc đồng bộ hóa hoạt động của các `thread` chạy độc lập trong một chương trình
+    + `public final void notify()`
+    + `public final void notifyAll()`
+    + `public final void wait()`
+    + `public final void wait(long timeout)`
+    + `public final void wait(long timeout, int nanos)`
 ### Writing Final Classes and Methods
 ### Abstract Methods and Classes
 ### Summary of Inheritance
