@@ -940,5 +940,128 @@ cho phép các `object` có cùng `interface` hoặc kế thừa cùng một `cl
     }
     ```
 ### Abstract Methods and Classes
-+ 
++ Một `class` `abstract` là một `class` được khai báo với `keyword` `abstract`
+    + `abstract class` có thể bao gồm hoặc không bao gồm các `abstract method`.
+        + `abstract method` là một `method` được khai báo mà không có phần triển khai (không có dấu ngoặc nhọn, và kết thúc bằng dấu chấm phẩy)
+        ```java
+        abstract void moveTo(double deltaX, double deltaY);
+        ```
+    + `abstract class` không thể được khởi tạo, nhưng có thể được kế thừa.
+    + Nếu 1 `class` chứa `abstract method` thì `class` đó phải được khai báo là `abstract class`
+    ```java
+    public abstract class GraphicObject {
+    // khai báo các fields
+    // khai báo các method không phải abstract
+    abstract void draw();
+    }
+    ```
+    + Khi 1 `abstract class` được kế thừa `subclass` thường cung cấp triển khai cho tất cả các `abstract method` trong `parent class`. Tuy nhiên, nếu không, thì `subclass` đó cũng phải được khai báo là `abstract`.
+    ```java
+    // Định nghĩa một abstract class
+    abstract class Animal {
+    // Thuộc tính chung
+    String name;
+ 
+    // Constructor
+    public Animal(String name) {
+        this.name = name;
+    }
+ 
+    // Phương thức đã triển khai
+    void eat() {
+        System.out.println(name + " is eating.");
+    }
+ 
+    // Phương thức abstract (không có thân)
+    abstract void makeSound();
+    }
+ 
+    // Lớp Dog kế thừa từ abstract class Animal
+    class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+ 
+    // Triển khai phương thức abstract
+    @Override
+    void makeSound() {
+        System.out.println(name + " says: Woof! Woof!");
+    }
+    }
+ 
+    // Lớp Cat kế thừa từ abstract class Animal
+    class Cat extends Animal {
+    public Cat(String name) {
+        super(name);
+    }
+ 
+    // Triển khai phương thức abstract
+    @Override
+    void makeSound() {
+        System.out.println(name + " says: Meow! Meow!");
+    }
+    }
+ 
+    // Lớp chính để chạy chương trình
+    public class Main {
+    public static void main(String[] args) {
+        // Khởi tạo các đối tượng từ lớp con
+        Animal dog = new Dog("Buddy");
+        Animal cat = new Cat("Kitty");
+ 
+        // Gọi các phương thức
+        dog.eat();
+        dog.makeSound();
+ 
+        cat.eat();
+        cat.makeSound();
+    }
+    }
+ 
+    ```
++ **Lưu ý**: Các `method` trong một `Interface` mà không được khai báo là `default` hoặc `static` đều được ngầm định là `abstract`, vì vậy không cần thiết phải sử dụng từ khóa `abstract` với các `method` của `Interface` (dù vẫn có thể sử dụng, nhưng không cần thiết).
+#### Abstract Classes Compared to Interfaces
+# So sánh: Abstract Classes vs Interfaces
+ 
+| Đặc điểm                                  | Abstract Classes                                                                 | Interfaces                                                                 |
+|-------------------------------------------|----------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Khởi tạo**                              | Không thể khởi tạo                                                               | Không thể khởi tạo                                                         |
+| **Kế thừa**                               | Chỉ có thể mở rộng từ một `class`                                               | Có thể triển khai nhiều `interfaces`                                       |
+| **method**                           | Có thể có method có hoặc không có triển khai                               | Các method ngầm định là `abstract`, trừ khi được khai báo là `default` hoặc `static` |
+| **Fields**                                | Có thể khai báo các `field` không phải là `static` và `final`                   | Tất cả các `field` ngầm định là `public`, `static`, và `final`             |
+| **Access Modifiers**                      | Các method có thể là `public`, `protected`, hoặc `private`                 | Các method ngầm định là `public`                                      |
+| **Sử dụng**                               | - Chia sẻ code hoặc triển khai giữa các `class` liên quan chặt chẽ                           | - Xác định hành vi cho các `class` không liên quan                         |
+|                                           | - Định nghĩa các `field` hoặc method có `access modifier` khác ngoài `public` | - Tận dụng tính kế thừa đa kiểu                                            |
+| **Ví dụ trong JDK**                       | `AbstractMap`                                                                   | `Serializable`, `Cloneable`, `Map<K, V>`                                   |
+| **Ưu điểm chính**                         | Cung cấp một nền tảng (`base`) chung cho các `class` tương tự nhau                           | Thúc đẩy tính linh hoạt và tính đa hình                                     |
+ 
+**Khi nào nên sử dụng?**
+- Sử dụng **Abstract Classes** khi:
+  - Cần chia sẻ code hoặc triển khai chung giữa các `class` liên quan chặt chẽ.
+  - Định nghĩa các `field` không phải là `static` hoặc `final`.
+  - Cần các method có `access modifier` khác ngoài `public`.
+ 
+- Sử dụng **Interfaces** khi:
+  - Các `class` không liên quan cần chia sẻ một hành vi chung.
+  - Muốn xác định hành vi của một `reference type` mà không cần chi tiết triển khai.
+  - Muốn tận dụng tính kế thừa đa kiểu.
+ 
 ### Summary of Inheritance
++ Ngoại trừ `Object class`, mỗi `class` luôn luôn có một và chỉ một `superclass` trực tiếp.
++ Một `class` kế thừa tất cả `fields` và `methods` từ các `superclasses` của nó (bao gồm cả trực tiếp và gián tiếp).
++ `Override` hoặc `Hide`:
+    + `Subclass` có thể `override` các `instance methods` được kế thừa từ `superclass`.
+    + `Subclass` có thể `hide` các `fields` hoặc `static methods`, nhưng `hide fields` thường không được khuyến khích.
++ `Object class` là `class` ở đỉnh của cây phân cấp:
+    + Tất cả các `class` đều là hậu duệ của `Object class`.
+    + Các `methods` hữu ích được kế thừa từ `Object clas`:
+        + `toString()`
+        + `equals()`
+        + `clone()`
+        + `getClass()`
++ Đánh dấu 1 `class` với `keyword` `final` sẽ khiến `class` đó không thể được `class` khác kế thừa
++ Đánh dấu 1 `method` với `keyword` `final` sẽ khiến `method` đó không thể bị `method` khác `override`
++ `Abstract class`:
+    + Chỉ có thể được `subclassed`, không thể khởi tạo.
+    + Có thể chứa `abstract methods` (chỉ khai báo, không triển khai).
+    + `Subclass` cần cung cấp triển khai cho các `abstract methods`.
