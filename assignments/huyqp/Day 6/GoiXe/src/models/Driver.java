@@ -1,6 +1,7 @@
 package models;
 
 public class Driver {
+    // Lưu thông tin tài xế và xử lý các trạng thái chuyến xe
     private int id;
     private String name;
     private Vehicle vehicle;
@@ -11,6 +12,10 @@ public class Driver {
         this.name = name;
         this.vehicle = vehicle;
         this.currentLocation = currentLocation;
+    }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
     }
 
     public void acceptRide(Ride ride) {

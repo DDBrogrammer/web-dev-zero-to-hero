@@ -1,29 +1,35 @@
 package main;
 
 import models.*;
+import services.DriverService;
+import services.PassengerService;
 
 public class Main {
     public static void main(String[] args) {
-        // Khởi tạo
-        Passenger passenger = new Passenger(1, "Huy", "0123456789");
+        PassengerService passengerService = new PassengerService();
+        DriverService driverService = new DriverService();
+
+        // Hành khách đăng ký
+        passengerService.registerPassenger(1, "Huy", "0123456789");
+
+        // Thêm tài xế
         Vehicle vehicle = new Vehicle("79A-12345", "Toyota Camry", 4);
-        Driver driver = new Driver(1, "Hinh", vehicle, new Location(10.0, 20.0));
+        driverService.addDriver(new Driver(1, "Hinh", vehicle, new Location(10.0, 20.0)));
+
+        // Đặt chuyến xe
+        Passenger alice = new Passenger(1, "Huy", "0123456789");
         Location from = new Location(10.0, 20.0);
         Location to = new Location(15.0, 25.0);
+        Ride ride = passengerService.requestRide(alice, from, to);
 
-        // Passenger yêu cầu chuyến xe
-        passenger.requestRide(from, to);
-        Ride ride = new Ride(1, passenger, from, to);
-
-        // Driver nhận chuyến
-        driver.acceptRide(ride);
-
-        // Tính giá cước
-        double fare = ride.calculateFare();
-        System.out.println("Giá cước: " + fare + " VNĐ");
-
-        // Driver hoàn tất chuyến
-        driver.completeRide(ride);
+        // Tài xế nhận chuyến
+        Driver nearestDriver = driverService.findNearestDriver(from);
+        if (nearestDriver != null) {
+            nearestDriver.acceptRide(ride);
+            System.out.println("Giá cước: " + ride.calculateFare() + " VNĐ");
+            nearestDriver.completeRide(ride);
+        }
     }
 }
+
 

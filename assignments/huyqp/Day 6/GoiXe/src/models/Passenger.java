@@ -1,6 +1,7 @@
 package models;
 
 public class Passenger {
+    // Đại diện cho hành khách, lưu thông tin và yêu cầu chuyến đi
     private int id;
     private String name;
     private String phoneNumber;

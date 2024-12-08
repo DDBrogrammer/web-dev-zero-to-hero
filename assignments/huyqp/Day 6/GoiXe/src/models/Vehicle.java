@@ -1,6 +1,7 @@
 package models;
 
 public class Vehicle {
+    // Quản lý thông tin phương tiện
     private String licensePlate;
     private String model;
     private int capacity;
@@ -20,4 +21,5 @@ public class Vehicle {
         return getInfo();
     }
 }
+
 
