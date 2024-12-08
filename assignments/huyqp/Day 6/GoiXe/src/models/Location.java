@@ -1,6 +1,7 @@
 package models;
 
 public class Location {
+    // Tính toán khoảng cách giữa hai địa điểm
     private double latitude;
     private double longitude;
 
@@ -12,7 +13,7 @@ public class Location {
     public double getDistance(Location other) {
         double dx = this.latitude - other.latitude;
         double dy = this.longitude - other.longitude;
-        return Math.sqrt(dx * dx + dy * dy); // Tính khoảng cách Euclid
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     @Override
