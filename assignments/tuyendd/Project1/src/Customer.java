@@ -1,47 +1,54 @@
 public class Customer {
-    int id;
-    String name;
-    int phoneNumber ;
-       String [] shoppingCart;
-       public Customer(int id, String name, int phoneNumber, String[] shoppingCart) {
-           this.id = id;
-           this.name = name;
-           this.phoneNumber = phoneNumber;
-           this.shoppingCart = shoppingCart;
-       }
-       public int getId() {
-           return id;
-       }
-       public void setId(int id) {
-           this.id = id;
+    private int id;
+    private String name;
+    private String phoneNumber;
+    Product[] shoppingCart;
+    int[] quantities;
+    private int cartSize;
+    private static String[] testStrings;
 
-       }
-       public String getName() {
-           return name;
-       }
-       public void setName(String name) {
-           this.name = name;
-       }
-       public int getPhoneNumber() {
-           return phoneNumber;
-       }
-       public void setPhoneNumber(int phoneNumber) {
-           this.phoneNumber = phoneNumber;
-       }
-       public String[] getShoppingCart() {
-           return shoppingCart;
-       }
-       public void setShoppingCart(String[] shoppingCart) {
-           this.shoppingCart = shoppingCart;
-       }
+    public Customer(int id, String name, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.shoppingCart = new Product[100]; // Giới hạn tối đa 100 sản phẩm trong giỏ hàng
+        this.quantities = new int[100];
+        this.cartSize = 0;
+    }
 
-        public static int addToCart(Product product, int quantity){
-           return quantity+product.getPrice();
-
+    public void addToCart(Product product, int quantity) {
+        if (product.getStockQuantity() >= quantity) {
+            shoppingCart[cartSize] = product;
+            quantities[cartSize] = quantity;
+            cartSize++;
+            product.updateStock(-quantity);
+        } else {
+            System.out.println("Insufficient stock for product: " + product.getInfo());
         }
+    }
 
-        public static int viewCart( Product product) {
-           return product.getPrice();
+    public void viewCart() {
+        System.out.println("Shopping Cart of " + name + ":");
+        for (int i = 0; i < cartSize; i++) {
+            System.out.println(shoppingCart[i].getInfo() + ", Quantity: " + quantities[i]);
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public static void ValidatePhone ( int phoneNumber) {
+        String pattern = "^/d(?:-/d{3}){3}/d$";
+        for (String inputString : testStrings) {
+            System.out.print(inputString + ": ");
+            if (inputString.matches(pattern)) {
+                System.out.println("Valid");
+            } else {
+                System.out.println("Invalid");
             }
+            return;
+        }
+    }}
 
-}
+

@@ -1,38 +1,21 @@
 public class Employee {
+    private int id;
     private String name;
-    private int age;
-    private String role ;
+    private String role;
 
-    public Employee(String name, int age, String role) {
+    public Employee(int id, String name, String role) {
+        this.id = id;
         this.name = name;
-        this.age = age;
         this.role = role;
     }
 
-    public String getName() {
-        return name;
+    public void processPayment(Customer customer, Invoice invoice) {
+        invoice.calculateTotal();
+        invoice.printInvoice();
+        System.out.println("Payment processed by: " + name);
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public static int processPayment(Customer customer, Invoice invoice){
-        return 0;
+    public int getId() {
+        return id;
     }
 }

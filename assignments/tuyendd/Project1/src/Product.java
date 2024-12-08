@@ -1,27 +1,33 @@
 public class Product {
+    private int id;
     private String name;
-    private int price;
+    private double price;
     private int stockQuantity;
-    public Product(String name, int price , int stockQuantity)  {
+
+    public Product(int id, String name, double price, int stockQuantity) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
     }
-    public String getName() {
-        return name;
+
+    public void updateStock(int quantity) {
+        this.stockQuantity += quantity;
     }
-    public int getPrice() {
+
+    public String getInfo() {
+        return "ID: " + id + ", Name: " + name + ", Price: $" + price + ", Stock: " + stockQuantity;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getPrice() {
         return price;
     }
+
     public int getStockQuantity() {
         return stockQuantity;
     }
-    public static int updateStock(int quantity){          // (Cập nhật số lượng tồn kho)
-        return quantity;
-
-    }
-    public static int getInfo() {           //   (Hiển thị thông tin sản phẩm).
-        return 3;
-    }
-
 }
