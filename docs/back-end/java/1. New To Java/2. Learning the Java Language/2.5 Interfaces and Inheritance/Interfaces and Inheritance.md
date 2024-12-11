@@ -288,7 +288,7 @@
 #### The Java Platform Class Hierarchy
 
   <p align="center">
-  <img src="image.png" alt="alt text">
+  <img src="./images/image.png" alt="alt text">
   </p>
 
 + `Class` `Object`, được định nghĩa trong `package` `java.lang`, định nghĩa và thực hiện các hành vi chung cho tất cả các `class`.
@@ -465,9 +465,9 @@ sẽ xác định được `method` hiện tại đang `override` `method` của
 
 ### Đa hình (Polymorphism)
   <p align="center">
-  <img src="image-1.png" alt="alt text">
+  <img src="./images/image-1.png" alt="alt text">
   </p>
-
+  
 + Đa hình là một trong những nguyên tắc quan trọng của lập trình hướng đối tượng (`Object-Oriented Programming - OOP`), 
 cho phép các `object` có cùng `interface` hoặc kế thừa cùng một `class` có thể triển khai khác nhau dựa trên ngữ cảnh.
 + `JVM` sẽ gọi `method` phù hợp với `object` mà `reference variable` trỏ tới, không phải với kiểu (`type`) của `variable`.
