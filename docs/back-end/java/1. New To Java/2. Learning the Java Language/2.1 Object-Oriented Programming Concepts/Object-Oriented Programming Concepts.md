@@ -25,7 +25,9 @@ Với mỗi `object` mà bạn thấy, hãy tự hỏi hai câu hỏi:
  Bạn cũng có thể nhận ra rằng một số `object` có thể chứa các `object` khác
 + Những quan sát thực tế này đều có thể chuyển hóa vào thế giới lập trình hướng `object`.
 
-![alt text](./images/image.png)
+<p align="center">
+  <img src="./images/image.png" alt="alt text">
+</p>
 
 + **Các `object` trong phần mềm** về mặt khái niệm tương tự như các `object` trong thế giới thực: chúng cũng bao gồm trạng thái (state) và hành vi (behavior) liên quan. Một **`object`** lưu trữ trạng thái của nó trong **`object`** (các biến `variable` trong một số ngôn ngữ lập trình) và thể hiện hành vi của nó thông qua **`methods`** (các hàm trong một số ngôn ngữ lập trình).Các `method` có thể tương tác thay đổi `state` của `object` và đóng vai trò là cơ chế chính để **giao tiếp giữa các `object`**.
 
@@ -33,7 +35,10 @@ Với mỗi `object` mà bạn thấy, hãy tự hỏi hai câu hỏi:
 
 + Việc ẩn giấu `state` nội bộ và yêu cầu tất cả tương tác phải được thực hiện thông qua các `method` của `object` được gọi là **data encapsulation** — một nguyên tắc cơ bản của lập trình hướng `object`.
 
-![alt text](./images/e5a9b433-61af-4091-b50f-2bfe75527993.webp)
+<p align="center">
+  <img src="./images/e5a9b433-61af-4091-b50f-2bfe75527993.webp" alt="alt text">
+</p>
+
 
 ## `Class` Là Gì?
 
@@ -71,8 +76,9 @@ class Bicycle {
     }
 }
 ```
-
-![alt text](./images/image-1.png)
+<p align="center">
+  <img src="./images/image-1.png" alt="alt text">
+</p>
 
 ## `Inheritance` (kế thừa) Là Gì?
 
@@ -93,8 +99,9 @@ class MountainBike extends Bicycle {
 
 }
 ```
-
-![alt text](./images/image-2.png)
+<p align="center">
+  <img src="./images/image-2.png" alt="alt text">
+</p>
 
 ## Interface Là Gì?
 
