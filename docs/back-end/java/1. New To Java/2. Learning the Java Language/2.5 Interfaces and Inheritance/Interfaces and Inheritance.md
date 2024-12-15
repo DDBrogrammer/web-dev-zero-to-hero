@@ -84,6 +84,7 @@
 #### Implementing the Relatable Interface
 
     ```java
+    
     public class RectanglePlus
  
     implements Relatable {
@@ -132,7 +133,7 @@
         else
             return 0;              
     }
-    }
+        }
  
     ```
     
