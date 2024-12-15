@@ -1,0 +1,10 @@
+## Bài 1: 
++ Real-world objects contain ___ and ___.--->state/behavior
++ A software object's state is stored in ___.--->field
++ A software object's behavior is exposed through ___.--->state
++ Hiding internal data from the outside world, and accessing it only through publicly exposed methods is known as data ___.--->data encapsulation
++ A blueprint for a software object is called a ___.--->class
++ Common behavior can be defined in a ___ and inherited into a ___ using the ___ keyword.--->superclass/subclass/extends
++ A collection of methods with no implementation is called an ___.--->interface
++ A namespace that organizes classes and interfaces by functionality is called a ___.--->package
++ The term API stands for ___?--->Application Programming Interface
