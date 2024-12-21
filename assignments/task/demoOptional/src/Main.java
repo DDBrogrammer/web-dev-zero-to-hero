@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Main {
@@ -56,5 +57,17 @@ public class Main {
     public static Optional<String> getOptionalEmpty() {
         // optional ko có giá trị
         return Optional.empty();
+    }
+
+    public static void checkNullInput(String string) {
+       if (string == null) {
+           throw new NullPointerException("String is null");
+       }
+        if (Objects.isNull(string)) {
+            throw new NullPointerException("String is null");
+        }
+        if (Objects.nonNull(string)) {
+            System.out.println(string);
+        }
     }
 }

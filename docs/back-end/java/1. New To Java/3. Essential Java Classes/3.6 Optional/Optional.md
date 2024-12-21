@@ -112,7 +112,7 @@
     optional.ifPresent(dependency::performAction);
     ```
  
-## Sử dụng `Optional` trong trường hợp nào?
+## Không sử dụng `Optional` trong trường hợp nào?
 + Không dùng cho các thuộc tính của `POJO` (`Plain Old Java Object`):
     + `Optional` không nên dùng trong các `getter/setter` hoặc `field` của `model`.
    
