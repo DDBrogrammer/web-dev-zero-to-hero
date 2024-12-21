@@ -8,13 +8,13 @@
 + Sau khi `JVM` nhận được một `exception` nó sẽ cố gắng tìm 1 `try catch block` gần nhất chứa `method` `throwing` (ném ra) `exception`  để xử lý lỗi, tạo ra 1 `callstack` bao gồm các `method`
 gọi đến `method` xảy ra lỗi
     <p align="center">
-  <img src="image.png" alt="alt text">
+  <img src="./images/image.png" alt="alt text">
     </p>
  
 + `JVM` sẽ tìm kiếm trong `call stack` một `method` chứa một khối code có thể xử lý lỗi. Khối code này được gọi là `exception handler`. Việc tìm kiếm bắt đầu từ `method` nơi lỗi xảy ra và tiếp tục theo thứ tự ngược lại của các lần gọi `method`. Khi tìm thấy một trình xử lý phù hợp, `JVM` sẽ chuyển `exception` đến trình xử lý đó. Một `exception handler` được coi là phù hợp nếu loại của `exception object` được ném ra khớp với loại mà `exception handle` có thể xử lý.
  
     <p align="center">
-  <img src="image-1.png" alt="alt text">
+  <img src="./images/image-1.png" alt="alt text">
     </p>
  
 + Nếu `JVM` không tìm được `exception handler` phù hợp nó sẽ `terminate` kết thúc chương trình đang chạy.
@@ -54,7 +54,7 @@ gọi đến `method` xảy ra lỗi
  
 ### The Three Kinds of Exceptions
 <p align="center">
-  <img src="image-3.png" height="600" width="600" alt="alt text">
+  <img src="./images/image-3.png" height="600" width="600" alt="alt text">
 </p>
  
 + có 3 loại `exception` chính bao gồm:
@@ -223,7 +223,7 @@ gọi đến `method` xảy ra lỗi
  
 + Cấu trúc phân cấp của `class` `Throwable` và các `class` con quan trọng.
     <p align="center">
-  <img src="image-4.png" alt="alt text">
+  <img src="./images/image-4.png" alt="alt text">
     </p>
  
 ###### `class` `Error`
