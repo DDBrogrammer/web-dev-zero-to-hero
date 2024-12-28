@@ -21,6 +21,10 @@
 + Dễ dàng sử dụng và tái sử dụng
  
 ## Interfaces
+  <p align="center">
+  <img src="CollectionFrameworkHierarchy-1024x588.jpg" alt="alt text">
+  </p>
+
 + Các `core` `collection interfaces` bao gồm các loại `collections` khác nhau, Các `interfaces` này cho phép thao tác với các `collections` một cách độc lập với các triển khai của chúng
 + `Core collection interfaces` là nền tảng của `Java Collections Framework`,
 + `Core collection interfaces` tạo thành 1 hệ thống phân cấp bắt đầu với 2  `interface` chính là `Collection` và `Map`
@@ -32,6 +36,7 @@
         + `Deque`: một `collection` được sử dụng để giữ nhiều `elements` trước khi xử lý. Bên cạnh các thao tác cơ bản của `Collection`, một `Deque` cung cấp thêm các thao tác chèn, trích xuất và kiểm tra ở cả hai đầu.
     + `Map`: một `object` ánh xạ các `key`s tới các `values`. Một `Map` không thể chứa các `keys` trùng lặp; mỗi `key` có thể ánh xạ tối đa một `value`.
         + `SortedMap`: một `Map` duy trì các ánh xạ của nó theo thứ tự `key` tăng dần.
+        
 ### The Collection Interface
 + Một `Collection` đại diện cho một nhóm các `object`. `Interface Collection` được sử dụng để truyền các `Collection object` với mức tổng quát tối đa
 + `Collection` có thể khởi tạo chuyển đổi với tất cả các `sub class` và `interface` của nó
@@ -94,6 +99,10 @@
             }
     ```
 #### The Set Interface
+  <p align="center">
+  <img src="realtime-example-of-java-set.png" alt="alt text">
+  </p>
+
 + `Set` là một `Collection` không cho phép chứa các phần tử trùng lặp. Nó mô phỏng khái niệm tập hợp trong toán học. `Interface Set` chỉ chứa các `method signatures` kế thừa từ `Collection` và bổ sung thêm ràng buộc rằng các phần tử trùng lặp sẽ không được thêm vào.
 + Hai `Set instances` được coi là bằng nhau nếu chúng chứa các phần tử giống nhau.
 + Java cung cấp ba triển khai Set phổ biến: `HashSet`, `TreeSet`, và `LinkedHashSet`.
@@ -128,6 +137,10 @@
 + `s1.removeAll(s2)`: Lấy hiệu giữa s1 và s2 (difference).
  
 #### The List Interface
+  <p align="center">
+  <img src="arraylist-linkedlistt.png" alt="alt text">
+  </p>
+
 + `List` là một `Interface` mở rộng từ `Collection` (đôi khi gọi là `sequence`). Các `List` có thể chứa các phần tử trùng lặp.
 + Ngoài các thao tác kế thừa từ `Collection`, `List` cung cấp các thao tác đặc biệt sau:
     + Truy cập vị trí (`Positional access`): Thao tác với các phần tử dựa trên vị trí của chúng trong danh sách. Bao gồm các `method signatures` như get, set, `add`, `addAll`, và `remove`.
@@ -137,6 +150,7 @@
 + Java cung cấp hai `class` triển khai `List` phổ biến:
     + `ArrayList`: thường hoạt động tốt hơn về hiệu suất
     + `LinkedList`: hoạt động tốt hơn trong một số trường hợp cụ thể
+
 ##### Collection Operations
 + `List` chứa các `method` kế thừa từ `collection interface`
  
@@ -174,15 +188,47 @@
     + `indexOfSubList`, `lastIndexOfSubList` — Tìm vị trí của danh sách con đầu tiên/cuối cùng.
    
 #### The Queue Interface
+  <p align="center">
+  <img src="java-queue.png" alt="alt text">
+  </p>
+
++ Một `Queue` là một tập hợp dùng để lưu giữ các phần tử trước khi xử lý theo trình tự. Ngoài các thao tác cơ bản của `Collection`, `queues` cung cấp thêm các thao tác chèn, xóa, và kiểm tra.
+    
+    ```java
+    public interface Queue<E> extends Collection<E> {
+        E element();
+        boolean offer(E e);
+        E peek();
+        E poll();
+        E remove();
+    }
+    ```
++ `method` của `Queue` có hai dạng:
+    + Một dạng sẽ ném ra `Exception` nếu thao tác thất bại.
+    + Dạng còn lại trả về một giá trị đặc biệt (hoặc `null` hoặc `false`, tùy thuộc vào thao tác).
+    
+| Loại thao tác   | Ném ngoại lệ     | Trả về giá trị đặc biệt |
+|------------------|------------------|--------------------------|
+| Insert (Chèn)    | `add(e)`        | `offer(e)`              |
+| Remove (Xóa)     | `remove()`      | `poll()`                |
+| Examine (Kiểm tra)| `element()`    | `peek()`                |
+
++ `Queues` thường sắp xếp các phần tử theo kiểu `FIFO` (`first-in-first-out` - vào trước ra trước). Trong một `FIFO queue`, tất cả các phần tử mới đều được chèn vào cuối `queue` (`tail`)
+
 #### The Deque Interface
  
 ### The Map Interface
+
 ### Object Ordering
+
 ### The SortedSet Interface
+
 ### The SortedMap Interface
  
 ## Aggregate Operations
+
 ### Reduction
+
 ### Parallelism
  
 ## Implementations
