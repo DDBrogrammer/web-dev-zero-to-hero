@@ -1,0 +1,74 @@
+Kĩ năng phân tích yêu cầu
+	=> thông tin nhận
+		=> yêu cầu nghiệp vụ
+	=> các task phải làm
+	=> thứ tự
+	=> những task chưa rõ ràng cần phải hỏi lại (cấp trên, BA, khách)
+
+Kĩ năng chuyển yêu cầu thành code
+	=> cấu trúc code
+	=> công nghệ sử dụng phù hợp (tối ưu về thời gian làm, tối ưu về chi phí ...)
+	=> chuyển hóa yêu cầu thành code
+	=> debug => kiểm tra xem code đã chạy đúng yêu cầu
+	=> tư duy logic và giải quyết vấn
+	=> luyện tập java core
+
++ Quản lý sách
+ + Thêm sách mới [1]
+	+ lấy thông tin từ người dùng
+		+
+	+ validate thông tin (ISBN không trùng)
+	+ kiểm tra data trùng lặp
+	+ thêm mới vào hệ thống
+	+ thông báo cho người dùng
+
+ + Xem thông tin sách [1]
+	+ in ra thông tin sách trong thư viện
+
+ + Cập số lượng tồn kho [1]
+	+ số lượng sách của thư viện ?
+		+ sách nào ?
+			+ ISBN
+			=> cần lưu tương tự như ID, nhưng do người dùng nhập vào
+	        => tăng hay giảng
+
+=> khi nào oke
+
++ Quản lý độc giả:
+ + Thêm độc giả mới [1]
+	+ lấy thông tin từ người dùng
+	+ validate thông tin (sdt, gmail )
+	+ kiểm tra data trùng lặp
+	+ thêm mới vào hệ thống
+	+ thông báo cho người dùng
+
+ + mượn sách: (xử lý yêu cầu mượn/trả sách)  [3]
+	+ chọn độc giả => sdt | gmail
+	+ mượn sách ? =>
+		=> nhân viên nào cho mượn => sdt | gmail | id
+	    => mượn bao nhiêu đầu sách => ( < 3 đầu sách, 3 quyển )
+		=> mượn sách nào ? ISBN => tìm trong thư viện xem có ko, có thì báo ra số lượng
+		=> mượn bao nhiêu quyển ? => validate số lượng
+	    => mượn từ khi nào đến bao h
+			=> khi nào thì tự hệ thống tạo
+			=> đến bao h => hỏi người dùng ( <= 3 tháng )
+			[4]
+			             => đã trả muộn hay chưa [4]
+						 => trả muộn bao nhiêu ngày => phạt [4]
+
+	=> lưu lịch sử => ai mượn [3.1]
+	               => mượn đến bao h
+				   => bắt đầu từ hôm nào
+				   => mượn những quyển nào (sl, isbn)
+
++ Quản lý tổng quát: [>=1]
+	+ Tìm kiếm sách:
+		+ Loại sách nào ?
+		+ Tên sách ?
+		+ Tác giả ?
+		+ năm suất bản ?
+	+ Độc giả:
+		+ gmai, tên, sdt
+	+ Nhân viên
+		+ gmai, tên, sdt
+
