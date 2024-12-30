@@ -9,8 +9,16 @@ public interface Constant {
       int BOOK_BORROW_SIZE = 100_000;
     }
 
-    interface MenuChoice{
+    interface MainMenuChoice {
         int MANAGE_BOOK = 1;
+        int MANAGE_READER = 2;
+        int MANAGE_BOOK_BORROW = 3;
+    }
+
+    interface BookMenuChoice {
+        int ADD_BOOK = 1;
+        int CHANGE_BOOK_QUANTITY = 2;
+        int DELETE_BOOK = 3;
     }
 
 }

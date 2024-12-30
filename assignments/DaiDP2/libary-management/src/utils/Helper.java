@@ -13,6 +13,14 @@ public class Helper {
                 + "[5] Thoát chương  trình." );
     }
 
+    public static void printManageBookMenu() {
+        System.out.println("Nhập lựa chọn:\n"
+                + "[1] Thêm sách.\n"
+                + "[2] Thay doi so luong.\n"
+                + "[3] Xóa sách .\n"
+                + "[4] Quay lai menu chinh" );
+    }
+
 
     public static  int getIntInput(String ask) {
         if( ask == null){
@@ -90,29 +98,30 @@ public class Helper {
         return doubleInput;
     }
 
-    public static  boolean askYesNo() {
+    public static  boolean askYesNo(String ask, String yes, String no ) {
+//        "Bạn có muốn dùng tiếp chức năng khác không \n" +
+//                "[C]  có\n" +
+//                "[K]  không\n" +
+//                "Chọn một trong 2 lựa chọn: "
         boolean isOk=false;
-        boolean isRunAgain=true;
         String userAnswer="";
-        while(isRunAgain) {
-            try {
-                userAnswer = getString("Bạn có muốn dùng tiếp chức năng khác không \n" +
-                        "[C]  có\n" +
-                        "[K]  không\n" +
-                        "Chọn một trong 2 lựa chọn: "); }catch (Exception e) {
-                userAnswer = getString("Bạn phải nhập [C] hoặc [K].");
-            }
-            if(userAnswer.toUpperCase().equals("C")) {
-                isOk=true;
-                isRunAgain=false;
-            }else if(userAnswer.toUpperCase().equals("K")) {
-                isOk=false;
-                isRunAgain=false;
-            }else {
-                isRunAgain=true;
-            }
-        }
+        do {
+                userAnswer = getString(ask);
+        }while (
+                !isYesNoValid(userAnswer,yes,no)
+        );
         return isOk;
-
     }
+
+    private static boolean isYesNoValid(String userAnswer,  String yes, String no ){
+        if( userAnswer.equalsIgnoreCase(yes)
+                || userAnswer.equalsIgnoreCase(no)){
+            return true;
+        }
+        else{
+            System.out.println(" must input ["+yes+"] or [" + no+"]");
+            return false;
+        }
+    }
+
 }

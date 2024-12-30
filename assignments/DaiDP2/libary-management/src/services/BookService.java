@@ -4,6 +4,7 @@ import entities.Book;
 import entities.Library;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class BookService {
 
@@ -35,5 +36,44 @@ public class BookService {
                 break;
             }
         }
+    }
+
+    static public boolean deleteBook(String isbn) {
+        boolean result = false;
+        // gan 1 co o ngoai
+        boolean isDeleted = false;
+        for (int i = 0; i < Library.books.length; i++) {
+            if(Objects.nonNull(Library.books[i])) {
+            if (Library.books[i].getIsbn().equals(isbn)) {
+                Library.books[i] = null;
+                isDeleted = true;
+                continue;
+            }
+
+            if (isDeleted) {
+                Library.books[i-1] = Library.books[i];
+            }
+
+            }
+        }
+        return result;
+    }
+
+
+    public static Optional<Book> getBookByIsnb(String isbn){
+        for (int i = 0; i < Library.books.length; i++) {
+            if (Objects.nonNull(Library.books[i]) && Library.books[i].getIsbn().equals(isbn)) {
+                return Optional.of(Library.books[i]);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static void changeBookQuantity(Book book, boolean isIncrease, int changeQuantity){
+        if(isIncrease){
+            book.numberOfBook=book.numberOfBook + changeQuantity;
+            return;
+        }
+        book.numberOfBook= book.numberOfBook - changeQuantity;
     }
 }
