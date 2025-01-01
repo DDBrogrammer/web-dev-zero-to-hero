@@ -145,3 +145,54 @@
 - `Driver` nhận và hoàn tất chuyến xe.  
 - `Ride` kết nối `Passenger` với `Driver` và `Vehicle`.  
 - `Vehicle` cung cấp thông tin phương tiện cho chuyến đi.  
+
+### **Bài 4: Quản lý Hệ thống Thư viện ( `ĐẠI` )**
+
+**Chức năng**:  
+1. **Quản lý sách**: Thêm sách mới, xem thông tin sách, cập nhật số lượng tồn kho.  
+2. **Quản lý độc giả**: Đăng ký độc giả, mượn sách, trả sách, xem lịch sử mượn.  
+3. **Quản lý nhân viên**: Thêm nhân viên, xử lý yêu cầu mượn/trả sách.  
+4. **Quản lý giao dịch**: Ghi nhận giao dịch mượn/trả, tính phí trễ hạn.  
+5. **Quản lý tổng quát**: Tìm kiếm sách, độc giả, nhân viên theo `id`.  
+
+**Yêu cầu đảm bảo**:  
+- Số lượng sách tồn kho luôn được cập nhật đúng khi có giao dịch.  
+- Phí trễ hạn được tính chính xác dựa trên số ngày trễ.  
+
+**Các `class` cần tạo**:  
+1. **`Book`**  
+   - Thuộc tính: `id`, `title`, `author`, `stockQuantity`.  
+   - Phương thức:  
+     - `updateStock(int quantity)` (Cập nhật số lượng tồn kho).  
+     - `getInfo()` (Hiển thị thông tin sách).  
+
+2. **`Reader`**  
+   - Thuộc tính: `id`, `name`, `phoneNumber`, `borrowedBooks` (Danh sách sách đang mượn).  
+   - Phương thức:  
+     - `borrowBook(Book book)` (Mượn sách).  
+     - `returnBook(Book book)` (Trả sách).  
+     - `viewBorrowHistory()` (Xem lịch sử mượn).  
+
+3. **`Employee`**  
+   - Thuộc tính: `id`, `name`, `role`.  
+   - Phương thức:  
+     - `processBorrowRequest(Reader reader, Book book)` (Xử lý yêu cầu mượn sách).  
+     - `processReturnRequest(Reader reader, Book book)` (Xử lý yêu cầu trả sách).  
+
+4. **`Transaction`**  
+   - Thuộc tính: `id`, `reader`, `book`, `borrowDate`, `returnDate`, `lateFee`.  
+   - Phương thức:  
+     - `calculateLateFee()` (Tính phí trễ hạn).  
+     - `getTransactionInfo()` (Hiển thị thông tin giao dịch).  
+
+5. **`Library`**  
+   - Thuộc tính: `bookList`, `readerList`, `employeeList`, `transactionList`.  
+   - Phương thức:  
+     - `addBook(Book book)` (Thêm sách mới vào danh sách).  
+     - `registerReader(Reader reader)` (Đăng ký độc giả mới).  
+     - `hireEmployee(Employee employee)` (Thuê nhân viên mới).  
+
+**Mối quan hệ giữa các class**:  
+- `Reader` mượn/trả `Book` thông qua giao dịch (`Transaction`).  
+- `Employee` xử lý các yêu cầu mượn và trả sách.  
+- `Library` quản lý danh sách `Book`, `Reader`, `Employee`, và `Transaction`.  
