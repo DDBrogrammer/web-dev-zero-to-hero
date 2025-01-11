@@ -5,6 +5,8 @@
 + Sử dụng ít nhất 3 Exception đã tạo vào bài tập java core đã làm 
     + vd: Exception để thông báo ko đc nhập số âm, Exception để thông báo không tìm thấy sảm phẩm ...
 
+link demo: https://github.com/DDBrogrammer/web-dev-zero-to-hero/tree/main/assignments/task/demoException/exceptions
+
 ## Generic
 + Thiết kế 1 class generic để nâng cấp array của java, class mới bao gồm các hàm 
     + add(T element ): thêm mới phẩn tử vào mảng, nếu mảng đã đầy tự tăng size của mảng lên, trả lại true nếu add thành công, false nếu add thất bại
@@ -15,4 +17,6 @@
     + size(): trả ra số lượng các element khác null của mảng
 
 + Sử dụng các hàm đã thiết kế vào bài tập java core đã làm (mỗi hàm dùng ít nhất 1 lần) 
+
+link demo: https://github.com/DDBrogrammer/web-dev-zero-to-hero/tree/main/assignments/task/demoGeneric/generic
 
