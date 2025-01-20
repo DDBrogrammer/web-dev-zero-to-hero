@@ -3,6 +3,7 @@ package controller;
 import entities.Product;
 import services.ProductService;
 import untils.Hepler;
+import untils.ProductNotFoundException;
 import untils.ProductValidator;
 
 import java.util.Objects;
@@ -86,7 +87,7 @@ public class ProductController {
               !ProductValidator.isValidProductQuantity(quantityInput)
         );
         if (ProductService.updateQuantityProduct(quantityInput)) {
-            System.out.println("Book updateQuantity successfully");
+            System.out.println("");
             ProductService.printProductList();
         }else {
             System.out.println("");

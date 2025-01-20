@@ -38,10 +38,9 @@ public class Hepler {
 
     public static void printManageEmployeeMenu() {
         System.out.println("Nhập lựa chọn:\n"
-                + "[1] Thêm nhân viên sử lý hóa đơn  .\n"
-                + "[2] Thêm sản phẩm vào giỏ hàng .\n"
-                + "[3] Xóa nhân viên  .\n"
-                + "[4] Hiện thị giỏ hàng  ");
+                + "[1] Thêm nhân viên .\n"
+                + "[2] Xóa nhân viên  .\n"
+                + "[3] Thêm nhân viên sử lý hóa đơn  ");
     }
 
     public static void printManageVoiceMenu() {
@@ -111,7 +110,34 @@ public class Hepler {
         }
         return userStringInput;
     }
+    public static boolean askYesNo() {
+        boolean ok=false;
+        boolean runAgain=true;
+        String ans="";
+        while(runAgain==true) {
+            try {
+                ans = getString("Bạn có muốn dùng tiếp chức năng khác không \n" +
+                        "[C]  có\n" +
+                        "[K]  không\n" +
+                        "Chọn một trong 2 lựa chọn: "); }catch (Exception e) {
+                // TODO: handle exceptions
+                ans = getString("Bạn phải nhập [C] hoặc [K].");
+            }
+            if(ans.toUpperCase().equals("C")) {
+                ok=true;
+                runAgain=false;
+            }else if(ans.toUpperCase().equals("K")) {
+                ok=false;
+                runAgain=false;
+            }else {
+                runAgain=true;
+            }
 
+
+        }
+        return ok;
+
+    }
 
 
 

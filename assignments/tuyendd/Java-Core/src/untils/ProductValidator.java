@@ -1,6 +1,7 @@
 package untils;
 
 
+import entities.Cart;
 import entities.Product;
 import entities.Supermarket;
 import services.ProductService;
@@ -15,6 +16,7 @@ public class ProductValidator {
             System.out.println("so luong dau sach phai lon hon 0");
             return isValid;
         }else {
+
             isValid = true;
         }
         return isValid;
@@ -22,7 +24,7 @@ public class ProductValidator {
 
     public static boolean isValidgtin(String gtin) {
         boolean isValid = false;
-        if (gtin.length()!=3) {
+        if (gtin.length()!=1) {
             System.out.println("sai do dai");
             return false;
         }else {
@@ -30,12 +32,15 @@ public class ProductValidator {
                 if(Objects.nonNull(Supermarket.products[i])) {
                     if (Supermarket.products[i].getGtin().equals(gtin)) {
                         System.out.println("id da ton tai");
+                        isValid =false;
                         break;
+
                     }
                 }
+                isValid = true;
             }
         }
-        isValid = true;
+
         return isValid;
     }
 
@@ -105,7 +110,7 @@ public class ProductValidator {
 }
 
     public static boolean isProductExist(String gtin) {
-        if (gtin.length() != 3) {
+        if (gtin.length() != 1) {
             System.out.println("sai do dai gtin");
             return false;
         }
@@ -117,4 +122,33 @@ public class ProductValidator {
         }
         return ProductOptional.isPresent();
     }
+
+
+        public static boolean isValidProductQuantityBuy(int quantityInput, String gtinInput) {
+            for (int i = 0; i < Supermarket.products.length; i++) {
+                if (Supermarket.products[i] != null && Supermarket.products[i].getGtin().equals(gtinInput)) {
+                    int stockQuantity = Supermarket.products[i].getQuantity();
+
+                    if (quantityInput > stockQuantity) {
+                        System.out.println("Số lượng cần mua phải ít hơn hoặc bằng số lượng sản phẩm trong kho (" + stockQuantity + ").");
+                        return false;
+                    } else {
+                        // Trừ số lượng đặt mua khỏi kho
+                        Supermarket.products[i].setQuantity(stockQuantity - quantityInput);
+                        System.out.println("Thêm số lượng sản phẩm mua thành công. Số lượng còn lại trong kho: "
+                                + Supermarket.products[i].getQuantity());
+                        return true;
+
+                    }
+                }
+            }
+
+            // Trường hợp không tìm thấy sản phẩm với GTIN được cung cấp
+            System.out.println("Không tìm thấy sản phẩm với GTIN: " + gtinInput);
+            return false;
+        }
 }
+
+
+
+

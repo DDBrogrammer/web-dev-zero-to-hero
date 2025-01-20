@@ -38,28 +38,7 @@ public class CustomerService {
         }
     }
 
-    public static boolean updateShoppingCartCustomer(Product gtinProduct, Customer idCustomer, int quantity) {
-        boolean result = false;
-        boolean isFounded = false;
-        BuyItem customer = new BuyItem(gtinProduct, idCustomer, quantity);
 
-        for (int i = 0; i < Cart.buyItems.length; i++) {
-            if (Objects.isNull(Cart.buyItems[i])) {
-
-                Cart.buyItems[i] = customer;
-                result = true;
-                break;
-            }
-        }
-        if (result) {
-            System.out.println("them ShoppingCart moi thanh cong");
-            printCustomerList();
-
-        } else {
-            System.out.println("them ShoppingCart moi that bai");
-        }
-        return result;
-    }
 
     public static void printCartList() {
         for (int i = 0; i < Cart.buyItems.length; i++) {
@@ -102,4 +81,28 @@ public class CustomerService {
         }
         return customer;
     }
+
+    public static void updateShoppingCartCustomer(Customer customer, Product product) {
+        boolean result = false;
+
+        for (int i = 0; i < Cart.buyItems.length; i++) {
+            if (Cart.buyItems[i] == null) { // Kiểm tra vị trí trống trong giỏ hàng
+                // Thêm sản phẩm vào giỏ hàng
+                Cart.buyItems[i] = new BuyItem(product, customer, 0);
+
+                Cart.buyItems[i].setQuantity(product.getQuantity());
+                System.out.println("Sản phẩm đã được thêm vào giỏ hàng: " + Cart.buyItems[i]);
+                result = true;
+                break; // Dừng vòng lặp khi thêm thành công
+            } else {
+                // Hiển thị các sản phẩm đã có trong giỏ hàng
+                System.out.println("Sản phẩm trong giỏ hàng: " + Cart.buyItems[i]);
+            }
+        }
+
+// Thông báo nếu giỏ hàng đã đầy
+        if (!result) {
+            System.out.println("Giỏ hàng đã đầy. Không thể thêm sản phẩm mới.");
+        }
+}
 }

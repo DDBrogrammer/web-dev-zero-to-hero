@@ -1,6 +1,6 @@
 package entities;
 
-public class Customer {
+public class Customer extends Cart {
     private String name ;
     private int age;
     private String gender;

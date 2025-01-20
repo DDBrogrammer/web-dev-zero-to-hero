@@ -59,21 +59,6 @@ public class CustomerValidator {
         return isValid;
 }
 
-
-    public static boolean isValidIdOfCustomers(String idCustomer) {
-        boolean isValid = false;
-        for (int i = 0; i < Supermarket.customers.length; i++) {
-            if (Objects.isNull(Supermarket.customers[i]) && Objects.isNull(Cart.buyItems[i]) && idCustomer.equals(Supermarket.customers[i].getId())) {
-                isValid = true;
-                break;
-            }
-            else {isValid = false;}
-
-
-        }
-        return isValid;
-    }
-
     public static boolean checkCustomerExist(int idInput, Customer[] customers) {
         boolean result = false;
         boolean isFounded = false;

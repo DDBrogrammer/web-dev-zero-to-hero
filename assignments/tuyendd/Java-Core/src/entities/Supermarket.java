@@ -18,12 +18,12 @@ public class Supermarket {
         Supermarket.customers[1] = customer1;
         Supermarket.customers[2] = customer2;
         Supermarket.customers[3] = customer3;
+        Supermarket.customers[4] = customer3;
 
-
-        Product product =new Product("111","laptop",4,8,0);
-        Product product1=new Product("222","ti vi",3,6,1);
-        Product product3=new Product("333","pc",7,5,44);
-        Product product4=new Product("444","chuot",8,7,22);
+        Product product =new Product("1","laptop",4,8,30);
+        Product product1=new Product("2","ti vi",3,6,35);
+        Product product3=new Product("3","pc",7,5,40);
+        Product product4=new Product("4","chuot",8,7,45);
         Supermarket.products[0]=product;
         Supermarket.products[1]=product1;
         Supermarket.products[2]=product3;
