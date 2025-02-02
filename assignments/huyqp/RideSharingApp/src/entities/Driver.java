@@ -12,7 +12,7 @@ public class Driver {
     private Location currentLocation; // Vị trí hiện tại
     private List<Vehicle> vehicles; // Danh sách phương tiện
 
-    public Driver(int id, String name) {
+    public Driver(int id, String name, String username, String password, Location currentLocation) {
         this.id = id;
         this.name = name;
         this.vehicles = new ArrayList<>();
@@ -69,5 +69,18 @@ public class Driver {
             vehicle.displayInfo();
             System.out.println("--------------------------");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", currentLocation=" + currentLocation +
+                ", vehicles=" + vehicles +
+                '}';
     }
 }

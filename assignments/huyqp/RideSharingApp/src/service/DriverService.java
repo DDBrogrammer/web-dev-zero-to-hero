@@ -2,62 +2,57 @@ package service;
 
 import entities.Driver;
 import entities.Location;
+import helpers.AutoId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import java.util.Objects;
+import java.util.Optional;
 
 public class DriverService {
-    private List<Driver> drivers; // Danh sách tài xế
+    private static final int MAX_DRIVERS = 100;
+    private Driver[] drivers = new Driver[MAX_DRIVERS];
+    private int currentSize = 0;
 
-
-    public DriverService() {
-        this.drivers = new ArrayList<>();
-    }
-
-    // Tạo tài khoản tài xế
-    public void createDriverAccount(int id, String name, String username, String password, double x, double y) {
-        // Kiểm tra xem tên đăng nhập đã tồn tại chưa
-        for (Driver driver : drivers) {
-            if (driver.getUsername().equalsIgnoreCase(username)) {
-                System.out.println("Driver already exists");
-                return;
-            }
+    // Tạo tài khoản tài xế (ID tự động tạo)
+    public void createDriverAccount(String name, String username, String password, Double x, Double y) {
+        if (Objects.isNull(name) || Objects.isNull(username) || Objects.isNull(password)
+                || Objects.isNull(x) || Objects.isNull(y)) {
+            throw new IllegalArgumentException("Các tham số không được phép null!");
         }
-    }
 
-    // Thêm tài xế
-    public void addDriver(int id, String name, String password, double x, double y) {
-        Location currentLocation  = new Location(x, y);// tạo vị trí từ x, y
-        Driver driver = new Driver(id, name, currentLocation);
-        drivers.add(driver);
-        System.out.println("Driver added" + name);
-    }
-
-    // Hiển thị danh sách tài xế
-    public void displayDrivers() {
-        if (drivers.isEmpty()) {
-            System.out.println("Chưa có tài xế nào trong hệ thống");
+        if (currentSize >= MAX_DRIVERS) {
+            System.out.println("Không thể thêm tài xế. Danh sách đã đầy!");
             return;
         }
 
-        System.out.println("Danh sách tài xế");
-        for (Driver driver : drivers) {
-            System.out.println("ID: " + driver.getId() + ", Tên: " + driver.getName() +
-                    ", Tên đăng nhập: " + driver.getUsername() +
-                    ", Vị trí hiện tại: (" + driver.getCurrentLocation().getX() +
-                    ", " + driver.getCurrentLocation().getY() + ")");
-        }
+        String id = AutoId.generateId();
+        Location currentLocation = new Location(x, y);
+        drivers[currentSize++] = new Driver(Integer.parseInt(id), name, username, password, currentLocation);
+        System.out.println("Tài khoản tài xế đã được tạo: " + name + " với ID: " + id);
     }
 
-    // Xác thực tài khoản tài xế
-    public boolean authenticateDriver(String username, String password) {
-        for (Driver driver : drivers) {
-            if (driver.getUsername().equalsIgnoreCase(username) && driver.getPassword().equals(password)) {
-                System.out.println("Đăng nhập thành công!" + driver.getName());
-                return true;
+    // Tìm tài xế theo ID
+    public Optional<Driver> findDriverById(Integer id) {
+        if (Objects.isNull(id)) {
+            return Optional.empty();
+        }
+
+        for (int i = 0; i < currentSize; i++) {
+            if (drivers[i].getId()==(id)) {
+                return Optional.of(drivers[i]);
             }
         }
-        System.out.println("Đăng nhập thất bại! Vui lòng kiểm tra tên đăng nhập hoặc mật khẩu.");
-        return false;
+        return Optional.empty();
+    }
+
+    // Lấy danh sách tất cả tài xế
+    public Driver[] getAllDrivers() {
+        Driver[] result = new Driver[currentSize];
+        System.arraycopy(drivers, 0, result, 0, currentSize);
+        return result;
     }
 }

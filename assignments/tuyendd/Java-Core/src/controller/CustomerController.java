@@ -6,6 +6,7 @@ import services.CustomerService;
 import services.ProductService;
 import untils.CustomerValidator;
 import untils.Hepler;
+import untils.ProductNotFoundException;
 import untils.ProductValidator;
 
 import static entities.Supermarket.customers;
@@ -63,22 +64,49 @@ public class CustomerController {
     }
     public static void updateShoppingCartCustomer() {
         boolean result = false;
+        try {
+            // Kiểm tra danh sách khách hàng và sản phẩm
+            if (customers == null || customers.length == 0) {
+                System.out.println("Danh sách khách hàng trống. Không thể thực hiện giao dịch.");
+                return;
+            }
+            if (products == null || products.length == 0) {
+                System.out.println("Danh sách sản phẩm trống. Không thể thực hiện giao dịch.");
+                return;
+            }
 
+            // Chọn khách hàng
+            Customer customer = CustomerService.getCustomerbyId(customers);
+            System.out.println("Đã chọn khách hàng: " + customer);
 
-     //   CustomerService.printCustomerList();
-        Customer customer = CustomerService.getCustomerbyId(customers);
-        System.out.println("Chọn từ danh sách khách hàng từ danh sách khách hàng đã đăng ký đã có");
+            // Chọn sản phẩm
+            System.out.println("Chọn từ danh sách sản phẩm đã có:");
+            Product product = ProductService.getProductGtin(products);
+            System.out.println("Đã chọn sản phẩm: " + product);
 
-    //    ProductService.printProductList();
-        System.out.println("Chọn từ danh sách san pham đã có");
-        Product product = ProductService.getProductGtin(products);
-        System.out.println("Đã chọn sản phẩm: " + product);
-        CustomerService.updateShoppingCartCustomer( customer, product  );
+            // Nhập số lượng sản phẩm
+            int quantityInput;
+            do {
+                quantityInput = Hepler.getIntInput("Nhập số lượng sản phẩm: ");
 
+            } while (!ProductValidator.isValidProductQuantityBuy(quantityInput, product));
+
+            // Cập nhật giỏ hàng của khách hàng
+            CustomerService.updateShoppingCartCustomer(customer, product, quantityInput);
+            System.out.println("Thêm sản phẩm vào giỏ hàng thành công!");
+            result = true;
+
+        } catch (ProductNotFoundException productNotFoundException) {
+            System.out.println("Lỗi: " + productNotFoundException.getMessage());
+        } catch (Exception e) {
+            System.out.println("Đã xảy ra lỗi không mong muốn: " + e.getMessage());
+        }
 
     }
 
+    public static void deleteCustomer() {
     }
+}
 
 
 

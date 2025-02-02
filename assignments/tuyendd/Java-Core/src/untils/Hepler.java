@@ -11,46 +11,48 @@ public class Hepler {
 
     public static void printAppMenu() {
         System.out.println("Nhập lựa chọn:\n"
-                + "[1] Quản lý sản phẩm .\n"
-                + "[2] Quản lý khách hàng .\n"
-                + "[3] Quản lý nhân viên .\n"
-                + "[4] Quản lý hóa đơn .\n"
+                + "[1] Quản lý sản phẩm \n"
+                + "[2] Quản lý khách hàng \n"
+                + "[3] Quản lý nhân viên \n"
+                + "[4] Quản lý hóa đơn \n"
                 + "[5] Thoát chương  trình.");
 
     }
 
     public static void printManageProductMenu() {
         System.out.println("Nhập lựa chọn:\n"
-                + "[1] Thêm sản phẩm.\n"
-                + "[2] Xem thông tin sản phẩm .\n"
-                + "[3] Cập nhật số lượng tồn kho \n"
-                + "[4] xóa sản phẩm ");
+                + "[1] Thêm sản phẩm \n"
+                + "[2] Xóa sản phẩm \n"
+                + "[3] Xem thông tin sản phẩm \n"
+                + "[4] Cập nhật số lượng tồn kho ");
     }
 
     public static void printManageCustomerMenu() {
         System.out.println("Nhập lựa chọn:\n"
-                + "[1] Đăng kí khách hàng .\n"
-                + "[2] Thêm sản phẩm vào giỏ hàng .\n"
-                + "[3] Hiện thị giỏ hàng .\n"
-                + "[4] Xóa khách hàng ");
+                + "[1] Đăng kí khách hàng \n"
+                + "[2] Xóa khách hàng \n"
+                + "[3] Thêm sản phẩm vào giỏ hàng \n"
+                + "[4] Hiện thị giỏ hàng .");
 
     }
 
     public static void printManageEmployeeMenu() {
         System.out.println("Nhập lựa chọn:\n"
-                + "[1] Thêm nhân viên .\n"
-                + "[2] Xóa nhân viên  .\n"
-                + "[3] Thêm nhân viên sử lý hóa đơn  ");
+                + "[1] Thêm nhân viên \n"
+                + "[2] Xóa nhân viên  \n"
+                + "[3] Hiện thị khách hàng sử lý hóa đơn \n"
+                + "[4] Thêm nhân viên sử lý hóa đơn  ");
     }
 
     public static void printManageVoiceMenu() {
         System.out.println("Nhập lựa chọn:\n"
-                + "[1] Thêm hóa đơn .\n"
-                + "[2] Xóa hóa đơn  .\n"
-                + "[3] tìm kiếm hóa đơn  .\n"
+                + "[1] Thêm hóa đơn \n"
+                + "[2] Xóa hóa đơn  \n"
+                + "[3] Tìm kiếm hóa đơn  \n"
                 + "[4] Quay lai menu chinh"
         );
     }
+
 
     public static int getIntInput(String ask, int min, int max) {
         if (ask == null) {
@@ -110,7 +112,7 @@ public class Hepler {
         }
         return userStringInput;
     }
-    public static boolean askYesNo() {
+    public static boolean askYesNo( String ask  ) {
         boolean ok=false;
         boolean runAgain=true;
         String ans="";

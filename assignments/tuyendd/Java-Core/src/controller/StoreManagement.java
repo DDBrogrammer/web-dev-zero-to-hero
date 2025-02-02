@@ -1,142 +1,125 @@
 package controller;
 
 import constant.Constant;
-import entities.Employee;
+
+
 import services.CustomerService;
 import services.ProductService;
-import untils.CustomerValidator;
+
 import untils.Hepler;
 
 
 public class StoreManagement {
-       public static void run() {
-           boolean isRunMainMenu = true;
 
-           do {
-               Hepler.printAppMenu();
-               int userChoice = Hepler.getIntInput("Nhập lựa chọn của bạn:", 1, 6);
+        public static void run () {
+            boolean isRunMainMenu = true;
 
+            while (isRunMainMenu) {
+                // Hiển thị menu chính
+                Hepler.printAppMenu();
+                int userChoice = Hepler.getIntInput("Nhập lựa chọn của bạn:", 1, 6);
 
+                switch (userChoice) {
+                    case Constant.MainMenuChoice.MANAGE_PRODUCT:
+                        manageProductMenu();
+                        break;
+                    case Constant.MainMenuChoice.MANAGE_CUSTOMER:
+                        manageCustomer();
+                        break;
+                    case Constant.MainMenuChoice.MANAGE_EMPLOYEE:
+                        manageEmployee();
+                        break;
+                    case Constant.MainMenuChoice.MANAGE_INVOICE:
+                        manageInvoice();
+                        break;
+                    case Constant.MainMenuChoice.EXIT:
+                        isRunMainMenu = false;
+                        System.out.println("Đã thoát chương trình. Tạm biệt!");
+                        break;
 
-               switch (userChoice) {
-                   case Constant.MainMenuChoice.MANAGE_PRODUCT:
-                       boolean isRunProductMenu = true;
-                  do {
-                       ProductService.printProductList();
-                       Hepler.printManageProductMenu();
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ!");
+                }
+            }
+        }
 
-                       int manageProductChoice = Hepler.getIntInput("nhâp lựa chọn của ban  ", 1, 5);
+    private static void manageInvoice() {
 
-                       switch (manageProductChoice) {
+    }
 
-                           case Constant.ProductMenuChoice.ADD_PRODUCT:
-                               ProductController.addProduct();
-                               boolean checkContinue_1 =  Hepler.askYesNo();
-                               if(checkContinue_1){
-                               break;
-                           } else{isRunProductMenu=false;}
-                           break;
+    private static void manageEmployee() {
+            boolean isRunMainMenu = true;
+            while (isRunMainMenu) {
+                Hepler.printManageEmployeeMenu();
+                int manageEmployeeChoice = Hepler.getIntInput("Nhập lựa chọn của bạn: ", 1, 5);
+            }
+    }
 
-                           case Constant.ProductMenuChoice.SHOW_INFOR_PRODUCT:
-                               ProductController.showInformaytionProductbygtin();
-                               boolean checkContinue_2 =  Hepler.askYesNo();
-                               if(checkContinue_2){
-                                   break;
-                               }
-                               else{isRunProductMenu=false;}
-                            break;
-                           case Constant.ProductMenuChoice.UPDATE_QUANTITY_PRODUCT:
-                               ProductController.updateQuantityProduct();
-                               Hepler.askYesNo();
-                               boolean checkContinue_3 =  Hepler.askYesNo();
-                               if(checkContinue_3){
-                                   break;
-                               }else{isRunProductMenu=false;}
-                               break;
+    private static void manageCustomer() {
+            boolean isRunCustomerMenu = true;
+            while (isRunCustomerMenu) {
+                Hepler.printManageCustomerMenu();
+                int manageCustomerChoice = Hepler.getIntInput("nhay nhao lua chon cua ban ", 1 , 3);
+                switch (manageCustomerChoice) {
+                    case Constant.CustomerMenuChoice.REGISTER_CUSTOMER :
+                        CustomerController.registerCustomer();
+                        break;
+                    case Constant.CustomerMenuChoice.DELETE_CUSTOMER:
+                        CustomerController.deleteCustomer();
+                        break;
+                    case Constant.CustomerMenuChoice.UPDATE_SHOPPINGCART_CUSTOMER:
+                        CustomerController.updateShoppingCartCustomer();
+                        break;
+                    case Constant.CustomerMenuChoice.SHOW_INFOR_SHOPPING_CUSTOMER:
+                        CustomerService.printCustomerList();
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ!");
+                }
+                isRunCustomerMenu = Hepler.askYesNo("Bạn có muốn tiếp tục menu quản lý sản phẩm không? (y/n): ");
+            }
+    }
 
-                           case Constant.ProductMenuChoice.DELETE_PRODUCT:
-                               ProductController.deleteProduct();
-                               boolean checkContinue_4 =  Hepler.askYesNo();
-                               if(checkContinue_4){
-                                   break;
-                               }else{isRunProductMenu=false;}
+    private static void manageProductMenu () {
+            boolean isRunProductMenu = true;
 
-                               break;
-                       }
+            while (isRunProductMenu) {
+                // Hiển thị danh sách sản phẩm và menu quản lý sản phẩm
+                ProductService.printProductList();
+                Hepler.printManageProductMenu();
 
+                int manageProductChoice = Hepler.getIntInput("Nhập lựa chọn của bạn: ", 1, 5);
 
-               }while (isRunProductMenu);
+                switch (manageProductChoice) {
+                    case Constant.ProductMenuChoice.ADD_PRODUCT:
+                        ProductController.addProduct();
+                        break;
 
-                       break;
-                   case Constant.MainMenuChoice.MANAGE_CUSTOMER:
-                       boolean isRunCustomerMenu = true;
-                       do {
-                           Hepler.printManageCustomerMenu();
-                           int manageCustomerChoice = Hepler.getIntInput("nhâp lựa chọn của ban  ", 1, 4);
-                           switch (manageCustomerChoice) {
-                               case Constant.CustomerMenuChoice.REGISTER_CUSTOMER:
-                                   CustomerController.registerCustomer();
-                                   boolean checkContinue_5 =  Hepler.askYesNo();
-                                   if(checkContinue_5){
-                                       break;
-                                   }
-                                   else{isRunCustomerMenu=false;}
-                                   break;
+                    case Constant.ProductMenuChoice.DELETE_PRODUCT:
+                        ProductController.deleteProduct();
+                        break;
 
-                               case Constant.CustomerMenuChoice.UPDATE_SHOPPINGCART_CUSTOMER:
+                    case Constant.ProductMenuChoice.SHOW_INFOR_PRODUCT:
+                      //  ProductController.showInformationProductByGtin();
+                        CustomerController.updateShoppingCartCustomer();
+                        break;
 
-                                   CustomerController.updateShoppingCartCustomer();
+                    case Constant.ProductMenuChoice.UPDATE_QUANTITY_PRODUCT:
+                        ProductController.updateQuantityProduct();
+                        break;
 
-                                   boolean checkContinue_6 =  Hepler.askYesNo();
-                                   if(checkContinue_6){
-                                       break;
-                                   }
-                                   else{isRunCustomerMenu=false;}
-                                   break;
-                               case Constant.CustomerMenuChoice.SHOW_INFOR_SHOPPING_CUSTOMER:
-                                   CustomerService.printCartList();
-                                   break;
+                    case Constant.ProductMenuChoice.BACK:
+                        isRunProductMenu = false;
+                        System.out.println("Quay lại menu chính.");
+                        break;
 
-                           }
-                           break;
-                       }while (isRunCustomerMenu);
-                   case Constant.MainMenuChoice.MANAGE_EMPLOYEE:
-                       Hepler.printManageEmployeeMenu();
-                       int manageEmployeeChoice = Hepler.getIntInput("nhập lựa chọn của bạn ", 1, 4);
-                       switch (manageEmployeeChoice) {
-                           case Constant.EmployeeMenuChoice.ADD_EMPLOYEE:
-                               EmployController.addEmployee();
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ!");
+                }
 
-                               break;
-
-                           case Constant.EmployeeMenuChoice.PROCESSING_PAYMENTS0_VIA_INVOICES:
-
-
-                               break;
-                           case Constant.EmployeeMenuChoice.DELETE_EMPLOYEE:
-                               EmployController.deleteEmployee();
-
-                       }
-                       break;
-                   case Constant.MainMenuChoice.MANAGE_INVOICE:
-                       Hepler.printManageVoiceMenu();
-                       int manageInvoice = Hepler.getIntInput("nhập lựa chọn của bạn ", 1, 4);
-                       switch (manageInvoice) {
-                           case Constant.InvoiceMenuChoice.ADD_INVOICE:
-                               InvoiceController.addInvoice();
-                               break;
-
-                           case Constant.InvoiceMenuChoice.CALCULATE_TOTAL:
-                               InvoiceController.calculate();
-                               break;
-                           case Constant.InvoiceMenuChoice.PRINT_INVOICE:
-
-                               break;
-                       }
-
-
-               }
-           } while ( isRunMainMenu);
-           System.out.println("da thoat truong trinh ");
-       }
-}
+                // Hỏi người dùng có muốn tiếp tục menu quản lý sản phẩm không
+                if (isRunProductMenu) {
+                    isRunProductMenu = Hepler.askYesNo("Bạn có muốn tiếp tục menu quản lý sản phẩm không? (y/n): ");
+                }
+            }
+        }
+    }

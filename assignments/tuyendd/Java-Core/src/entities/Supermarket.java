@@ -28,5 +28,8 @@ public class Supermarket {
         Supermarket.products[1]=product1;
         Supermarket.products[2]=product3;
         Supermarket.products[3]=product4;
+       /* Voucher voucher = new Voucher(  "giam 10 %" , 10 , 1,"bac ", "" );
+        Voucher voucher1 = new Voucher( " giam 15 %" , 15 , 1,"vang ", "" );
+        Voucher voucher2 = new Voucher("giam 20 %" , 20 , 1,"kim cuong ", "" );*/
     }
 }
