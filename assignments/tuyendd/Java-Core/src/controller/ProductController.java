@@ -3,6 +3,7 @@ package controller;
 import entities.Product;
 import services.ProductService;
 import untils.Hepler;
+import untils.ProductNotFoundException;
 import untils.ProductValidator;
 
 import java.util.Objects;
@@ -86,7 +87,7 @@ public class ProductController {
               !ProductValidator.isValidProductQuantity(quantityInput)
         );
         if (ProductService.updateQuantityProduct(quantityInput)) {
-            System.out.println("Book updateQuantity successfully");
+            System.out.println("");
             ProductService.printProductList();
         }else {
             System.out.println("");
@@ -94,21 +95,35 @@ public class ProductController {
     }
 
     public static boolean deleteProduct() {
-        ProductService.printProductList();
+        ProductService.printProductList(); // In danh sách sản phẩm trước khi xóa
         boolean result = false;
-        String gtin = "";
-        do {
-            gtin  = Hepler.getString("nhập gtin của sản phẩm ");
-        } while (
-                !ProductValidator.isProductExist(gtin)
-        );
 
-        if (ProductService.deleteProduct(gtin)) {
-            System.out.println("Product deleted successfully");
-            ProductService.printProductList();
-        }else {
-            System.out.println("Something went wrong");
-    }
+        while (true) {
+            String gtin = Hepler.getString("Nhập GTIN của sản phẩm (hoặc nhập 'exit' để thoát): ");
+
+            // Cho phép thoát khỏi vòng lặp nếu người dùng nhập "exit"
+            if (gtin.equalsIgnoreCase("exit")) {
+                System.out.println("Hủy thao tác xóa sản phẩm.");
+                return false;
+            }
+
+            // Kiểm tra sản phẩm có tồn tại không
+            if (!ProductValidator.isProductExist(gtin)) {
+                System.out.println("Sản phẩm không tồn tại, vui lòng nhập lại.");
+                continue;
+            }
+
+            // Xóa sản phẩm nếu tồn tại
+            if (ProductService.deleteProduct(gtin)) {
+                System.out.println("Sản phẩm đã được xóa thành công!");
+                ProductService.printProductList(); // In danh sách sau khi xóa
+                result = true;
+            } else {
+                System.out.println("Lỗi: Không thể xóa sản phẩm. Vui lòng thử lại.");
+            }
+            break; // Thoát khỏi vòng lặp sau khi thực hiện xóa
+        }
+
         return result;
 }
 }

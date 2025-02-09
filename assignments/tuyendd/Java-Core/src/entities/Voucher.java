@@ -6,15 +6,15 @@ public class Voucher {
     private String title;
     private String description;
     private double discountPercentage;
-    private String invoiceDate;
 
 
-    public Voucher(String description, double discountPercentage, int id, String title, String invoiceDate) {
+
+    public Voucher(String description, double discountPercentage, int id, String title) {
         this.description = description;
         this.discountPercentage = discountPercentage;
         this.id = id;
         this.title = title;
-        this.invoiceDate = invoiceDate;
+
     }
 
     public static int getBaseId() {
@@ -56,10 +56,14 @@ public class Voucher {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getInvoiceDate() {
-        return invoiceDate;
-    }
-    public void setInvoiceDate(String invoiceDate) {
-        this.invoiceDate = invoiceDate;
+
+    @Override
+    public String toString() {
+        return "Voucher{" +
+                "description='" + description + '\'' +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", discountPercentage=" + discountPercentage +
+                '}';
     }
 }

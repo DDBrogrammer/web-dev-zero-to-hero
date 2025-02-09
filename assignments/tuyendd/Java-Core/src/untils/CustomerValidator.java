@@ -45,34 +45,22 @@ public class CustomerValidator {
     }
 
     public static Boolean isValidphoneNumber(String phoneNumber) {
-      boolean isValid = false;
-        String regex = "^\\+?[0-9]{10,15}$";
-        if (Pattern.matches(regex, phoneNumber) ) {
-
-            System.out.println(phoneNumber);
-
-    }else {
-            System.out.println("so dien thoai ko hop le , so dien thoai phai 12 chu so "
-                    );
-            isValid = true;
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            System.out.println("⚠ Số điện thoại không được để trống!");
+            return false;
         }
+
+        String regex = "^\\+?[0-9]{10,15}$";
+        boolean isValid = Pattern.matches(regex, phoneNumber);
+
+        if (isValid) {
+            System.out.println("✔ Số điện thoại hợp lệ: " + phoneNumber);
+        } else {
+            System.out.println("❌ Số điện thoại không hợp lệ! Số điện thoại phải có từ 10 đến 15 chữ số.");
+        }
+
         return isValid;
 }
-
-
-    public static boolean isValidIdOfCustomers(String idCustomer) {
-        boolean isValid = false;
-        for (int i = 0; i < Supermarket.customers.length; i++) {
-            if (Objects.isNull(Supermarket.customers[i]) && Objects.isNull(Cart.buyItems[i]) && idCustomer.equals(Supermarket.customers[i].getId())) {
-                isValid = true;
-                break;
-            }
-            else {isValid = false;}
-
-
-        }
-        return isValid;
-    }
 
     public static boolean checkCustomerExist(int idInput, Customer[] customers) {
         boolean result = false;

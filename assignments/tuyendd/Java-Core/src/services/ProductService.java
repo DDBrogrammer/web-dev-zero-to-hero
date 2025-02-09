@@ -3,6 +3,8 @@ package services;
 import entities.Product;
 import entities.Supermarket;
 import untils.Hepler;
+
+import untils.ProductNotFoundException;
 import untils.ProductValidator;
 
 import java.util.Objects;
@@ -21,29 +23,29 @@ public class ProductService {
 
 
     }
-    public static void printProductDetails(String gtinInput) {
-        boolean result = false;
-        boolean isFounded = false;
-     for (int i = 0; i < Supermarket.products.length; i++) {
-         if (Objects.nonNull(Supermarket.products[i])) {
-             if(
-                     Supermarket.products[i].getGtin().equals(gtinInput)
-             ){
-                 System.out.println(Supermarket.products[i]);
-                    result = true;
-                    isFounded = true;
-                    break;
-             }
-         }
-     }
+    public static void printProductDetails(String gtinInput){
+        boolean isProductFound = false;
+        if (Supermarket.products != null && Supermarket.products.length > 0) {
+            for (int i = 0; i < Supermarket.products.length; i++) {
+                // Kiểm tra sản phẩm không null và có GTIN khớp
+                if (Supermarket.products[i] != null && Supermarket.products[i].getGtin().equals(gtinInput)) {
+                    System.out.println("Sản phẩm tìm thấy: " + Supermarket.products[i]);
+                    isProductFound = true;
+                    break;  // Dừng vòng lặp nếu đã tìm thấy sản phẩm
+                }
+            }
 
-     if (!isFounded){
-         System.out.println("không có thông tin sản phẩm  ");
-     }
+            if (!isProductFound) {
+                System.out.println("Không tìm thấy sản phẩm với GTIN: " + gtinInput);
+            }
+
+        } else {
+            System.out.println("Danh sách sản phẩm hiện tại là rỗng.");
+        }
 
     }
 
-    public static boolean addProduct(String gtin , String name  ,int price  , int quantity) {
+    public static void addProduct(String gtin , String name  , int price  , int quantity) {
         boolean result = false;
         Product product = new Product(gtin, name , price , quantity) ;
 
@@ -60,36 +62,46 @@ public class ProductService {
         }else {
             System.out.println("them san pham  moi that bai");
         }
-        return result;
 
     }
-    public static Product getProductGtin(Product[] products) {
+    public static Product getProductGtin(Product[] products)  {
         Product product = new Product("", "", 0, 0, 0);
-        String gtinInput = "";
-        do {
-            gtinInput = Hepler.getString("nhap so san pham");
-            if (ProductValidator.checkProductExist(gtinInput, products)) {
-                break;
-            }
-        } while (true);
+        String gtinInput;
+     //   int quantityInput;
 
-        for (int i = 0; i <= products.length - 1; i++) {
-            if (products[i] != null) {
-                if (products[i].getGtin().equals(gtinInput)) {
-                    product.setGtin(gtinInput);
-                    product.setQuantity(products[i].getQuantity());
-                    product.setName(products[i].getName());
-                    product.setPrice(products[i].getPrice());
-                    product.setNumberOfProduct(products[i].getNumberOfProduct());
-
-                }
-
-            }else {
-                break;
-            }
-
+        if (products == null || products.length == 0) {
+            System.out.println("Danh sách sản phẩm trống.");
+            return null; // Hoặc xử lý logic khác phù hợp với ứng dụng của bạn
         }
-        return product;
+
+        while (true) {
+            // Nhập GTIN
+            gtinInput = Hepler.getString("Nhập mã GTIN sản phẩm: ");
+            if (!ProductValidator.checkProductExist(gtinInput, products)) {
+                System.out.println("Sản phẩm với GTIN này không tồn tại. Vui lòng thử lại.");
+                continue;
+            }
+
+            // Tìm sản phẩm theo GTIN
+            boolean productFound = false;
+            for (Product p : products) {
+                if (p != null && p.getGtin().equals(gtinInput)) {
+                    product.setGtin(gtinInput);
+                    product.setName(p.getName());
+                    product.setQuantity(p.getQuantity());
+                    product.setPrice(p.getPrice());
+                    product.setNumberOfProduct(p.getNumberOfProduct());
+                    productFound = true;
+                    break;
+                }
+            }
+
+            if (productFound) {
+                return product; // Trả về sản phẩm đã tìm thấy
+            } else {
+                System.out.println("Không thể tìm thấy sản phẩm trong danh sách. Vui lòng thử lại.");
+            }
+        }
     }
     public static Optional<Product> getProductByGtin(String gtin){
         for (int i = 0; i < Supermarket.products.length; i++) {
@@ -101,21 +113,29 @@ public class ProductService {
     }
 
     public static boolean deleteProduct(String gtin) {
-        boolean result = false;
-        boolean isDelete = false;
-        for (int i = 0; i < Supermarket.products.length; i++) {
-            if (Objects.nonNull(Supermarket.products[i])) {
-                if (Supermarket.products[i].getGtin().equals(gtin)) {
-                    Supermarket.products[i] = null;
+        boolean isDeleted = false;
 
-                    isDelete = true;
+        for (int i = 0; i < Supermarket.products.length; i++) {
+            if (Supermarket.products[i] != null && Supermarket.products[i].getGtin().equals(gtin)) {
+                isDeleted = true;
+
+                // Dịch phần tử phía sau lên
+                for (int j = i; j < Supermarket.products.length - 1; j++) {
+                    Supermarket.products[j] = Supermarket.products[j + 1];
                 }
-                if (isDelete) {
-                    Supermarket.products[i-1] = Supermarket.products[i];
-                }
+                // Xóa phần tử cuối cùng sau khi dồn
+                Supermarket.products[Supermarket.products.length - 1] = null;
+                break; // Thoát vòng lặp sau khi xóa
             }
         }
-        return result;
+
+        if (isDeleted) {
+            System.out.println("");
+        } else {
+            System.out.println("Không tìm thấy sản phẩm với GTIN: " + gtin);
+        }
+
+        return isDeleted;
     }
     public static boolean updateQuantityProduct(int quantityInput ){
         boolean result = false;
@@ -134,6 +154,8 @@ public class ProductService {
             return result;
         }
 
-    }
+
+     }
+
 
 
