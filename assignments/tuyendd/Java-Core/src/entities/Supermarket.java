@@ -7,7 +7,7 @@ public class Supermarket {
     public static Customer[] customers =new Customer[CUSTOMER_SIZE];
     public static Product[] products =new Product[PRODUCT_SIZE];
     public static Invoice[] invoices=new Invoice[INVOICE_SIZE];
-
+    public static Voucher[] vouchers= new Voucher[VOUCHER_SIZE];
 
     static {
         Customer customer = new Customer( "huy ", "duong lang " , 21, "male" , "4235234");
@@ -28,8 +28,13 @@ public class Supermarket {
         Supermarket.products[1]=product1;
         Supermarket.products[2]=product3;
         Supermarket.products[3]=product4;
-       /* Voucher voucher = new Voucher(  "giam 10 %" , 10 , 1,"bac ", "" );
-        Voucher voucher1 = new Voucher( " giam 15 %" , 15 , 1,"vang ", "" );
-        Voucher voucher2 = new Voucher("giam 20 %" , 20 , 1,"kim cuong ", "" );*/
+
+        Voucher voucher = new Voucher(  "giam 10 %" , 10 , 1,"bac ");
+        Voucher voucher1 = new Voucher( " giam 15 %" , 15 , 2,"vang ");
+        Voucher voucher2 = new Voucher("giam 20 %" , 20 , 3,"kim cuong " );
+        Supermarket.vouchers[0]=voucher;
+        Supermarket.vouchers[1]=voucher1;
+        Supermarket.vouchers[2]=voucher2;
+
     }
 }

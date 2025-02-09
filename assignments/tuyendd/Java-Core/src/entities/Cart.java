@@ -12,8 +12,7 @@ public class Cart {
     public static BuyItem[] buyItems=new BuyItem[CART_SIZE];
 
     public Cart() {
-        // Initialize buyItems if needed
-        // Hoặc khởi tạo giá trị mặc định phù hợp
+
         Arrays.fill(buyItems, null);
  }
 

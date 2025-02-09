@@ -1,6 +1,5 @@
 package services;
 
-import entities.Cart;
 import entities.Product;
 import entities.Supermarket;
 import untils.Hepler;
@@ -10,7 +9,6 @@ import untils.ProductValidator;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.zip.DataFormatException;
 
 public class ProductService {
 
@@ -26,27 +24,28 @@ public class ProductService {
 
     }
     public static void printProductDetails(String gtinInput){
-        boolean result = false;
-        boolean isFounded = false;
-
-
-        if (Supermarket.products != null) {
+        boolean isProductFound = false;
+        if (Supermarket.products != null && Supermarket.products.length > 0) {
             for (int i = 0; i < Supermarket.products.length; i++) {
-
+                // Kiểm tra sản phẩm không null và có GTIN khớp
                 if (Supermarket.products[i] != null && Supermarket.products[i].getGtin().equals(gtinInput)) {
-                    System.out.println(Supermarket.products[i]);
-                    result = true;
-                    isFounded = true;
-                    break;
+                    System.out.println("Sản phẩm tìm thấy: " + Supermarket.products[i]);
+                    isProductFound = true;
+                    break;  // Dừng vòng lặp nếu đã tìm thấy sản phẩm
                 }
             }
+
+            if (!isProductFound) {
+                System.out.println("Không tìm thấy sản phẩm với GTIN: " + gtinInput);
+            }
+
         } else {
-            System.out.println("Danh sách sản phẩm rỗng.");
+            System.out.println("Danh sách sản phẩm hiện tại là rỗng.");
         }
 
     }
 
-    public static boolean addProduct(String gtin , String name  ,int price  , int quantity) {
+    public static void addProduct(String gtin , String name  , int price  , int quantity) {
         boolean result = false;
         Product product = new Product(gtin, name , price , quantity) ;
 
@@ -63,10 +62,9 @@ public class ProductService {
         }else {
             System.out.println("them san pham  moi that bai");
         }
-        return result;
 
     }
-    public static Product getProductGtin(Product[] products) throws ProductNotFoundException {
+    public static Product getProductGtin(Product[] products)  {
         Product product = new Product("", "", 0, 0, 0);
         String gtinInput;
      //   int quantityInput;

@@ -14,51 +14,46 @@ import static entities.Supermarket.products;
 
 public class CustomerController {
     public static void registerCustomer() {
-        boolean result = false;
-        int  numberOfCustomers = 0;
+        int numberOfCustomers = 0;
+
+        // Nhập số lượng khách hàng cần đăng ký
         do {
-             numberOfCustomers = Hepler.getIntInput("Nhập số lượng người cần đăng kí ");
-        }
-        while (
-                !CustomerValidator.isValidNumberOfCustomers(numberOfCustomers));
+            numberOfCustomers = Hepler.getIntInput("Nhập số lượng người cần đăng ký: ");
+        } while (!CustomerValidator.isValidNumberOfCustomers(numberOfCustomers));
+
         for (int i = 0; i < numberOfCustomers; i++) {
-            String nameInput = "";
-            String addressInput = "";
-            int ageInput = 0;
-            String genderInput = "";
+            String nameInput, addressInput, genderInput, phoneNumberInput;
+            int ageInput;
 
-            String phoneNumberInput = "";
+            // Nhập tên khách hàng (không được để trống)
+            do {
+                nameInput = Hepler.getString("Nhập tên khách hàng: ").trim();
+            } while (nameInput.isEmpty());
 
+            // Nhập địa chỉ khách hàng (đúng định dạng)
             do {
-                    nameInput = Hepler.getString("nhập tên khách hàng ");
-        }while (
-                  nameInput.isEmpty()
-            );
-            do {
-                addressInput = Hepler.getString("nhập địa chỉ khách hàng ");
-            }while (
-                  !CustomerValidator.isValidAddress(addressInput)
-            );
-            do {
-                ageInput = Hepler.getIntInput("nhập sô tuổi của khách hàng ");
-            }while (
-                  !CustomerValidator.isValidAge(ageInput)
-            );
-            do {
-                genderInput = Hepler.getString("bạn là nam hay nữ ");
-            }
-            while (
-                    !CustomerValidator.isValidGender( genderInput)
+                addressInput = Hepler.getString("Nhập địa chỉ khách hàng: ").trim();
+            } while (!CustomerValidator.isValidAddress(addressInput));
 
-            );
+            // Nhập tuổi khách hàng (phải hợp lệ)
             do {
-                 phoneNumberInput =Hepler.getString("Nhap so dien thoai cua ban vao day ");
-            }while (
-                    CustomerValidator.isValidphoneNumber(String.valueOf(phoneNumberInput))
+                ageInput = Hepler.getIntInput("Nhập số tuổi của khách hàng: ");
+            } while (!CustomerValidator.isValidAge(ageInput));
 
-            );
-            CustomerService.registerCustomer(nameInput , addressInput , ageInput , genderInput , phoneNumberInput);
+            // Nhập giới tính (chỉ nhận "Nam" hoặc "Nữ")
+            do {
+                genderInput = Hepler.getString("Bạn là Nam hay Nữ? ").trim();
+            } while (!CustomerValidator.isValidGender(genderInput));
 
+            // Nhập số điện thoại (đúng định dạng)
+            do {
+                phoneNumberInput = Hepler.getString("Nhập số điện thoại của bạn: ").trim();
+            } while (!CustomerValidator.isValidphoneNumber(phoneNumberInput));
+
+            // Đăng ký khách hàng sau khi nhập đủ thông tin hợp lệ
+            CustomerService.registerCustomer(nameInput, addressInput, ageInput, genderInput, phoneNumberInput);
+
+            System.out.println("✔ Khách hàng " + nameInput + " đã được đăng ký thành công!");
         }
 
     }
@@ -70,6 +65,7 @@ public class CustomerController {
                 System.out.println("Danh sách khách hàng trống. Không thể thực hiện giao dịch.");
                 return;
             }
+
             if (products == null || products.length == 0) {
                 System.out.println("Danh sách sản phẩm trống. Không thể thực hiện giao dịch.");
                 return;
@@ -96,15 +92,15 @@ public class CustomerController {
             System.out.println("Thêm sản phẩm vào giỏ hàng thành công!");
             result = true;
 
-        } catch (ProductNotFoundException productNotFoundException) {
-            System.out.println("Lỗi: " + productNotFoundException.getMessage());
         } catch (Exception e) {
             System.out.println("Đã xảy ra lỗi không mong muốn: " + e.getMessage());
         }
 
+
     }
 
     public static void deleteCustomer() {
+
     }
 }
 

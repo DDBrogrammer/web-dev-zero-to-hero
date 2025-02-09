@@ -14,9 +14,10 @@ public interface Constant {
         int EMPLOYEE_SIZE = 20;
         int PRODUCT_SIZE = 1_000_000;
         int CUSTOMER_SIZE = 100_000;
-        int INVOICE_SIZE = 1_000_000;
-       // int CUSTOMER_INVOICE_SIZE = 1_000_000;
-        int CART_SIZE = 1_000_000;
+        int INVOICE_SIZE = 1_0;
+        int CUSTOMER_INVOICE_SIZE = 1_000_000;
+        int CART_SIZE = 1;
+        int VOUCHER_SIZE =1_0 ;
     }
     interface ProductMenuChoice {
         int ADD_PRODUCT = 1;

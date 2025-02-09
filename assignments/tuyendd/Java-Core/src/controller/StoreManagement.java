@@ -7,6 +7,7 @@ import services.CustomerService;
 import services.ProductService;
 
 import untils.Hepler;
+import untils.ProductNotFoundException;
 
 
 public class StoreManagement {
@@ -15,7 +16,7 @@ public class StoreManagement {
             boolean isRunMainMenu = true;
 
             while (isRunMainMenu) {
-                // Hiển thị menu chính
+
                 Hepler.printAppMenu();
                 int userChoice = Hepler.getIntInput("Nhập lựa chọn của bạn:", 1, 6);
 
@@ -43,15 +44,50 @@ public class StoreManagement {
             }
         }
 
-    private static void manageInvoice() {
+    private static void manageInvoice()  {
+            boolean isRunInvoiceMenu = true;
+            while (isRunInvoiceMenu) {
+                Hepler.printManageVoiceMenu();
+                int manageInvoiceChoice = Hepler.getIntInput("Nhập lựa chọn của bạn: ", 1, 3);
+                switch (manageInvoiceChoice) {
+                    case Constant.InvoiceMenuChoice.ADD_INVOICE:
+                        InvoiceController.addInvoice();
+                        break;
+                    case Constant.InvoiceMenuChoice.CALCULATE_TOTAL:
+                        InvoiceController.calculate();
+                        break;
+                    case Constant.InvoiceMenuChoice.PRINT_INVOICE:
+                        InvoiceController.print();
+
+                        break;
+                     default:
+                         System.out.println("Lựa chọn không hợp lệ!");
+
+                }
+                isRunInvoiceMenu = Hepler.askYesNo("Bạn có muốn tiếp tục menu quản lý sản phẩm không? (y/n): ");
+            }
 
     }
 
     private static void manageEmployee() {
-            boolean isRunMainMenu = true;
-            while (isRunMainMenu) {
+            boolean isRunEmployMenu = true;
+            while (isRunEmployMenu) {
                 Hepler.printManageEmployeeMenu();
                 int manageEmployeeChoice = Hepler.getIntInput("Nhập lựa chọn của bạn: ", 1, 5);
+                switch (manageEmployeeChoice) {
+                    case Constant.EmployeeMenuChoice.ADD_EMPLOYEE:
+                        EmployController.addEmployee();
+                     break;
+                    case Constant.EmployeeMenuChoice.DELETE_EMPLOYEE:
+                        EmployController.deleteEmployee();
+                        break;
+                    case Constant.EmployeeMenuChoice.PROCESSING_PAYMENTS0_VIA_INVOICES:
+                        EmployController.PROCESSING_PAYMENTS0_VIA_INVOICES();
+                     break;
+                     default:
+                         System.out.println("Lựa chọn không hợp lệ!");
+                }
+                isRunEmployMenu  = Hepler.askYesNo("Bạn có muốn tiếp tục menu quản lý sản phẩm không? (y/n): ");
             }
     }
 
@@ -99,8 +135,8 @@ public class StoreManagement {
                         break;
 
                     case Constant.ProductMenuChoice.SHOW_INFOR_PRODUCT:
-                      //  ProductController.showInformationProductByGtin();
-                        CustomerController.updateShoppingCartCustomer();
+                        ProductController.showInformaytionProductbygtin();
+
                         break;
 
                     case Constant.ProductMenuChoice.UPDATE_QUANTITY_PRODUCT:

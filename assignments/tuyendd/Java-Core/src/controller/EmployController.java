@@ -1,13 +1,13 @@
 package controller;
 
+import entities.Employee;
 import services.EmployeeService;
-import untils.CustomerValidator;
-import untils.EmployeeValidator;
-import untils.Hepler;
+import untils.*;
+
+import static entities.Supermarket.*;
 
 public class EmployController {
     public static void addEmployee() {
-        boolean result = false;
         int  numberOfEmployees = 0;
         do {
             numberOfEmployees  = Hepler.getIntInput("Nhập số lượng người cần đăng kí ");
@@ -44,9 +44,9 @@ public class EmployController {
 
             );
             do {
-                phoneNumberInput =Hepler.getString("");
+                phoneNumberInput =Hepler.getString("Nhập số điện thoại của bạn ");
             }while (
-                    CustomerValidator.isValidphoneNumber(String.valueOf(phoneNumberInput))
+                    !CustomerValidator.isValidphoneNumber(String.valueOf(phoneNumberInput))
 
             );
             EmployeeService.addEmployee( nameInput , addressInput ,  ageInput , genderInput , phoneNumberInput );
@@ -56,18 +56,59 @@ public class EmployController {
 
     public static void deleteEmployee() {
         EmployeeService.printEmployeeList();
+
+        if (EmployeeService.isEmployeeListEmpty()) {
+            System.out.println("❌ Không có nhân viên nào trong hệ thống.");
+            return;
+        }
+
         boolean result = false;
         String phoneNumber = "";
+
         do {
-            phoneNumber  = Hepler.getString("nhap so dien thoai");
-        } while (
-                !EmployeeValidator.isEmployeeExist(phoneNumber )
-        );
+            phoneNumber = Hepler.getString("Nhập số điện thoại nhân viên cần xóa: ");
+        } while (!EmployeeValidator.checkPhoneNumber(phoneNumber));
+
         if (EmployeeService.deleteEmployee(phoneNumber)) {
-            System.out.println("Employee deleted successfully");
+            System.out.println("✅ Nhân viên đã được xóa thành công!");
             EmployeeService.printEmployeeList();
-        }else {
-            System.out.println("Something went wrong");
+        } else {
+            System.out.println("❌ Không tìm thấy nhân viên với số điện thoại: " + phoneNumber);
         }
     }
-}
+
+    public static void PROCESSING_PAYMENTS0_VIA_INVOICES() {
+        try {
+
+            if (employees == null || employees.length == 0) {
+                System.out.println("Danh sách khách hàng trống. Không thể thực hiện giao dịch.");
+                return;
+            }
+            if (invoices == null || invoices.length == 0) {
+                System.out.println("Danh sách hóa đơn trống. Không thể thực hiện giao dịch.");
+                return;
+            }
+
+            // Chọn khách hàng
+            Employee employee = EmployeeService.getEmployeeById(employees);
+            System.out.println("Đã chọn khách hàng: " + employee);
+
+            // Chọn hoa don
+            System.out.println("Chọn từ danh sách hóa đơn đã có:");
+           // Invoice invoice = InvoiceService.getInvoiceById();
+           // System.out.println("Đã chọn hóa đơn : " + invoice);
+
+            int quantityInvoiceInput;
+            do {
+                quantityInvoiceInput = Hepler.getIntInput("Nhập số lượng hóa đơn : ");
+
+            } while (InvoiceValidator.isValidNumberOfInvoice(quantityInvoiceInput));
+
+            System.out.println("Thêm nhân viên sử lý hóa đơn thành công !");
+
+        }
+        catch (Exception e) {
+            System.out.println("Đã xảy ra lỗi không mong muốn: " + e.getMessage());
+        }
+        }
+    }
