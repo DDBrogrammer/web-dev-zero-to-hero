@@ -43,9 +43,9 @@ public class ProductService {
 
     }
 
-    public static boolean addProduct(String gtin , String name  ,int price  , int quantity) {
+    public static void addProduct( String name , int price  , int quantity) {
         boolean result = false;
-        Product product = new Product(gtin, name , price , quantity) ;
+        Product product = new Product( name , price , quantity) ;
 
         for (int i = 0; i < Supermarket.products.length; i++) {
             if (Objects.isNull(Supermarket.products[i])) {
@@ -60,11 +60,10 @@ public class ProductService {
         }else {
             System.out.println("them san pham  moi that bai");
         }
-        return result;
 
     }
     public static Product getProductGtin(Product[] products) {
-        Product product = new Product("", "", 0, 0, 0);
+        Product product = new Product("","",0,0);
         String gtinInput = "";
         do {
             gtinInput = Hepler.getString("nhap so san pham");
@@ -80,7 +79,7 @@ public class ProductService {
                     product.setQuantity(products[i].getQuantity());
                     product.setName(products[i].getName());
                     product.setPrice(products[i].getPrice());
-                    product.setNumberOfProduct(products[i].getNumberOfProduct());
+
 
                 }
 
@@ -117,7 +116,7 @@ public class ProductService {
         }
         return result;
     }
-    public static boolean updateQuantityProduct(int quantityInput ){
+    public static boolean updateQuantityProduct( int gtin ,int quantityInput ){
         boolean result = false;
         boolean  updateQuantity = false;
         for (int i = 0; i < Supermarket.products.length; i++) {

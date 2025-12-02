@@ -1,10 +1,7 @@
 package untils;
-
-
 import entities.Product;
 import entities.Supermarket;
 import services.ProductService;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -50,13 +47,11 @@ public class ProductValidator {
 
     public static boolean isValidProductQuantity(int productQuantity) {
         boolean isValid = false;
-        if (productQuantity<=0) {
-            System.out.println("so luong san pham phai lon hon 0");
-            return isValid;
-        }else {
-            isValid = true;
+        if (productQuantity <= 0) {
+            System.out.println("Số lượng sản phẩm phải lớn hơn 0");
+            return false; // không hợp lệ
         }
-        return isValid;
+        return true;
     }
     public static boolean isValidProductQuantityIncart(String quantity) {
         boolean isValid = false;

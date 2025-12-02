@@ -1,114 +1,101 @@
 package controller;
 
-import entities.Product;
 import services.ProductService;
 import untils.Hepler;
 import untils.ProductValidator;
 
-import java.util.Objects;
-
 public class ProductController {
 
     public static boolean addProduct() {
-        boolean result = false;
+        boolean result = true;
         int numberOfgtin = 0;
+
         do {
-            numberOfgtin = Hepler.getIntInput("Nhập số lượng đầu mỗi sản phẩm  ")
-            ;
-        }
-        while (
-               ! ProductValidator.isValidNumberOfgtin(numberOfgtin));
+            numberOfgtin = Hepler.getIntInput("Nhập số lượng đầu mỗi sản phẩm: ");
+        } while (!ProductValidator.isValidNumberOfgtin(numberOfgtin));
+
         for (int i = 0; i < numberOfgtin; i++) {
-            String gtinInput = "";
-            String titleInput = "";
-            int priceInput = 0;
-            int quantityInput = 0;
-            double vocher = 0 ;
-            do {
-                gtinInput   = Hepler.getString("Nhập gtin sản phâm ");
-            }while (
-                    !ProductValidator.isValidgtin(gtinInput));
-            do {
-                titleInput = Hepler.getString("Nhập tên sản phẩm ");
-            } while (
-                    titleInput.isEmpty());
-            do {
-                priceInput  = Hepler.getIntInput("Nhập giá sản phẩm ");
-            }
-                while (!ProductValidator.isValidprice(String.valueOf(priceInput)));
-            do {
-                quantityInput = Hepler.getIntInput( "Nhập số lượng sản phẩm ");
-            } while (
-                    !ProductValidator.isValidProductQuantity( quantityInput)
-            );
-            ProductService.addProduct( gtinInput, titleInput, priceInput , quantityInput);
+            String titleInput;
+            int priceInput;
+            int quantityInput;
 
-              }
+            // Nhập tên sản phẩm
+            do {
+                titleInput = Hepler.getString("Nhập tên sản phẩm: ");
+            } while (titleInput.isEmpty());
 
-    return result;
+            // Nhập giá
+            do {
+                priceInput = Hepler.getIntInput("Nhập giá sản phẩm: ");
+            } while (!ProductValidator.isValidprice(String.valueOf(priceInput)));
+
+            // Nhập số lượng
+            do {
+                quantityInput = Hepler.getIntInput("Nhập số lượng sản phẩm: ");
+            } while (!ProductValidator.isValidProductQuantity(quantityInput));
+
+            // Thêm sản phẩm
+
+            ProductService.addProduct( titleInput, priceInput, quantityInput);
+        }
+        return result;
     }
     public static boolean showInformaytionProductbygtin() {
         boolean result = false;
         int numberOfgtin = 0;
 
         do {
-            numberOfgtin = Hepler.getIntInput("Nhập số lượng đầu mỗi sản phẩm  ")
-            ;
-        }
-        while (
-                ! ProductValidator.isValidNumberOfgtin(numberOfgtin));
-        for (int i = 0; i < numberOfgtin; i++) {
-            String gtinInput = "";
-            gtinInput   = Hepler.getString("Nhập gtin sản phâm ");
-            ProductService.printProductDetails( gtinInput);
+            numberOfgtin = Hepler.getIntInput("Nhập số lượng sản phẩm cần xem thông tin: ");
+        } while (!ProductValidator.isValidNumberOfgtin(numberOfgtin));
 
-        };
+        for (int i = 0; i < numberOfgtin; i++) {
+            String gtinInput = Hepler.getString("Nhập GTIN sản phẩm: ");
+            ProductService.printProductDetails(gtinInput);
+        }
 
         return result;
     }
+    public static void updateQuantityProduct() {
+        ProductService.printProductList();
 
-    public static void updateQuantityProduct(
+        String gtin;
+        int quantityInput;
 
-    ) {
-           ProductService.printProductList();
-           boolean result = false;
-        String gtin = "";
-        int quantityInput = 0;
         do {
-            gtin  = Hepler.getString("nhập gtin của sản phẩm ");
-        } while (
-                !ProductValidator.isProductExist(gtin)
-        );
+            gtin = Hepler.getString("Nhập GTIN của sản phẩm: ");
+        } while (!ProductValidator.isProductExist(gtin));
+
         do {
-            quantityInput = Hepler.getIntInput("nhap so luong muon them");
-        }
-        while (
-              !ProductValidator.isValidProductQuantity(quantityInput)
-        );
-        if (ProductService.updateQuantityProduct(quantityInput)) {
-            System.out.println("Book updateQuantity successfully");
+            quantityInput = Hepler.getIntInput("Nhập số lượng muốn thêm: ");
+        } while (ProductValidator.isValidProductQuantity(quantityInput));
+
+        if (ProductService.updateQuantityProduct(Integer.parseInt(gtin), quantityInput)) {
+            System.out.println("Cập nhật số lượng thành công!");
             ProductService.printProductList();
-        }else {
-            System.out.println("");
+        } else {
+            System.out.println("Có lỗi xảy ra!");
         }
     }
+
+    // ================== DELETE PRODUCT ==================
 
     public static boolean deleteProduct() {
+
         ProductService.printProductList();
         boolean result = false;
-        String gtin = "";
+        String gtin;
+
         do {
-            gtin  = Hepler.getString("nhập gtin của sản phẩm ");
-        } while (
-                !ProductValidator.isProductExist(gtin)
-        );
+            gtin = Hepler.getString("Nhập GTIN sản phẩm cần xoá: ");
+        } while (!ProductValidator.isProductExist(gtin));
 
         if (ProductService.deleteProduct(gtin)) {
-            System.out.println("Product deleted successfully");
+            System.out.println("Xoá sản phẩm thành công!");
             ProductService.printProductList();
-        }else {
-            System.out.println("Something went wrong");
-    }
+        } else {
+            System.out.println("Có lỗi xảy ra!");
+        }
+
         return result;
-}
+    }
 }
