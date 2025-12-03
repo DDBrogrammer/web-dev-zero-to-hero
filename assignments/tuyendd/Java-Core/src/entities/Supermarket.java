@@ -20,13 +20,7 @@ public class Supermarket {
         Supermarket.customers[3] = customer3;
 
 
-        Product product =new Product("111","laptop",4,8,0);
-        Product product1=new Product("222","ti vi",3,6,1);
-        Product product3=new Product("333","pc",7,5,44);
-        Product product4=new Product("444","chuot",8,7,22);
-        Supermarket.products[0]=product;
-        Supermarket.products[1]=product1;
-        Supermarket.products[2]=product3;
-        Supermarket.products[3]=product4;
+
+
     }
 }

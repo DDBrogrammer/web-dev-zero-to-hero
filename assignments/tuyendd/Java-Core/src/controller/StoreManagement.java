@@ -1,13 +1,8 @@
 package controller;
-
 import constant.Constant;
-import entities.Employee;
 import services.CustomerService;
 import services.ProductService;
-import untils.CustomerValidator;
 import untils.Hepler;
-
-
 public class StoreManagement {
        public static void run() {
            Hepler.printAppMenu();
@@ -20,7 +15,6 @@ public class StoreManagement {
                     switch (manageProductChoice) {
                         case Constant.ProductMenuChoice.ADD_PRODUCT:
                             ProductController.addProduct();
-
                               break;
                         case Constant.ProductMenuChoice.SHOW_INFOR_PRODUCT:
                             ProductController.showInformaytionProductbygtin();
@@ -57,17 +51,11 @@ public class StoreManagement {
                     switch (manageEmployeeChoice) {
                         case Constant.EmployeeMenuChoice.ADD_EMPLOYEE:
                             EmployController.addEmployee();
-
                             break;
-
                         case Constant.EmployeeMenuChoice.PROCESSING_PAYMENTS0_VIA_INVOICES:
-
-
-
                             break;
                         case Constant.EmployeeMenuChoice.DELETE_EMPLOYEE:
                             EmployController.deleteEmployee();
-
                     }
                     break;
                 case Constant.MainMenuChoice.MANAGE_INVOICE:
@@ -77,17 +65,12 @@ public class StoreManagement {
                         case Constant.InvoiceMenuChoice.ADD_INVOICE:
                             InvoiceController.addInvoice();
                             break;
-
                             case Constant.InvoiceMenuChoice.CALCULATE_TOTAL:
                                 InvoiceController.calculate();
                                 break;
                         case Constant.InvoiceMenuChoice.PRINT_INVOICE:
-
                             break;
                     }
-
-
-
             }
 
        }
